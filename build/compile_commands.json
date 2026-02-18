@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/janumaruku/epitech_year2/epitech_projects/MyFTP/build/src/ftp",
-  "command": "/usr/bin/epiclang   -Wall -Wextra -std=c11 -o CMakeFiles/myftp.dir/main.c.o -c /home/janumaruku/epitech_year2/epitech_projects/MyFTP/src/ftp/main.c",
-  "file": "/home/janumaruku/epitech_year2/epitech_projects/MyFTP/src/ftp/main.c",
-  "output": "src/ftp/CMakeFiles/myftp.dir/main.c.o"
-}
-]

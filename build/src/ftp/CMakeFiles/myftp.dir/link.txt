@@ -1,1 +1,0 @@
-/usr/bin/epiclang CMakeFiles/myftp.dir/main.c.o -o /home/janumaruku/epitech_year2/epitech_projects/MyFTP/myftp 
