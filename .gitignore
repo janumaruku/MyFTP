@@ -36,6 +36,9 @@
 *.exe
 *.out
 *.app
+myftp
 
 # debug information files
 *.dwo
+
+# test files
