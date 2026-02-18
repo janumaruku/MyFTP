@@ -17,6 +17,6 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 add_library(warning_options INTERFACE)
 
-target_compile_options(warning_options INTERFACE -Wall -Wextra -std=c11)
+target_compile_options(warning_options INTERFACE -Wall -Wextra -Werror -std=c11)
 
 add_subdirectory(src)
