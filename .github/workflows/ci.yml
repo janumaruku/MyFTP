@@ -12,7 +12,7 @@ on:
 jobs:
   check_compilation:
     name: Compilation check
-    if: github.repository != ${{ vars.MIRROR_URL }}
+    if: ${{ github.repository != vars.MIRROR_URL }}
     runs-on: ubuntu-latest
     container: epitechcontent/epitest-docker
     timeout-minutes: 2
