@@ -24,6 +24,8 @@ jobs:
 
       - name: Build binary
         run: |
+          set -e
+  
           if [ -f Makefile ]; then
             echo "Detected Makefile"
             make 2>&1 | tee build.log
@@ -39,6 +41,7 @@ jobs:
           fi
 
       - name: Upload build log
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: build-log
