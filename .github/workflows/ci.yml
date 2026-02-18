@@ -47,7 +47,6 @@ jobs:
           name: build-log
           path: build.log
 
-
       - name: Check executables
         if: ${{ vars.EXECUTABLES != '' }}
         run: |
@@ -57,3 +56,13 @@ jobs:
               exit 1
             fi
           done
+
+  check_coding_style:
+    name: Coding style checking
+    if: ${{ github.repository != vars.MIRROR_URL }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    needs: check_compilation
+    steps:
+      - name: Dumb
+        run: echo "Hello world"
