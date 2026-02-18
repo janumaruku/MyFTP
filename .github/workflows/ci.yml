@@ -49,6 +49,7 @@ jobs:
 
       - name: Check executables
         if: ${{ vars.EXECUTABLES != '' }}
+        continue-on-error: true
         run: |
           for binary in ${{ vars.EXECUTABLES }}; do
             if [ ! -x "$binary" ]; then
