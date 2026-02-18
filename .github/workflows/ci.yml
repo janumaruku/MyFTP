@@ -24,8 +24,6 @@ jobs:
 
       - name: Build binary
         run: |
-          set -e
-  
           if [ -f Makefile ]; then
             echo "Detected Makefile"
             make 2>&1 | tee build.log
