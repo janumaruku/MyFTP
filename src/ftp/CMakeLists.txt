@@ -1,4 +1,4 @@
-add_executable(myftp main.cpp)
+add_executable(myftp main.c)
 
 target_link_libraries(myftp PRIVATE warning_options)
 

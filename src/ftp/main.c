@@ -5,10 +5,14 @@
 ** main
 */
 
-#include <iostream>
+#include <stdio.h>
 
 int main(int argc, char* argv[])
 {
-    std::cout << "Hello World!" << std::endl;
+    int i = 0;
+    // (void)argc;
+    // (void)argv;
+    printf("Hello World! %d\n", i);
+
     return 0;
 }
