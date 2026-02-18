@@ -9,6 +9,8 @@ on:
     branches-ignore:
       - 'temp/*'
 
+  workflow_dispatch:
+
 jobs:
   check_compilation:
     name: Compilation check
