@@ -128,6 +128,8 @@ jobs:
             exit 0
           fi
           
+          echo "::notice::$(pwd)"
+          
           echo "::group::Coding style errors"
           awk '
           /\[Banana\]/ {
