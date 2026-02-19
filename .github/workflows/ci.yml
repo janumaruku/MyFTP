@@ -70,7 +70,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check repository for unwanted files
-        run: banana-check-repo . 2>&1 | tee check.log
+        run: banana-check-repo . 2> | tee check.log
 
       - name: Annotations
         if: always()
@@ -85,7 +85,7 @@ jobs:
           /\[Banana\]/ {
           file = $1
           sub(":", "", file)
-          
+
           level = "notice"
           if ($0 ~ /\[Fatal\]/) level="error"
           else if ($0 ~ /\[Major\]/) level="error"
