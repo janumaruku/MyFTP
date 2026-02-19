@@ -108,7 +108,7 @@ jobs:
         with:
           name: build-log
 
-      - name: Annotations for coding style errors
+      - name: Debug
         if: always()
         run: |
           if [ ! -s build.log ]; then
@@ -117,8 +117,16 @@ jobs:
           fi
           
           while read -r line; do
-            echo $line
+            echo "::notice::$line"
           done < build.log
+
+      - name: Annotations for coding style errors
+        if: always()
+        run: |
+          if [ ! -s build.log ]; then
+            echo "No coding style error found"
+            exit 0
+          fi
           
           echo "::group::Coding style errors"
           awk '
