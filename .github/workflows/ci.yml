@@ -73,6 +73,7 @@ jobs:
         run: banana-check-repo . 2>&1 | tee check.log
 
       - name: Annotations
+        if: always()
         run: |
           if [ ! -s check.log ]; then
             exit 0
