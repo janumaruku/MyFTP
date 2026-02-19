@@ -73,8 +73,9 @@ jobs:
         continue-on-error: true
         run: banana-check-repo . 2>&1 | tee check.log
 
-      - name: Annotations
+      - name: Annotations for useless files
         if: always()
+        continue-on-error: true
         run: |
           if [ ! -s check.log ]; then
             echo "No coding style error found"
@@ -100,4 +101,19 @@ jobs:
           }
           ' check.log
           echo "::endgroup::"
+          exit 84
+
+      - name: Download build log
+        uses: actions/download-artifact@v4
+        with:
+          name: build-log
+
+      - name: Annotations for coding style errors
+        if: always()
+        run: |
+          if [ ! -s build.log ]; then
+            echo "No coding style error found"
+            exit 0
+          fi
+          
           exit 84
