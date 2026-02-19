@@ -72,7 +72,10 @@ jobs:
       - name: Check repository for unwanted files
         run: |
           banana-check-repo . 2> check.log
-          
+
+      - name: Annotations
+        if: always()
+        run: |
           if ! grep -q "\[Banana\]" check.log; then
             echo "No coding style error found"
             exit 0
