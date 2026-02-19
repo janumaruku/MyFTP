@@ -71,7 +71,7 @@ jobs:
 
       - name: Check repository for unwanted files
         continue-on-error: true
-        run: banana-check-repo . 2> | tee check.log
+        run: banana-check-repo . 2>&1 | tee check.log
 
       - name: Annotations
         if: always()
