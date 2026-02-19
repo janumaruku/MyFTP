@@ -145,7 +145,7 @@ jobs:
           msg = $0
           sub(/^[^:]*:[^:]*:[^:]*: [^:]*: /, "", msg)
 
-            printf "::%s file=%s,line=%s,title=%s::%s\n", level, file, line, $NF, msg
+            printf "::%s file=src/ftp/main.c,line=%s,title=%s::%s\n", level, line, $NF, msg
           }
           ' build.log
           echo "::endgroup::"
