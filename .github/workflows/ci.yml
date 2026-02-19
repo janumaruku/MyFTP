@@ -74,6 +74,7 @@ jobs:
 
       - name: Annotations
         run: |
+          cat check.log
           if [ ! -s check.log ]; then
             exit 0
           fi
