@@ -62,8 +62,37 @@ jobs:
     name: Coding style checking
     if: ${{ github.repository != vars.MIRROR_URL }}
     runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
     timeout-minutes: 2
     needs: check_compilation
     steps:
-      - name: Dumb
-        run: echo "Hello world"
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Check repository for unwanted files
+        run: banana-check-repo . 2>&1 | tee check.log
+
+      - name: Annotations
+        run: |
+          if [ ! -s check.log ]; then
+            exit 0
+          fi
+          
+          awk '
+          /\[Banana\]/ {
+            file = $1
+            sub(":", "", file)
+          
+            level = "info"
+            if ($0 ~ /\[Fatal\]/) level="error"
+            else if ($0 ~ /\[Major\]/) level="error"
+            else if ($0 ~ /\[Minor\]/) level="warning"
+            else if ($0 ~ /\[Info\]/) level="notice"
+  
+            msg = $0
+            sub(/^[^ ]+ warning: /, "", msg)
+          
+            printf "::%s file=%s::%s\n", level, file, msg
+          }
+          ' check.log
+          exit 1
