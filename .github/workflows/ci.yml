@@ -81,22 +81,28 @@ jobs:
           fi
           
           echo "::group::Coding style errors"
-          awk '
-          /\[Banana\]/ {
-            file = $1
-            sub(":", "", file)
-          
-            level = "notice"
-            if ($0 ~ /\[Fatal\]/) level = "error"
-            else if ($0 ~ /\[Major\]/) level = "error"
-            else if ($0 ~ /\[Minor\]/) level = "warning"
-          
-            msg = $0
-            sub(/^[^:]+: \[Banana\] \[([^\]]+)\] /, "", msg)
-          
-            printf "::%s file=%s::%s\n", level, file, msg
-          }
-          ' check.log
+               
+          echo "::error::Some error"
+          echo "::warning::Some warning"
+          echo "::notice::Some notice"
+
+#          awk '
+#          /\[Banana\]/ {
+#            file = $1
+#            sub(":", "", file)
+#
+#            level = "notice"
+#            if ($0 ~ /\[Fatal\]/) level = "error"
+#            else if ($0 ~ /\[Major\]/) level = "error"
+#            else if ($0 ~ /\[Minor\]/) level = "warning"
+#
+#            msg = $0
+#            sub(/^[^:]+: \[Banana\] \[([^\]]+)\] /, "", msg)
+#
+#            printf "::%s file=%s::%s\n", level, file, msg
+#          }
+#          ' check.log
+
           echo "::endgroup::"
           
-          exit 1  # Fail job if violations found
+          exit 84
