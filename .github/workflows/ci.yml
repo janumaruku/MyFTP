@@ -73,32 +73,36 @@ jobs:
         run: banana-check-repo . 2>&1 | tee check.log
 
       - name: Annotations
+        if: always()
         run: |
-          cat check.log | echo
           if [ ! -s check.log ]; then
+            echo "✓ No Banana Map violations found"
             exit 0
           fi
-          echo "::warning file=src/ftp/main.cpp::A dumb message"
           
-          echo "::group::Coding style errors"
-
+          echo "::group::Banana Map violations"
+          
           awk '
-          /\[Banana\]/ {
-            file = $1
-            sub(":", "", file)
-
-            level = "info"
-            if ($0 ~ /\[Fatal\]/) level="error"
-            else if ($0 ~ /\[Major\]/) level="error"
-            else if ($0 ~ /\[Minor\]/) level="warning"
-            else if ($0 ~ /\[Info\]/) level="notice"
-
-            msg = $0
-            sub(/^[^ ]+ warning: /, "", msg)
-
-            printf "::%s file=%s::%s\n", level, file, msg
+          /^\.\/.*: \[Banana\] / {
+            # Matches: ./path/to/file: [Banana] [Major] unwanted binary file (C-O1)
+            if (match($0, /^(\.\/[^:]+): \[Banana\] \[([^\]]+)\] (.+)$/, arr)) {
+              file = arr[1]
+              severity = arr[2]
+          
+              # Map severity to annotation level
+              level = "warning"
+              if (severity == "Fatal" || severity == "Major") level = "error"
+          
+              msg = arr[3]
+          
+              printf "::%s file=%s::%s\n", level, file, msg
+            }
           }
           ' check.log
-
+          
           echo "::endgroup::"
-          exit 1
+          
+          # Fail job if violations found
+          if grep -q "\[Banana\]" check.log; then
+            exit 1
+          fi
