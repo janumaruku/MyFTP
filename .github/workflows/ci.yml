@@ -78,6 +78,7 @@ jobs:
           if [ ! -s check.log ]; then
             exit 0
           fi
+          echo "::warning file=src/ftp/main.cpp::A dumb message"
           
 #          awk '
 #          /\[Banana\]/ {
