@@ -133,8 +133,8 @@ jobs:
           /\[Banana\]/ {
           
           split($1, loc, ":")
-          file = loc[0]
-          line = loc[1]
+          file = loc[1]
+          line = loc[2]
 
           level = "notice"
           if ($0 ~ /\[Fatal\]/) level="error"
@@ -145,7 +145,7 @@ jobs:
           msg = $0
           sub(/^[^:]*:[^:]*:[^:]*: [^:]*: /, "", msg)
 
-            printf "::%s file=%s,line=%s::%s -> %s\n", level, file, line, file, msg
+            printf "::%s file=%s,line=%s::%s\n", level, file, line, msg
           }
           ' build.log
           echo "::endgroup::"
