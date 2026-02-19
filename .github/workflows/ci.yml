@@ -80,21 +80,25 @@ jobs:
           fi
           echo "::warning file=src/ftp/main.cpp::A dumb message"
           
-#          awk '
-#          /\[Banana\]/ {
-#            file = $1
-#            sub(":", "", file)
-#
-#            level = "info"
-#            if ($0 ~ /\[Fatal\]/) level="error"
-#            else if ($0 ~ /\[Major\]/) level="error"
-#            else if ($0 ~ /\[Minor\]/) level="warning"
-#            else if ($0 ~ /\[Info\]/) level="notice"
-#
-#            msg = $0
-#            sub(/^[^ ]+ warning: /, "", msg)
-#
-#            printf "::%s file=%s::%s\n", level, file, msg
-#          }
-#          ' check.log
-#          exit 1
+          echo "::group::Coding style errors"
+
+          awk '
+          /\[Banana\]/ {
+            file = $1
+            sub(":", "", file)
+
+            level = "info"
+            if ($0 ~ /\[Fatal\]/) level="error"
+            else if ($0 ~ /\[Major\]/) level="error"
+            else if ($0 ~ /\[Minor\]/) level="warning"
+            else if ($0 ~ /\[Info\]/) level="notice"
+
+            msg = $0
+            sub(/^[^ ]+ warning: /, "", msg)
+
+            printf "::%s file=%s::%s\n", level, file, msg
+          }
+          ' check.log
+
+          echo "::endgroup::"
+          exit 1
