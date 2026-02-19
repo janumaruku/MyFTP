@@ -119,6 +119,7 @@ jobs:
           echo "::group::Coding style errors"
           awk '
           /\[Banana\]/ {
+          echo "::notice::$0"
           
           split($1, loc, ":")
           file = loc[0]
