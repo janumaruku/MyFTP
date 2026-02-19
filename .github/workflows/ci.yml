@@ -78,6 +78,8 @@ jobs:
             exit 0
           fi
           
+          echo "::notice::Style Errors found"
+          
           echo "::group::Coding style errors"
 
           awk '
@@ -92,6 +94,7 @@ jobs:
             else if ($0 ~ /\[Info\]/) level="notice"
 
             msg = $0
+            sub(/^[^:]+: \[Banana\] \[([^\]]+)\] /, "", msg)
 
             printf "::%s file=%s::%s\n", level, file, msg
           }
