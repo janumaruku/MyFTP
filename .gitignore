@@ -4,7 +4,7 @@
 # Compiled Object files
 *.slo
 *.lo
-#*.o
+*.o
 *.obj
 
 # Precompiled Headers
@@ -34,7 +34,7 @@
 
 # Executables
 *.exe
-#*.out
+*.out
 *.app
 myftp
 
@@ -45,4 +45,4 @@ myftp
 
 # build files
 cmake-build-debug/
-#build/
+build/
