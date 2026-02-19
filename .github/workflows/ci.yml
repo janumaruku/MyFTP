@@ -76,7 +76,7 @@ jobs:
         if: always()
         run: |
           if [ ! -s check.log ]; then
-            echo "✓ No Banana Map violations found"
+            echo "::note::✓ No Banana Map violations found"
             exit 0
           fi
           
