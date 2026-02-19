@@ -76,17 +76,17 @@ jobs:
         if: always()
         run: |
           if [ ! -s check.log ]; then
-            echo "No violations found"
+            echo "No coding style error found"
             exit 0
           fi
           
-          echo "::group::Banana Map violations"
+          echo "::group::Coding style errors"
           awk '
           /\[Banana\]/ {
             file = $1
             sub(":", "", file)
           
-            level = "warning"
+            level = "notice"
             if ($0 ~ /\[Fatal\]/) level = "error"
             else if ($0 ~ /\[Major\]/) level = "error"
             else if ($0 ~ /\[Minor\]/) level = "warning"
