@@ -87,7 +87,7 @@ jobs:
             file = $1
             sub(":", "", file)
 
-            level = "info"
+            level = "notice"
             if ($0 ~ /\[Fatal\]/) level="error"
             else if ($0 ~ /\[Major\]/) level="error"
             else if ($0 ~ /\[Minor\]/) level="warning"
