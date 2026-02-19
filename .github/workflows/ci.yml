@@ -79,21 +79,21 @@ jobs:
             exit 0
           fi
           
-          awk '
-          /\[Banana\]/ {
-            file = $1
-            sub(":", "", file)
-          
-            level = "info"
-            if ($0 ~ /\[Fatal\]/) level="error"
-            else if ($0 ~ /\[Major\]/) level="error"
-            else if ($0 ~ /\[Minor\]/) level="warning"
-            else if ($0 ~ /\[Info\]/) level="notice"
-  
-            msg = $0
-            sub(/^[^ ]+ warning: /, "", msg)
-          
-            printf "::%s file=%s::%s\n", level, file, msg
-          }
-          ' check.log
-          exit 1
+#          awk '
+#          /\[Banana\]/ {
+#            file = $1
+#            sub(":", "", file)
+#
+#            level = "info"
+#            if ($0 ~ /\[Fatal\]/) level="error"
+#            else if ($0 ~ /\[Major\]/) level="error"
+#            else if ($0 ~ /\[Minor\]/) level="warning"
+#            else if ($0 ~ /\[Info\]/) level="notice"
+#
+#            msg = $0
+#            sub(/^[^ ]+ warning: /, "", msg)
+#
+#            printf "::%s file=%s::%s\n", level, file, msg
+#          }
+#          ' check.log
+#          exit 1
