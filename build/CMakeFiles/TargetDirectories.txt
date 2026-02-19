@@ -1,0 +1,7 @@
+/home/janumaruku/epitech_year2/epitech_projects/MyFTP/build/CMakeFiles/edit_cache.dir
+/home/janumaruku/epitech_year2/epitech_projects/MyFTP/build/CMakeFiles/rebuild_cache.dir
+/home/janumaruku/epitech_year2/epitech_projects/MyFTP/build/src/CMakeFiles/edit_cache.dir
+/home/janumaruku/epitech_year2/epitech_projects/MyFTP/build/src/CMakeFiles/rebuild_cache.dir
+/home/janumaruku/epitech_year2/epitech_projects/MyFTP/build/src/ftp/CMakeFiles/myftp.dir
+/home/janumaruku/epitech_year2/epitech_projects/MyFTP/build/src/ftp/CMakeFiles/edit_cache.dir
+/home/janumaruku/epitech_year2/epitech_projects/MyFTP/build/src/ftp/CMakeFiles/rebuild_cache.dir

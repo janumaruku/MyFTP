@@ -42,3 +42,7 @@ myftp
 *.dwo
 
 # test files
+
+# build files
+cmake-build-debug/
+#build/
