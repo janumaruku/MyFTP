@@ -77,7 +77,7 @@ jobs:
         run: |
           if ! grep -q "\[Banana\]" check.log; then
             echo "No coding style error found"
-            exit 1
+            exit 0
           fi
   
           echo "::group::Coding style errors"
