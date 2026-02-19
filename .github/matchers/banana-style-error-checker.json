@@ -4,14 +4,6 @@
       "owner": "banana-style-error-checker",
       "pattern": [
         {
-          "regexp": "^(.+):(\\d+):(\\d+): (error|warning): \\[Banana\\] \\[(Fatal|Major|Minor|Info)\\] (.+)$",
-          "file": 1,
-          "line": 2,
-          "column": 3,
-          "severity": 4,
-          "message": 6
-        },
-        {
           "regexp": "^(.+): \\[Banana\\] \\[(Fatal|Major|Minor|Info)\\] (.+)$",
           "file": 1,
           "severity": 2,
