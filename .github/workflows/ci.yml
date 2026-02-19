@@ -82,9 +82,9 @@ jobs:
           
           echo "::group::Coding style errors"
                
-          echo "::error::Some error"
-          echo "::warning::Some warning"
-          echo "::notice::Some notice"
+          echo "::error file=src/ftp/main.cpp::Some error"
+          echo "::warning file=src/ftp/main.cpp::Some warning"
+          echo "::notice file=src/ftp/main.cpp::Some notice"
 
           awk '
           /\[Banana\]/ {
