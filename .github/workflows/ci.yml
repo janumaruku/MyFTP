@@ -96,8 +96,7 @@ jobs:
             msg = $0
             sub(/^[^:]+: \[Banana\] \[([^\]]+)\] /, "", msg)
 
-            cmd = sprintf("::%s file=%s::%s\n", level, file, msg)
-            echo cmd
+            printf "::%s file=%s::%s\n", level, file, msg
           }
           ' check.log
 
