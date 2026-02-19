@@ -70,13 +70,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check repository for unwanted files
-        run: |
-          banana-check-repo . 2> check.log
+        continue-on-error: true
+        run: banana-check-repo . 2> | tee check.log
 
       - name: Annotations
         if: always()
         run: |
-          if ! grep -q "\[Banana\]" check.log; then
+          if [ ! -s check.log ]; then
             echo "No coding style error found"
             exit 0
           fi
