@@ -131,7 +131,7 @@ jobs:
           else if ($0 ~ /\[Info\]/) level="notice"
           
           msg = $0
-          sub(/^[^ ]+ warning: /, "", msg)
+          sub(/^[^ ]+ error: /, "", msg)
           
           printf "::%s file=%s,line=%s::%s\n", level, file, line, msg
           }
