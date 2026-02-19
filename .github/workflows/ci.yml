@@ -79,30 +79,24 @@ jobs:
             echo "No coding style error found"
             exit 0
           fi
-          
+  
           echo "::group::Coding style errors"
-               
-          echo "::error file=src/ftp/main.cpp::Some error"
-          echo "::warning file=src/ftp/main.cpp::Some warning"
-          echo "::notice file=src/ftp/main.cpp::Some notice"
-
           awk '
           /\[Banana\]/ {
-            file = $1
-            sub(":", "", file)
-
-            level = "notice"
-            if ($0 ~ /\[Fatal\]/) level = "error"
-            else if ($0 ~ /\[Major\]/) level = "error"
-            else if ($0 ~ /\[Minor\]/) level = "warning"
-
-            msg = $0
-            sub(/^[^:]+: \[Banana\] \[([^\]]+)\] /, "", msg)
-
+          file = $1
+          sub(":", "", file)
+          
+          level = "notice"
+          if ($0 ~ /\[Fatal\]/) level="error"
+          else if ($0 ~ /\[Major\]/) level="error"
+          else if ($0 ~ /\[Minor\]/) level="warning"
+          else if ($0 ~ /\[Info\]/) level="notice"
+          
+          msg = $0
+          sub(/^[^:]+: \[Banana\] \[([^\]]+)\] /, "", msg)
+            
             printf "::%s file=%s::%s\n", level, file, msg
           }
           ' check.log
-
           echo "::endgroup::"
-          
           exit 84
