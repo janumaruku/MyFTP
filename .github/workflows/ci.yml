@@ -116,4 +116,26 @@ jobs:
             exit 0
           fi
           
+          echo "::group::Coding style errors"
+          awk '
+          /\[Banana\]/ {
+          
+          split($1, loc, ":")
+          file = loc[0]
+          line = loc[1]
+
+          level = "notice"
+          if ($0 ~ /\[Fatal\]/) level="error"
+          else if ($0 ~ /\[Major\]/) level="error"
+          else if ($0 ~ /\[Minor\]/) level="warning"
+          else if ($0 ~ /\[Info\]/) level="notice"
+          
+          msg = $0
+          sub(/^[^ ]+ warning: /, "", msg)
+          
+          printf "::%s file=%s,line=%s::%s\n", level, file, line, msg
+          }
+          ' check.log
+          echo "::endgroup::"
+
           exit 84
