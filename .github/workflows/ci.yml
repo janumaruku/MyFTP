@@ -75,9 +75,9 @@ jobs:
       - name: Annotations
         if: always()
         run: |
-          if [ ! -s check.log ]; then
+          if [ ! grep -q "\[Banana\]" check.log ]; then
             echo "No coding style error found"
-            exit 0
+            exit 1
           fi
   
           echo "::group::Coding style errors"
