@@ -135,7 +135,7 @@ jobs:
           
           printf "::%s file=%s,line=%s::%s\n", level, file, line, msg
           }
-          ' check.log
+          ' build.log
           echo "::endgroup::"
 
           exit 84
