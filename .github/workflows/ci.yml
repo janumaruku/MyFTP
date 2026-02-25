@@ -139,3 +139,69 @@ jobs:
           echo "::endgroup::"
 
           exit 84
+
+
+  static_analisys:
+    name: Static analysis with clang tidy
+    runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
+    needs: check_compilation
+    steps:
+      - name: Build
+        shell: bash
+        run: |
+          if [ -f Makefile ]; then
+            echo "Detected Makefile"
+            make 2>&1 | tee build.log
+          
+          elif [ -f CMakeLists.txt ]; then
+            echo "Detected CMake project"
+            cmake -B build
+            cmake --build build 2>&1 | tee build.log
+          
+          else
+            echo "No supported build system found"
+            exit 1
+          fi
+
+      - name: Run clang-tidy
+        shell: bash
+        continue-on-error: true
+        run: |
+          find . -type f \( -name "*.c" -o -name "*.cpp" \) \
+          xargs clang-tidy -p build 2>&1 | tee analysis.log
+
+      - name: Annotations for clang tidy log
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ ! -s analysis.log ]; then
+            echo "No error found after static analysis"
+            exit 0
+          fi
+          
+          echo "::group::Coding style errors"
+          awk '
+          /(warning:|error:)/ {
+          
+          split($1, loc, ":")
+          file = loc[1]
+          line = loc[2]
+
+          level = "notice"
+          if ($0 ~ /warning:/) level="warning"
+          else if ($0 ~ /error:/) level="error"
+          
+          msg = $0
+          sub(/^[^:]*:[^:]*:[^:]*: (warning:|error:) /, "", msg)
+          sub(/^\[[^]]*\]/, "", msg)
+          
+            printf "::%s file=%s,line=%s,title=%s::%s\n", level, file, line, $NF, msg
+          }
+          ' analysis.log
+          echo "::endgroup::"
+          
+          if grep "error:" analysis.log; then
+            exit 84
+          
+          exit 0
