@@ -73,8 +73,8 @@ jobs:
         shell: bash
         run: |
           echo "::add-matcher::.github/matchers/banana-style-error-checker.json"
-          ./Clock.o: [Banana] [Major] unwanted binary file (C-O1)
-          ./True.o: [Banana] [Major] unwanted binary file (C-O1)
+          echo "./Clock.o: [Banana] [Major] unwanted binary file (C-O1)"
+          echo "./True.o: [Banana] [Major] unwanted binary file (C-O1)"
 
       - name: Download build log
         uses: actions/download-artifact@v4
