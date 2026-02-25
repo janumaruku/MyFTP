@@ -62,6 +62,7 @@ jobs:
     name: Coding style checking
     if: ${{ github.repository != vars.MIRROR_URL }}
     runs-on: ubuntu-latest
+    container: epitechcontent/epitest-docker
     timeout-minutes: 2
     needs: check_compilation
     steps:
