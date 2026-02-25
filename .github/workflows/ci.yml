@@ -68,11 +68,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y clang-tidy
-
       - name: Check repository for unwanted files
         continue-on-error: true
         run: banana-check-repo . 2>&1 | tee check.log
@@ -151,6 +146,11 @@ jobs:
     container: epitechcontent/epitest-docker
     needs: check_compilation
     steps:
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y clang-tidy
+
       - name: Checkout Repository
         uses: actions/checkout@v4
 
