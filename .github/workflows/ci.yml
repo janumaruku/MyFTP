@@ -62,12 +62,16 @@ jobs:
     name: Coding style checking
     if: ${{ github.repository != vars.MIRROR_URL }}
     runs-on: ubuntu-latest
-    container: epitechcontent/epitest-docker
     timeout-minutes: 2
     needs: check_compilation
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt update
+          sudo apt install -y clang-tidy
 
       - name: Check repository for unwanted files
         continue-on-error: true
