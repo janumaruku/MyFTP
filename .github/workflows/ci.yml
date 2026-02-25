@@ -147,6 +147,9 @@ jobs:
     container: epitechcontent/epitest-docker
     needs: check_compilation
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Build
         shell: bash
         run: |
