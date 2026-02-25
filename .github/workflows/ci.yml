@@ -25,16 +25,16 @@ jobs:
       - name: Build binary
         run: |
           set -e
-  
+          
           if [ -f Makefile ]; then
             echo "Detected Makefile"
             make 2>&1 | tee build.log
-  
+          
           elif [ -f CMakeLists.txt ]; then
             echo "Detected CMake project"
             cmake -B build
             cmake --build build 2>&1 | tee build.log
-  
+          
           else
             echo "No supported build system found"
             exit 1
@@ -69,12 +69,39 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Register problem matcher
-        shell: bash
+      - name: Check repository for unwanted files
+        continue-on-error: true
+        run: banana-check-repo . 2>&1 | tee check.log
+
+      - name: Annotations for useless files
+        if: always()
+        continue-on-error: true
         run: |
-          echo "::add-matcher::.github/matchers/banana-style-error-checker.json"
-          echo "./Clock.o: [Banana] [Major] unwanted binary file (C-O1)"
-          echo "./True.o: [Banana] [Major] unwanted binary file (C-O1)"
+          if [ ! -s check.log ]; then
+            echo "No coding style error found"
+            exit 0
+          fi
+          
+          echo "::group::Coding style errors"
+          awk '
+          /\[Banana\]/ {
+          file = $1
+          sub(":", "", file)
+
+          level = "notice"
+          if ($0 ~ /\[Fatal\]/) level="error"
+          else if ($0 ~ /\[Major\]/) level="error"
+          else if ($0 ~ /\[Minor\]/) level="warning"
+          else if ($0 ~ /\[Info\]/) level="notice"
+          
+          msg = $0
+          sub(/^[^:]+: \[Banana\] \[([^\]]+)\] /, "", msg)
+          
+            printf "::%s file=%s::%s\n", level, file, msg
+          }
+          ' check.log
+          echo "::endgroup::"
+          exit 84
 
       - name: Download build log
         uses: actions/download-artifact@v4
@@ -89,12 +116,26 @@ jobs:
             exit 0
           fi
           
-          cat build.log
+          echo "::group::Coding style errors"
+          awk '
+          /\[Banana\]/ {
+          
+          split($1, loc, ":")
+          file = loc[1]
+          line = loc[2]
 
-      - name: Check repository for unwanted files
-        run: banana-check-repo .
+          level = "notice"
+          if ($0 ~ /\[Fatal\]/) level="error"
+          else if ($0 ~ /\[Major\]/) level="error"
+          else if ($0 ~ /\[Minor\]/) level="warning"
+          else if ($0 ~ /\[Info\]/) level="notice"
+          
+          msg = $0
+          sub(/^[^:]*:[^:]*:[^:]*: [^:]*: /, "", msg)
 
-      - name: Remove problem matcher
-        if: always()
-        shell: bash
-        run: echo "::remove-matcher owner=custom-linter::"
+            printf "::%s file=%s,line=%s,title=%s::%s\n", level, file, line, $NF, msg
+          }
+          ' build.log
+          echo "::endgroup::"
+
+          exit 84
