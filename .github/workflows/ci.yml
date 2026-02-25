@@ -171,8 +171,7 @@ jobs:
         shell: bash
         continue-on-error: true
         run: |
-          find . -type f \( -name "*.c" -o -name "*.cpp" \) \
-          | xargs clang-tidy -p build 2>&1 | tee analysis.log
+          find . -type f \( -name "*.c" -o -name "*.cpp" \) | xargs clang-tidy -p build 2>&1 | tee analysis.log
 
       - name: Annotations for clang tidy log
         if: always()
