@@ -253,8 +253,12 @@ jobs:
       - name: Install dependencies
         run: |
           apt update
-          apt install -y pipx
-          pipx install gtest_report
+          apt install -y python3-full
+          python3 -m venv .venv
+          . .venv/bin/activate
+      
+          pip install --upgrade pip
+          pip install gtest-report
 
       - name: Checkout Repository
         uses: actions/checkout@v4
