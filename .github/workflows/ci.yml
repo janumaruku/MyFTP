@@ -274,3 +274,12 @@ jobs:
         working-directory: build
         run: |
           ctest -V --output-junit test-results.xml || true
+          
+      - name: Publish Test Results to GitHub Checks
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: GTest Results
+          path: '**/test-results.xml'
+          reporter: java-junit
+          fail-on-error: false
