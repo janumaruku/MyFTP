@@ -274,6 +274,9 @@ jobs:
         working-directory: build
         run: |
           ctest -V --output-junit test-results.xml || true
+
+      - name: Fix Git ownership
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
           
       - name: Publish Test Results to GitHub Checks
         uses: dorny/test-reporter@v1
