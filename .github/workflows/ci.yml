@@ -176,7 +176,7 @@ jobs:
           
           elif [ -f CMakeLists.txt ]; then
             echo "Detected CMake project"
-            cmake -B build -j
+            cmake -B build
             cmake --build build
             clang-tidy `find . -type f \( -name "*.c" -o -name "*.cpp" \)` \
             -p build 2>&1 | tee analysis.log
