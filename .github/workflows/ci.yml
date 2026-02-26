@@ -115,7 +115,7 @@ jobs:
       - name: Annotations for coding style errors
         if: always()
         run: |
-          if [ ! -s build.log ]; then
+          if grep "[Banana]" build.log; then
             if "${{ vars.JOB_FAILS }}" == "true"; then
               echo "::notice::unwanted files found in the repository"
 
