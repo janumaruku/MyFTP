@@ -150,7 +150,7 @@ jobs:
               echo "::notice::unwanted files found in the repository"
 
               echo "JOB_FAILS=false" >> $GITHUB_ENV
-              exit 84
+              exit 42
             fi
 
             echo "No coding style error found"
@@ -282,6 +282,7 @@ jobs:
         working-directory: build
         run: |
           ctest -V --output-junit test-results.xml || true
+          gcovr . --gcov-executable=gcov
 
       - name: Fix Git ownership
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
