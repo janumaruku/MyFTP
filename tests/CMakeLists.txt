@@ -18,7 +18,7 @@ target_link_libraries(
         GTest::gtest_main
 )
 
-set_target_properties(hello_test PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
+set_target_properties(unit_tests PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR})
 
 include(GoogleTest)
-gtest_discover_tests(hello_test)
+gtest_discover_tests(unit_tests)
