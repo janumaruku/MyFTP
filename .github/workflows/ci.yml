@@ -253,7 +253,7 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt update
-          sudo apt install -y python3-pip
+          sudo apt install python3-pip
           pip3 install gtest_report
 
       - name: Checkout Repository
