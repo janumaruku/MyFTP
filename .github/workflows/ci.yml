@@ -297,16 +297,16 @@ jobs:
           fail-on-error: false
 
   push_to_mirror:
-    needs:
-      - compilation_required
+    needs: [compilation_required]
     if: ${{ github.repository_owner == vars.USERNAME }}
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
-        uses: actions/checkout@main
-
-      - run: git fetch --unshallow
-      - uses: pixta-dev/repository-mirroring-action@v1
+      - uses: actions/checkout@main
         with:
-          target_repo_url:
-            "https://${{ secrets.MIRROR_PAT }}@${{ vars.FULL_MIRROR_URL }}"
+          fetch-depth: 0  # Full history
+      - uses: yesolutions/mirror-action@v1
+        with:
+          REMOTE: "https://x-access-token:${{ secrets.MIRROR_PAT }}@github.com/EpitechPGE2-2025/G-NWP-400-PAR-4-1-myftp-104.git"
+          GIT_USERNAME: ignore  # Dummy value
+          GIT_EMAIL: ignore     # Dummy value
+
