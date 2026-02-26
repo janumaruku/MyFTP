@@ -1,5 +1,8 @@
 name: Continuous Integration
 
+env:
+  JOB_FAILS: "false"
+
 on:
   pull_request:
     branches-ignore:
@@ -100,15 +103,15 @@ jobs:
         continue-on-error: true
         run: |
           banana-check-repo . 2>&1 | tee check.log
-          if [ -s check.log ]; then
-            gh variable set JOB_FAILS -v "true" --repo "$GITHUB_REPOSITORY"
+          if grep "[Banana]" check.log; then
+            echo "JOB_FAILS=true" >> $GITHUB_ENV
           fi
 
       - name: Annotations for useless files
         if: always()
         continue-on-error: true
         run: |
-          if [ ! -s check.log ]; then
+          if ! grep "[Banana]" check.log; then
             echo "No coding style error found"
             exit 0
           fi
@@ -142,11 +145,11 @@ jobs:
       - name: Annotations for coding style errors
         if: always()
         run: |
-          if grep "[Banana]" build.log; then
-            if "${{ vars.JOB_FAILS }}" == "true"; then
+          if ! grep "[Banana]" build.log; then
+            if [ "$JOB_FAILS" = "true" ]; then
               echo "::notice::unwanted files found in the repository"
 
-              gh variable set JOB_FAILS -v "false" --repo "$GITHUB_REPOSITORY"
+              echo "JOB_FAILS=false" >> $GITHUB_ENV
               exit 84
             fi
 
