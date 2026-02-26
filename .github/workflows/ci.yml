@@ -303,10 +303,9 @@ jobs:
     steps:
       - uses: actions/checkout@main
         with:
-          fetch-depth: 0  # Full history
-      - uses: yesolutions/mirror-action@v1
-        with:
-          REMOTE: "https://x-access-token:${{ secrets.MIRROR_PAT }}@github.com/EpitechPGE2-2025/G-NWP-400-PAR-4-1-myftp-104.git"
-          GIT_USERNAME: ignore  # Dummy value
-          GIT_EMAIL: ignore     # Dummy value
+          fetch-depth: 0
+      - run: |
+          git remote add mirror "https://x-access-token:${{ secrets.MIRROR_PAT }}@github.com/EpitechPGE2-2025/G-NWP-400-PAR-4-1-myftp-104.git" || true
+          git push mirror --mirror
+
 
