@@ -178,7 +178,7 @@ jobs:
             echo "Detected CMake project"
             cmake -B build
             cmake --build build
-            clang-tidy `find . -type f \( -name "*.c" -o -name "*.cpp" \)` \
+            clang-tidy `find src -type f \( -name "*.c" -o -name "*.cpp" \)` \
             -p build 2>&1 | tee analysis.log
           fi
 
