@@ -277,7 +277,7 @@ jobs:
 
       - name: Configure CMake
         run: |
-          cmake -B build -DCMAKE_BUILD_TYPE=Release
+          cmake -B build -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=clang++ -DWITH_COVERAGE=ON
 
       - name: Build binaries
         run: cmake --build build --target coverage --config Release -j 3

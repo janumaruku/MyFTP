@@ -20,8 +20,21 @@ target_link_libraries(
 
 set_target_properties(unit_tests PROPERTIES EXCLUDE_FROM_ALL TRUE)
 
-target_compile_options(unit_tests PRIVATE --coverage -O0 -g)
-target_link_options(unit_tests PRIVATE --coverage)
+#target_compile_options(unit_tests PRIVATE --coverage -O0 -g)
+#target_link_options(unit_tests PRIVATE --coverage)
+
+if (WITH_COVERAGE)
+    message(STATUS "Coverage enabled")
+
+    target_compile_options(unit_tests PRIVATE
+            -fprofile-instr-generate
+            -fcoverage-mapping
+            -O0 -g
+    )
+    target_link_options(unit_tests PRIVATE
+            -fprofile-instr-generate
+    )
+endif()
 
 # Detect matching LLVM coverage tools
 find_program(LLVM_PROFDATA NAMES llvm-profdata-18)
