@@ -96,6 +96,7 @@ if (HAVE_LLVM_COVERAGE)
             -instr-profile=${COVERAGE_DATA_FILE}
             -format=html
             -output-dir=${COVERAGE_HTML_DIR}
+            -path-equivalence=${CMAKE_SOURCE_DIR},.
             -ignore-filename-regex='build/_deps'
             DEPENDS merge_coverage
     )
