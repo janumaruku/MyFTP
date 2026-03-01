@@ -103,7 +103,7 @@ jobs:
         continue-on-error: true
         run: |
           banana-check-repo . 2>&1 | tee check.log
-          if grep "[Banana]" check.log; then
+          if grep -qF "[Banana]" check.log; then
             echo "JOB_FAILS=true" >> $GITHUB_ENV
           fi
 
@@ -111,7 +111,7 @@ jobs:
         if: always()
         continue-on-error: true
         run: |
-          if ! grep "[Banana]" check.log; then
+          if ! grep -qF "[Banana]" check.log; then
             echo "No coding style error found"
             exit 0
           fi
@@ -145,7 +145,7 @@ jobs:
       - name: Annotations for coding style errors
         if: always()
         run: |
-          if ! grep "[Banana]" build.log; then
+          if ! grep -qF "[Banana]" build.log; then
             if [ "$JOB_FAILS" = "true" ]; then
               echo "::notice::unwanted files found in the repository"
 
