@@ -37,8 +37,16 @@ if (WITH_COVERAGE)
 endif()
 
 # Detect matching LLVM coverage tools
-find_program(LLVM_PROFDATA NAMES llvm-profdata-18)
-find_program(LLVM_COV NAMES llvm-cov-18)
+execute_process(
+        COMMAND ${CMAKE_CXX_COMPILER} --version
+        OUTPUT_VARIABLE CLANG_VERSION_OUTPUT
+)
+
+string(REGEX MATCH "clang version ([0-9]+)" _ ${CLANG_VERSION_OUTPUT})
+set(CLANG_MAJOR_VERSION ${CMAKE_MATCH_1})
+
+find_program(LLVM_PROFDATA NAMES llvm-profdata-${CLANG_MAJOR_VERSION})
+find_program(LLVM_COV NAMES llvm-cov-${CLANG_MAJOR_VERSION})
 
 set(HAVE_LLVM_COVERAGE OFF)
 if(NOT LLVM_PROFDATA OR NOT LLVM_COV)

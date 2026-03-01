@@ -16,8 +16,6 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
 
-option(WITH_COVERAGE "Enable LLVM coverage reporting" OFF)
-
 add_library(warning_options INTERFACE)
 
 target_compile_options(warning_options INTERFACE -Wall -Wextra #[[-Werror]])
