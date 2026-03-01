@@ -18,6 +18,8 @@ target_link_libraries(
         GTest::gtest_main
 )
 
+set_target_properties(unit_tests PROPERTIES EXCLUDE_FROM_ALL TRUE)
+
 target_compile_options(unit_tests PRIVATE --coverage -O0 -g)
 target_link_options(unit_tests PRIVATE --coverage)
 
@@ -25,11 +27,15 @@ target_link_options(unit_tests PRIVATE --coverage)
 find_program(LLVM_PROFDATA NAMES llvm-profdata-18)
 find_program(LLVM_COV NAMES llvm-cov-18)
 
+set(HAVE_LLVM_COVERAGE OFF)
 if(NOT LLVM_PROFDATA OR NOT LLVM_COV)
-    message(FATAL_ERROR "LLVM 18 coverage tools not found")
+    message(WARNING "LLVM 18 coverage tools not found")
+else ()
+    set(HAVE_LLVM_COVERAGE ON)
+    message(STATUS "LLVM coverage tools found: ${LLVM_PROFDATA}, ${LLVM_COV}")
 endif()
 
-if (WITH_COVERAGE)
+if (HAVE_LLVM_COVERAGE)
 
     # Where profile data will be written
     set(COVERAGE_RAW_FILE ${CMAKE_BINARY_DIR}/default.profraw)

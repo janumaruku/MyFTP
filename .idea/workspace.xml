@@ -20,15 +20,20 @@
   </component>
   <component name="CMakeRunConfigurationManager">
     <generated>
-      <config projectName="myftp" targetName="gtest_main" />
-      <config projectName="myftp" targetName="utils" />
+      <config projectName="myftp" targetName="coverage_report" />
       <config projectName="myftp" targetName="design_pattern" />
-      <config projectName="myftp" targetName="gtest" />
       <config projectName="myftp" targetName="gmock" />
       <config projectName="myftp" targetName="server" />
-      <config projectName="myftp" targetName="unit_tests" />
       <config projectName="myftp" targetName="gmock_main" />
       <config projectName="myftp" targetName="myftp" />
+      <config projectName="myftp" targetName="coverage_html" />
+      <config projectName="myftp" targetName="merge_coverage" />
+      <config projectName="myftp" targetName="gtest_main" />
+      <config projectName="myftp" targetName="utils" />
+      <config projectName="myftp" targetName="coverage" />
+      <config projectName="myftp" targetName="run_tests_with_coverage" />
+      <config projectName="myftp" targetName="gtest" />
+      <config projectName="myftp" targetName="unit_tests" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -39,12 +44,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a7afd0f8-8838-4de7-90ca-de1f741d7273" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.github/workflows/ci.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/ci.yml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ftp/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ftp/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ftp/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/tests/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/tests/CMakeLists.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,6 +116,21 @@
         <option name="BeforeTestRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="coverage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="coverage" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="coverage_html" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="coverage_html" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="coverage_report" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="coverage_report" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="design_pattern" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="design_pattern" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -141,7 +156,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="merge_coverage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="merge_coverage" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="run_tests_with_coverage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="run_tests_with_coverage" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -171,6 +196,11 @@
       <item itemvalue="CMake Application.server" />
       <item itemvalue="CMake Application.myftp" />
       <item itemvalue="CMake Application.utils" />
+      <item itemvalue="CMake Application.coverage" />
+      <item itemvalue="CMake Application.coverage_html" />
+      <item itemvalue="CMake Application.coverage_report" />
+      <item itemvalue="CMake Application.merge_coverage" />
+      <item itemvalue="CMake Application.run_tests_with_coverage" />
       <item itemvalue="CTest Application.All CTest" />
       <item itemvalue="Google Test.unit_tests" />
     </list>
