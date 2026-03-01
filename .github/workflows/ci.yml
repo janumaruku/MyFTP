@@ -312,7 +312,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage-html
-          path: .
+          path: coverage/
 
       - name: Debug coverage structure
         run: |
