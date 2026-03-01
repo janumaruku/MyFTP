@@ -293,6 +293,10 @@ jobs:
           reporter: java-junit
           fail-on-error: false
 
+      - name: Debug coverage structure
+        run: |
+          tree build/coverage_html
+
       - name: Upload Coverage Artifact
         uses: actions/upload-artifact@v4
         with:
@@ -312,13 +316,13 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: coverage-html
-          path: coverage
+          path: .
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./coverage
+          publish_dir: ./coverage_html
 
   push_to_mirror:
     needs:

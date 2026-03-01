@@ -85,6 +85,7 @@ if (HAVE_LLVM_COVERAGE)
             COMMAND ${LLVM_COV} report
             $<TARGET_FILE:unit_tests>
             -instr-profile=${COVERAGE_DATA_FILE}
+            -compilation-dir=${CMAKE_SOURCE_DIR}
             -ignore-filename-regex='build/_deps'
             DEPENDS merge_coverage
     )
@@ -96,6 +97,7 @@ if (HAVE_LLVM_COVERAGE)
             -instr-profile=${COVERAGE_DATA_FILE}
             -format=html
             -output-dir=${COVERAGE_HTML_DIR}
+            -compilation-dir=${CMAKE_SOURCE_DIR}
             -path-equivalence=${CMAKE_SOURCE_DIR},.
             -ignore-filename-regex='build/_deps'
             DEPENDS merge_coverage
