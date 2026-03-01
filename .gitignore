@@ -37,6 +37,7 @@
 *.out
 *.app
 myftp
+unit_tests
 
 # debug information files
 *.dwo
