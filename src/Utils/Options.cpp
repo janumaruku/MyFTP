@@ -7,12 +7,13 @@
 
 #include "Options.hpp"
 
+#include <iostream>
 #include <ranges>
 
 namespace utils {
 Options::Options(char *argv[])
 {
-    for (std::size_t i = 0; argv[i] != nullptr; ++i)
+    for (std::size_t i = 1; argv[i] != nullptr; ++i)
         _args.emplace_back(argv[i]);
     _tempArgs = _args;
 }
@@ -23,6 +24,7 @@ void Options::processArgs()
         try {
             (*handler)(_args, _tempArgs);
         } catch (const std::exception &) {
+            std::cerr << "Unknown option " << _tempArgs.front() << std::endl;
             throw;
         }
     }
