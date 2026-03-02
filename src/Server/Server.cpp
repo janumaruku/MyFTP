@@ -11,6 +11,8 @@
 #include <ostream>
 #include <stdexcept>
 
+#include "HelpOptionHandler.hpp"
+
 namespace ftp {
 Server::Server(const int &argc, char *argv[]): _options{argv}
 {
@@ -18,6 +20,10 @@ Server::Server(const int &argc, char *argv[]): _options{argv}
         help();
         throw std::logic_error("");
     }
+
+    _options.registerOptionHandler<HelpOptionHandler>("-h");
+
+    _options.getOption("-h");
 }
 
 void Server::help() noexcept
