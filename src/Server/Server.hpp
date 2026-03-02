@@ -16,11 +16,10 @@ class Server {
 public:
     explicit Server(const int &argc, char *argv[]);
 
-    // Server() = default;
+    static void help() noexcept;
 
 private:
     utils::Options _options;
-    static void help() noexcept;
 };
 
 } // namespace ftp
