@@ -20,6 +20,13 @@ Options::Options(char *argv[])
 
 void Options::processArgs()
 {
+    for (const auto &arg : _args)
+        if (arg[0] == '-')
+            _hasOption = true;
+
+    if (!_hasOption)
+        return;
+
     for (auto &handler: _optionHandlerMap | std::views::values) {
         try {
             (*handler)(_args, _tempArgs);
@@ -40,5 +47,14 @@ std::string Options::getOption(const std::string &option)
         throw std::logic_error("Unknown option \"" + option + "\"");
 
     return itt->second->getOption();
+}
+bool Options::hasOption(const std::string &option)
+{
+    const auto itt = _optionHandlerMap.find(option);
+
+    if (itt == _optionHandlerMap.end())
+        throw std::logic_error("Unknown option \"" + option + "\"");
+
+    return itt->second->hasOption();
 }
 } // namespace utils

@@ -16,17 +16,19 @@
 namespace ftp {
 Server::Server(const int &argc, char *argv[]): _options{argv}
 {
-    if (argc == 1) {
-        std::clog << "From thrown exception" << std::endl;
-        help();
-        throw std::logic_error("");
-    }
+    // if (argc == 1) {
+    //     std::clog << "From thrown exception" << std::endl;
+    //     help();
+    //     throw std::logic_error("");
+    // }
+    //
+    // _options.registerOptionHandler<HelpOptionHandler>("-h");
+    //
+    // _options.processArgs();
+    //
+    // if (_options.hasOption("-h"))
+    //     _options.getOption("-h");
 
-    _options.registerOptionHandler<HelpOptionHandler>("-h");
-
-    _options.processArgs();
-
-    _options.getOption("-h");
 }
 
 void Server::help() noexcept

@@ -17,6 +17,7 @@ public:
 
 private:
     Server _server;
+    utils::Options _options;
 };
 
 } // namespace ftp
