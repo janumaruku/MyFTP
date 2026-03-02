@@ -326,7 +326,9 @@ jobs:
 
   push_to_mirror:
     needs:
-      - compilation_required
+      - check_coding_style
+      - static_analisys
+      - unit_test
     if: ${{ github.repository_owner == vars.USERNAME }}
     runs-on: ubuntu-latest
     steps:
