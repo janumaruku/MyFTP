@@ -46,14 +46,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="feat: handle options in ServerEntryPoint">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/constants.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/constants.hpp" afterDir="false" />
-    </list>
+    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update server constructor" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -260,7 +253,7 @@
       <workItem from="1772551663081" duration="19000" />
       <workItem from="1772552850741" duration="10558000" />
       <workItem from="1772626049277" duration="3754000" />
-      <workItem from="1772640053481" duration="4805000" />
+      <workItem from="1772640053481" duration="5932000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
@@ -358,7 +351,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772633430223</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feat: add">
+      <option name="closed" value="true" />
+      <created>1772650232699</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1772650232699</updated>
+    </task>
+    <task id="LOCAL-00014" summary="chore: update server constructor">
+      <option name="closed" value="true" />
+      <created>1772650302503</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1772650302503</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -381,6 +390,8 @@
     <MESSAGE value="fix: memory corruption errors, use parameter tempArgs instead of args" />
     <MESSAGE value="feat: add address option handler" />
     <MESSAGE value="feat: handle options in ServerEntryPoint" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: handle options in ServerEntryPoint" />
+    <MESSAGE value="feat: create the Logger class" />
+    <MESSAGE value="chore: update server constructor" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update server constructor" />
   </component>
 </project>
