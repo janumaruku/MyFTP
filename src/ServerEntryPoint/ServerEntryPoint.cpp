@@ -10,6 +10,7 @@
 #include <iostream>
 #include <ostream>
 
+#include "AddressOptionHandler.hpp"
 #include "HelpOptionHandler.hpp"
 #include "OptionException.hpp"
 #include "PortOptionHandler.hpp"
@@ -26,6 +27,7 @@ ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
 
     _options.registerOptionHandler<HelpOptionHandler>("-h");
     _options.registerOptionHandler<PortOptionHandler>("-p");
+    _options.registerOptionHandler<AddressOptionHandler>("-a");
 }
 bool ServerEntryPoint::run()
 {
