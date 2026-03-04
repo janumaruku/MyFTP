@@ -86,7 +86,6 @@ WarningsAsErrors: >
   google-readability-casting,
   google-build-using-namespace,
   cppcoreguidelines-prefer-member-initializer,
-  modernize-avoid-c-arrays,
   modernize-use-emplace,
   performance-for-range-copy,
   modernize-use-equals-default,
