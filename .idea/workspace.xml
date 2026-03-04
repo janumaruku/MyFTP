@@ -46,10 +46,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="feat: add exception classes">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="fix: memory corruption errors, use parameter tempArgs instead of args">
+      <change beforePath="$PROJECT_DIR$/src/OptionHandlers/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/OptionHandlers/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OptionHandlers/PortOptionHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OptionHandlers/PortOptionHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Options.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Options.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -131,6 +132,11 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.myftp">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="unit_tests" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="unit_tests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="unit_tests" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -251,7 +257,7 @@
       <workItem from="1772439164202" duration="7121000" />
       <workItem from="1772551663081" duration="19000" />
       <workItem from="1772552850741" duration="10558000" />
-      <workItem from="1772626049277" duration="1263000" />
+      <workItem from="1772626049277" duration="2081000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
@@ -325,7 +331,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772618107788</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="fix: memory corruption errors, use parameter tempArgs instead of args">
+      <option name="closed" value="true" />
+      <created>1772632006544</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1772632006544</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -345,17 +359,7 @@
     <MESSAGE value="chore: use ServerEntryPoint::run in the main function" />
     <MESSAGE value="chore: update cmake files" />
     <MESSAGE value="feat: add exception classes" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: add exception classes" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/OptionHandlers/PortOptionHandler.cpp</url>
-          <line>26</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="fix: memory corruption errors, use parameter tempArgs instead of args" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: memory corruption errors, use parameter tempArgs instead of args" />
   </component>
 </project>

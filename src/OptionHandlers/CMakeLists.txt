@@ -1,5 +1,7 @@
 add_library(option_handlers STATIC HelpOptionHandler.cpp
-        PortOptionHandler.cpp)
+        PortOptionHandler.cpp
+        AddressOptionHandler.cpp
+        AddressOptionHandler.hpp)
 
 target_include_directories(option_handlers PUBLIC .)
 

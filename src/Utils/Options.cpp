@@ -38,7 +38,7 @@ void Options::processArgs()
     }
 
     if (!_tempArgs.empty())
-        throw ftp::error::OptionException(_tempArgs[0], "Unknown options");
+        throw ftp::error::OptionException("Error: ", "Unknown options");
 
     _isProcessed = true;
 }
