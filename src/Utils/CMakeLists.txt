@@ -1,5 +1,7 @@
 add_library(utils STATIC Options.cpp
-        constants.hpp)
+        constants.hpp
+        Logger.cpp
+        Logger.hpp)
 
 target_include_directories(utils PUBLIC .
         PUBLIC ${CMAKE_SOURCE_DIR}/src/DesignPattern)

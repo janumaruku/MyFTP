@@ -14,6 +14,8 @@ namespace ftp {
 
 class Server {
 public:
+    Server() = default;
+
     explicit Server(const std::string &port, const std::string &address);
 
     static void help() noexcept;

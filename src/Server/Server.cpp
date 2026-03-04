@@ -11,7 +11,7 @@
 #include <ostream>
 
 namespace ftp {
-Server::Server(const std::string &port, const std::string &address)
+Server::Server(const std::string &/*port*/, const std::string &/*address*/)
 {}
 
 void Server::help() noexcept

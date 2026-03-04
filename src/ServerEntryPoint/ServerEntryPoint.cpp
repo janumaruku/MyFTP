@@ -17,7 +17,7 @@
 
 namespace ftp {
 ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
-    _server{argc, argv}, _options{argv}
+    /*_server{argc, argv},*/ _options{argv}
 {
     if (argc == 1) {
         std::clog << "From thrown exception" << std::endl;
@@ -60,6 +60,8 @@ bool ServerEntryPoint::run()
             return false;
         }
     }
+
+    _server = Server{_port, _address};
 
     return true;
 }
