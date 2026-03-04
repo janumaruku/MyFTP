@@ -21,7 +21,9 @@ public:
     virtual bool operator()(const std::vector<std::string> &args,
         std::vector<std::string> &tempArgs) = 0;
 
-    [[nodiscard]] virtual std::string getOption() const noexcept = 0;
+    virtual std::string getOption() const noexcept = 0;
+
+    [[nodiscard]] virtual bool hasOption() const noexcept = 0;
 };
 } // utils
 

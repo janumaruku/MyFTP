@@ -7,9 +7,10 @@
 
 #ifndef MYFTP_HELPOPTIONHANDLER_HPP
 #define MYFTP_HELPOPTIONHANDLER_HPP
+
 #include <memory>
 
-#include "../Utils/IOptionHandler.hpp"
+#include "IOptionHandler.hpp"
 
 namespace ftp {
 
@@ -22,9 +23,14 @@ public:
     bool operator()(const std::vector<std::string> &args,
         std::vector<std::string> &tempArgs) override;
 
-    [[nodiscard]] std::string getOption() const noexcept override;
+    std::string getOption() const noexcept override;
+
+    [[nodiscard]] bool hasOption() const noexcept override;
 
     static std::unique_ptr<IOptionHandler> create();
+
+private:
+    bool _hasOption = false;
 };
 
 } // namespace ftp

@@ -7,7 +7,8 @@
 
 #ifndef MYFTP_SERVERENTRYPOINT_HPP
 #define MYFTP_SERVERENTRYPOINT_HPP
-#include "../Server/Server.hpp"
+
+#include "Server.hpp"
 
 namespace ftp {
 
@@ -15,8 +16,11 @@ class ServerEntryPoint {
 public:
     explicit ServerEntryPoint(const int &argc, char *argv[]);
 
+    bool run();
+
 private:
     Server _server;
+    utils::Options _options;
 };
 
 } // namespace ftp

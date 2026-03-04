@@ -1,56 +1,56 @@
 Checks:
-# D2 - OCP / all attributes must be private
-#  - cppcoreguidelines-non-private-member-variables-in-classes # forces all member variables
-                                                             # to be private
-# D3 - LSP
+  # D2 - OCP / all attributes must be private
+  #  - cppcoreguidelines-non-private-member-variables-in-classes # forces all member variables
+  # to be private
+  # D3 - LSP
   - modernize-use-override # F6 – override when relevant
   - bugprone-virtual-near-miss # detects missing override
   - cppcoreguidelines-virtual-class-destructor # ensures safe polymorphic destruction
   - cppcoreguidelines-slicing
   - cppcoreguidelines-special-member-functions # ensures correct copy/move behavior
 
-# D5 - Constness
+  # D5 - Constness
   - readability-make-member-function-const
   
-# D6 - RAII
+  # D6 - RAII
   - cppcoreguidelines-owning-memory
   - cppcoreguidelines-no-malloc
   - hicpp-no-malloc
   - modernize-make-unique
   - modernize-make-shared
 
-# N - Naming
+  # N - Naming
   - readability-identifier-naming
   
-# G4 - Global variables
+  # G4 - Global variables
   - cppcoreguidelines-avoid-non-const-global-variables
   - cppcoreguidelines-interfaces-global-init
   
-# C3 - goto
+  # C3 - goto
   - readability-avoid-goto
   
-# C5 - Ranges
+  # C5 - Ranges
   - modernize-loop-convert
 
-# A1 - Constant pointers
+  # A1 - Constant pointers
   - modernize-use-const
 
-# A3 - NULL
+  # A3 - NULL
   - modernize-use-nullptr
 
-# A4 - Auto (DRY)
+  # A4 - Auto (DRY)
   - modernize-use-auto
 
-# A5 - Casts
+  # A5 - Casts
   - google-readability-casting
 
-# A9 - using namespace
+  # A9 - using namespace
   - google-build-using-namespace
 
-# K2 - Constructor list
+  # K2 - Constructor list
   - cppcoreguidelines-prefer-member-initializer
 
-# K6 - Type aliases
+  # K6 - Type aliases
   - modernize-use-using
 
   - bugprone-branch-clone
@@ -91,7 +91,7 @@ WarningsAsErrors: >
   modernize-use-equals-default,
 
 CheckOptions:
-# N3 - Functions (and methods)
+  # N3 - Functions (and methods)
   - key: readability-identifier-naming.FunctionCase
     value: camelBack
   - key: readability-identifier-naming.MethodCase
@@ -99,7 +99,7 @@ CheckOptions:
   - key: readability-identifier-naming.IgnoreMainLikeFunctions
     value: 'true'
 
-# N4 - Variables
+  # N4 - Variables
   # Local variables
   - key: readability-identifier-naming.VariableCase
     value: camelBack
@@ -142,14 +142,14 @@ CheckOptions:
   - key: readability-identifier-naming.TypeAliasCase
     value: CamelCase
 
-# C5 - Ranges
+  # C5 - Ranges
   - key: modernize-loop-convert.MinConfidence
     value: reasonable
 
-# A3 - NULL
+  # A3 - NULL
   - key: modernize-use-nullptr.NullMacros
     value: 'NULL'
 
-# A5 - Casts
+  # A5 - Casts
   - key: google-readability-casting.WarnOnOperator
     value: '1'
