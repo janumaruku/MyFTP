@@ -7,9 +7,10 @@
 
 #ifndef MYFTP_HELPOPTIONHANDLER_HPP
 #define MYFTP_HELPOPTIONHANDLER_HPP
+
 #include <memory>
 
-#include "../Utils/IOptionHandler.hpp"
+#include "IOptionHandler.hpp"
 
 namespace ftp {
 

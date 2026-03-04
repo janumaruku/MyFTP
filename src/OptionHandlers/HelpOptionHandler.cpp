@@ -7,16 +7,18 @@
 
 #include "HelpOptionHandler.hpp"
 
-#include <stdexcept>
-
+#include "OptionException.hpp"
 #include "Server.hpp"
 
 namespace ftp {
 bool HelpOptionHandler::operator()(
     const std::vector<std::string> &args, std::vector<std::string> &tempArgs)
 {
-    if (args.size() != 1 || args[0] != "-h" || args[0] == "--help")
-        throw std::runtime_error("");
+    if (args[0] != "-h" || args[0] == "--help")
+        return false;
+
+    if (args.size() != 1)
+        throw error::OptionException(args[0], "bad formated help option");
 
     tempArgs.erase(tempArgs.begin());
     _hasOption = true;
@@ -30,6 +32,7 @@ std::string HelpOptionHandler::getOption() const noexcept
 
     return "";
 }
+
 bool HelpOptionHandler::hasOption() const noexcept
 {
     return _hasOption;
