@@ -10,6 +10,8 @@
 #include <iostream>
 #include <ranges>
 
+#include "OptionException.hpp"
+
 namespace utils {
 Options::Options(char *argv[])
 {
@@ -20,21 +22,23 @@ Options::Options(char *argv[])
 
 void Options::processArgs()
 {
-    for (const auto &arg : _args)
+    for (const auto &arg: _args)
         if (arg[0] == '-')
-            _hasOption = true;
+            _hasOptions = true;
 
-    if (!_hasOption)
+    if (!_hasOptions)
         return;
 
     for (auto &handler: _optionHandlerMap | std::views::values) {
         try {
             (*handler)(_args, _tempArgs);
-        } catch (const std::exception &) {
-            std::cerr << "Unknown option " << _tempArgs.front() << std::endl;
+        } catch (const ftp::error::OptionException &) {
             throw;
         }
     }
+
+    if (!_tempArgs.empty())
+        throw ftp::error::OptionException(_tempArgs[0], "Unknown options");
 
     _isProcessed = true;
 }
@@ -48,6 +52,7 @@ std::string Options::getOption(const std::string &option)
 
     return itt->second->getOption();
 }
+
 bool Options::hasOption(const std::string &option)
 {
     const auto itt = _optionHandlerMap.find(option);
@@ -56,5 +61,10 @@ bool Options::hasOption(const std::string &option)
         throw std::logic_error("Unknown option \"" + option + "\"");
 
     return itt->second->hasOption();
+}
+
+bool Options::hasOptions() const
+{
+    return _hasOptions;
 }
 } // namespace utils

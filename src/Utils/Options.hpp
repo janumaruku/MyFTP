@@ -39,13 +39,15 @@ public:
 
     bool hasOption(const std::string &option);
 
+    bool hasOptions() const;
+
 private:
     std::vector<std::string> _args;
     std::vector<std::string> _tempArgs;
     OptionHandlerFactory _optionHandlerFactory;
     OptionHandlerMap _optionHandlerMap;
     bool _isProcessed = false;
-    bool _hasOption   = false;
+    bool _hasOptions   = false;
 };
 
 } // namespace utils
