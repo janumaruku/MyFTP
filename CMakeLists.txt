@@ -18,7 +18,7 @@ set(CMAKE_BUILD_TYPE Debug CACHE STRING "Build type" FORCE)
 
 add_library(warning_options INTERFACE)
 
-target_compile_options(warning_options INTERFACE -Wall -Wextra #[[-Werror]])
+target_compile_options(warning_options INTERFACE -Wall -Wextra -Werror)
 
 add_subdirectory(src)
 
