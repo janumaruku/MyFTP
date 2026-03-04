@@ -13,7 +13,7 @@
 namespace ftp {
 namespace error {
 OptionException::OptionException(const std::string &option,
-        const std::string &message)
+    const std::string &message)
 {
     _message = option + ": " + utils::RED + message + utils::RESET;
 }

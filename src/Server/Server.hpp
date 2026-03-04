@@ -14,12 +14,11 @@ namespace ftp {
 
 class Server {
 public:
-    explicit Server(const int &argc, char *argv[]);
+    explicit Server(const std::string &port, const std::string &address);
 
     static void help() noexcept;
 
 private:
-    utils::Options _options;
 };
 
 } // namespace ftp

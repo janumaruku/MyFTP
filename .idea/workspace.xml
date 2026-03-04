@@ -46,11 +46,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="fix: memory corruption errors, use parameter tempArgs instead of args">
-      <change beforePath="$PROJECT_DIR$/src/OptionHandlers/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/OptionHandlers/CMakeLists.txt" afterDir="false" />
+    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="feat: handle options in ServerEntryPoint">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Exceptions/OptionException.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exceptions/OptionException.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/OptionHandlers/AddressOptionHandler.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OptionHandlers/AddressOptionHandler.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/OptionHandlers/PortOptionHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OptionHandlers/PortOptionHandler.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Options.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Options.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Options.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Options.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/hello_test.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/tests/hello_test.cpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -257,7 +263,7 @@
       <workItem from="1772439164202" duration="7121000" />
       <workItem from="1772551663081" duration="19000" />
       <workItem from="1772552850741" duration="10558000" />
-      <workItem from="1772626049277" duration="2081000" />
+      <workItem from="1772626049277" duration="3754000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
@@ -339,7 +345,23 @@
       <option name="project" value="LOCAL" />
       <updated>1772632006544</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="feat: add address option handler">
+      <option name="closed" value="true" />
+      <created>1772632796046</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1772632796046</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat: handle options in ServerEntryPoint">
+      <option name="closed" value="true" />
+      <created>1772633430223</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1772633430223</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -360,6 +382,8 @@
     <MESSAGE value="chore: update cmake files" />
     <MESSAGE value="feat: add exception classes" />
     <MESSAGE value="fix: memory corruption errors, use parameter tempArgs instead of args" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix: memory corruption errors, use parameter tempArgs instead of args" />
+    <MESSAGE value="feat: add address option handler" />
+    <MESSAGE value="feat: handle options in ServerEntryPoint" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: handle options in ServerEntryPoint" />
   </component>
 </project>

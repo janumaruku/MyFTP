@@ -7,9 +7,6 @@
 
 #include "PortOptionHandler.hpp"
 
-// #include <iostream>
-
-// #include "constants.hpp"
 #include "OptionException.hpp"
 
 namespace ftp {
