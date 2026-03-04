@@ -9,12 +9,9 @@
 
 #include <iostream>
 #include <ostream>
-#include <stdexcept>
-
-#include "HelpOptionHandler.hpp"
 
 namespace ftp {
-Server::Server(const int &argc, char *argv[]): _options{argv}
+Server::Server(const int &, char *argv[]): _options{argv}
 {
     // if (argc == 1) {
     //     std::clog << "From thrown exception" << std::endl;

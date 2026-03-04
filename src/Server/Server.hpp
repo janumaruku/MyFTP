@@ -7,8 +7,8 @@
 
 #ifndef MYFTP_SERVER_HPP
 #define MYFTP_SERVER_HPP
-#include "../Utils/IOptionHandler.hpp"
-#include "../Utils/Options.hpp"
+
+#include "Options.hpp"
 
 namespace ftp {
 
