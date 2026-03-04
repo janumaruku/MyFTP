@@ -46,22 +46,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update clang-tidy for static analysis">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/HelpOptionHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OptionHandlers/HelpOptionHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/HelpOptionHandler.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/OptionHandlers/HelpOptionHandler.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Options.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Options.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Options.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Options.hpp" afterDir="false" />
-    </list>
+    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="feat: add exception classes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -265,7 +250,7 @@
       <updated>1772439162895</updated>
       <workItem from="1772439164202" duration="7121000" />
       <workItem from="1772551663081" duration="19000" />
-      <workItem from="1772552850741" duration="4951000" />
+      <workItem from="1772552850741" duration="5644000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
@@ -275,7 +260,63 @@
       <option name="project" value="LOCAL" />
       <updated>1772616889474</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="chore: update help option to use exception when necessary">
+      <option name="closed" value="true" />
+      <created>1772617477745</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1772617477745</updated>
+    </task>
+    <task id="LOCAL-00003" summary="chore: add checks in Option::processArgs to make sure all options are processed">
+      <option name="closed" value="true" />
+      <created>1772617590667</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1772617590667</updated>
+    </task>
+    <task id="LOCAL-00004" summary="chore: update header file inclusion">
+      <option name="closed" value="true" />
+      <created>1772617623991</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1772617623991</updated>
+    </task>
+    <task id="LOCAL-00005" summary="chore: move option handle form constructor to ServerEntryPoint::run, to make the constructor exception free">
+      <option name="closed" value="true" />
+      <created>1772617715073</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1772617715073</updated>
+    </task>
+    <task id="LOCAL-00006" summary="chore: use ServerEntryPoint::run in the main function">
+      <option name="closed" value="true" />
+      <created>1772617784635</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1772617784635</updated>
+    </task>
+    <task id="LOCAL-00007" summary="chore: update cmake files">
+      <option name="closed" value="true" />
+      <created>1772617864871</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1772617864871</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: add exception classes">
+      <option name="closed" value="true" />
+      <created>1772618027999</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1772618027999</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -288,6 +329,13 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="chore: update clang-tidy for static analysis" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: update clang-tidy for static analysis" />
+    <MESSAGE value="chore: update help option to use exception when necessary" />
+    <MESSAGE value="chore: add checks in Option::processArgs to make sure all options are processed" />
+    <MESSAGE value="chore: update header file inclusion" />
+    <MESSAGE value="chore: move option handle form constructor to ServerEntryPoint::run, to make the constructor exception free" />
+    <MESSAGE value="chore: use ServerEntryPoint::run in the main function" />
+    <MESSAGE value="chore: update cmake files" />
+    <MESSAGE value="feat: add exception classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: add exception classes" />
   </component>
 </project>
