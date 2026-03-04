@@ -13,6 +13,9 @@ int main(const int argc, char* argv[])
 {
     try {
         ftp::ServerEntryPoint server{argc, argv};
+
+        if (!server.run())
+            return 84;
     } catch (const std::exception &) {
         return 84;
     }
