@@ -1,4 +1,6 @@
-add_library(server STATIC Server.cpp)
+add_library(server STATIC Server.cpp
+        Socket.cpp
+        Socket.hpp)
 
 target_include_directories(server PUBLIC .
         PUBLIC ${CMAKE_SOURCE_DIR}/src/DesignPattern)

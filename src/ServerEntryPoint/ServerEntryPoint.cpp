@@ -17,7 +17,7 @@
 
 namespace ftp {
 ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
-    _server{argc, argv}, _options{argv}
+    /*_server{argc, argv},*/ _options{argv}
 {
     if (argc == 1) {
         std::clog << "From thrown exception" << std::endl;
@@ -32,6 +32,7 @@ ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
     _options.registerOptionHandler<PortOptionHandler>("-p");
     _options.registerOptionHandler<AddressOptionHandler>("-a");
 }
+
 bool ServerEntryPoint::run()
 {
     try {
@@ -51,7 +52,7 @@ bool ServerEntryPoint::run()
             std::cerr << "Need port (-p) and address (-a)" << std::endl;
             return false;
         }
-        _port = _options.getOption("-p");
+        _port    = _options.getOption("-p");
         _address = _options.getOption("-a");
     } else {
         if (_args.size() != 2) {
@@ -59,6 +60,8 @@ bool ServerEntryPoint::run()
             return false;
         }
     }
+
+    _server = Server{_port, _address};
 
     return true;
 }

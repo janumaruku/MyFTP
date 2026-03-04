@@ -19,9 +19,9 @@ namespace utils {
 class Options {
 public:
     using OptionHandlerFactory =
-        designPattern::FactoryTemplate<IOptionHandler, std::string>;
+    designPattern::FactoryTemplate<IOptionHandler, std::string>;
     using OptionHandlerMap =
-        std::unordered_map<std::string, std::unique_ptr<IOptionHandler>>;
+    std::unordered_map<std::string, std::unique_ptr<IOptionHandler>>;
 
     explicit Options(char *argv[]);
 
@@ -47,7 +47,7 @@ private:
     OptionHandlerFactory _optionHandlerFactory;
     OptionHandlerMap _optionHandlerMap;
     bool _isProcessed = false;
-    bool _hasOptions   = false;
+    bool _hasOptions  = false;
 };
 
 } // namespace utils

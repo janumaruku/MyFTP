@@ -9,7 +9,7 @@
 
 #include "ServerEntryPoint.hpp"
 
-int main(const int argc, char* argv[])
+int main(const int argc, char *argv[])
 {
     try {
         ftp::ServerEntryPoint server{argc, argv};
