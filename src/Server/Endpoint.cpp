@@ -7,30 +7,37 @@
 
 #include "Endpoint.hpp"
 
+#include <array>
 #include <stdexcept>
 #include <utility>
 #include <arpa/inet.h>
 
 namespace ftp {
-Endpoint::Endpoint(const short &port): _port{port}
+Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port}
 {
     _address.sin_family      = AF_INET;
     _address.sin_port        = htons(port);
-    _address.sin_addr.s_addr = INADDR_ANY;
+    if (hostName.empty())
+        _address.sin_addr.s_addr = INADDR_ANY;
+    else {
+        const int inetResult = inet_pton(AF_INET, _hostName.c_str(),
+            &_address.sin_addr);
+
+        if (inetResult == 0)
+            throw std::runtime_error("Invalid network address");
+        if (inetResult == -1)
+            throw std::runtime_error("Invalid network address family");
+    }
 }
 
-Endpoint::Endpoint(std::string hostName, const short &port): _port{port},
-    _hostName{std::move(hostName)}
+Endpoint::Endpoint(const int &serverFd)
 {
-    _address.sin_family  = AF_INET;
-    _address.sin_port    = htons(port);
-    const int inetResult = inet_pton(AF_INET, _hostName.c_str(),
-        &_address.sin_addr);
+    socklen_t size = sizeof(_address);
+    _acceptFd      = accept(serverFd, reinterpret_cast<sockaddr *>(&_address),
+        &size);
 
-    if (inetResult == 0)
-        throw std::runtime_error("Invalid network address");
-    if (inetResult == -1)
-        throw std::runtime_error("Invalid network address family");
+    if (_acceptFd == -1)
+        throw std::runtime_error("Error accepting connection");
 }
 
 short Endpoint::getPort() const noexcept
@@ -38,13 +45,28 @@ short Endpoint::getPort() const noexcept
     return _port;
 }
 
-std::string Endpoint::getIpAddress() const noexcept
+std::string Endpoint::getHostname() const noexcept
 {
-    return _hostName;
+    std::array<char, INET_ADDRSTRLEN> buf{};
+    const char* res = inet_ntop(
+        AF_INET,
+        &_address.sin_addr,
+        buf.data(),
+        buf.size()
+    );
+    if (!res) {
+        return {};
+    }
+    return std::string{buf.data()};
 }
 
 sockaddr_in &Endpoint::getAddress() noexcept
 {
     return _address;
+}
+
+int Endpoint::getAcceptFd() const noexcept
+{
+    return _acceptFd;
 }
 } // ftp
