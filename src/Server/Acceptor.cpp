@@ -21,4 +21,9 @@ Acceptor::Acceptor(Endpoint &&endpoint): _endpoint{std::move(endpoint)}
     if (listen(_socket.getFd(), SOMAXCONN) == -1)
         throw std::runtime_error{"listen() failed"};
 }
+
+int Acceptor::getSocketFd() const noexcept
+{
+    return _socket.getFd();
+}
 } // ftp

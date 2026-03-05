@@ -15,6 +15,8 @@ class Acceptor {
 public:
     explicit Acceptor(Endpoint &&endpoint);
 
+    int getSocketFd() const noexcept;
+
 private:
     Endpoint _endpoint;
     Socket _socket;
