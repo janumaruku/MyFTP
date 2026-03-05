@@ -8,6 +8,7 @@
 #include "PortOptionHandler.hpp"
 
 #include "OptionException.hpp"
+#include "StringUtils.hpp"
 
 namespace ftp {
 bool PortOptionHandler::operator()(
@@ -23,10 +24,10 @@ bool PortOptionHandler::operator()(
         try {
             if (itt + 1 == tempArgs.end())
                 throw std::invalid_argument("");
-            std::stol(*(itt + 1));
+            utils::StringUtils::stos(*(itt + 1));
         } catch (const std::exception &err) {
             throw error::OptionException("-p",
-                "Need a port number (as an integer)");
+                "Need a port number (as a short integer)");
         }
 
         _optionValue = *(itt + 1);

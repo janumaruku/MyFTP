@@ -13,11 +13,11 @@
 #include "IOptionHandler.hpp"
 
 namespace ftp {
-class AddressOptionHandler: public utils::IOptionHandler {
+class DirectoryOptionHandler: public utils::IOptionHandler {
 public:
-    AddressOptionHandler() = default;
+    DirectoryOptionHandler() = default;
 
-    ~AddressOptionHandler() override = default;
+    ~DirectoryOptionHandler() override = default;
 
     bool operator()(const std::vector<std::string> &args,
         std::vector<std::string> &tempArgs) override;
