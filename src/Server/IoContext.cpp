@@ -7,38 +7,13 @@
 
 #include "IoContext.hpp"
 
-namespace ftp {
-// void IOContext::registerAcceptor(const Acceptor &acceptor,
-//     AcceptorHandler handler)
-// {
-//     const int fileDescriptor = acceptor.getSocketFd();
-//
-//     pollfd pollFd = {
-//         .fd = fileDescriptor,
-//         .events = POLLIN,
-//         .revents = 0,
-//     };
-//
-//     _acceptorFds.push_back(pollFd);
-//     _acceptorHandlers[fileDescriptor] = handler;
-// }
-//
-// void IOContext::registerSocket(const Socket &socket, SocketHandler handler)
-// {
-//     const int fileDescriptor = socket.getFd();
-//
-//     pollfd pollFd = {
-//         .fd = fileDescriptor,
-//         .events = POLLIN,
-//         .revents = 0,
-//     };
-//
-//     _socketFds.push_back(pollFd);
-//     _socketHandlers[fileDescriptor] = handler;
-// }
+#include <iostream>
 
+#include "constants.hpp"
+
+namespace ftp {
 void IOContext::registerNotifier(const int &fileDescriptor,
-    OnFileDescriptorRead notifier)
+    const OnFileDescriptorReady &notifier)
 {
     _pollFds.push_back({
         .fd      = fileDescriptor,
@@ -46,5 +21,35 @@ void IOContext::registerNotifier(const int &fileDescriptor,
         .revents = 0,
     });
     _notifiers[fileDescriptor] = notifier;
+}
+
+void IOContext::registerNotifier(Acceptor &acceptor,
+    const OnAcceptorFdReady &notifier)
+{
+    _acceptorPollFds.push_back({
+        .fd      = acceptor.getSocketFd(),
+        .events  = POLLIN,
+        .revents = 0,
+    });
+    _acceptorNotifiers.emplace(acceptor.getSocketFd(),
+        std::pair{&acceptor, notifier});
+}
+
+void IOContext::run()
+{
+    std::clog << "Start main loop 1" << std::endl;
+    while (true) {
+        if (poll(_acceptorPollFds.data(), _acceptorPollFds.size(), 10) == -1)
+            throw std::system_error(std::make_error_code(std::errc::timed_out));
+
+        for (const auto &pollFd: _acceptorPollFds) {
+            if (pollFd.revents & POLLIN) {
+                std::clog << utils::YELLOW << "Hello world" << utils::RESET <<
+                    std::endl;
+                auto &[acceptor, handler] = _acceptorNotifiers[pollFd.fd];
+                (acceptor->*handler)();
+            }
+        }
+    }
 }
 } // ftp

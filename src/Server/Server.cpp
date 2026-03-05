@@ -14,9 +14,17 @@
 #include "StringUtils.hpp"
 
 namespace ftp {
-Server::Server(const std::string &port): _acceptor{IOContext{},
+Server::Server(const std::string &port): _acceptor{_ioContext,
     Endpoint{utils::StringUtils::stos(port)}}
 {}
+
+void Server::start()
+{
+    _acceptor.asyncAccept([](std::error_code, Socket) {
+        std::cout << "Server accepted" << std::endl;
+    });
+    _ioContext.run();
+}
 
 void Server::help() noexcept
 {

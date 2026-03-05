@@ -18,7 +18,7 @@ class Acceptor {
 public:
     using ConnectionHandler = std::function<void(std::error_code, Socket)>;
 
-    explicit Acceptor(const IOContext &ioContext, Endpoint &&endpoint);
+    explicit Acceptor(IOContext &ioContext, Endpoint &&endpoint);
 
     int getSocketFd() const noexcept;
 
@@ -29,10 +29,11 @@ private:
     Socket _socket;
     std::size_t _maxConnection   = SOMAXCONN;
     std::size_t _connectionCount = 0;
-    ConnectionHandler _handler;
+    ConnectionHandler _handlerFunction;
+    bool _handler;
     // IOContext &_ioContext;
 
-    void handleNewConnection() const;
+    void handleNewConnection();
 };
 } // ftp
 

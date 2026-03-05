@@ -59,9 +59,11 @@ bool ServerEntryPoint::run()
             std::cerr << "Need port and address" << std::endl;
             return false;
         }
+        _port = _args[0];
     }
 
     _server = Server{_port};
+    _server.start();
 
     return true;
 }
