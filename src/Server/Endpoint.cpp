@@ -43,7 +43,7 @@ std::string Endpoint::getIpAddress() const noexcept
     return _hostName;
 }
 
-sockaddr_in & Endpoint::getAddress() noexcept
+sockaddr_in &Endpoint::getAddress() noexcept
 {
     return _address;
 }
