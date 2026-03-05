@@ -4,7 +4,9 @@ add_library(server STATIC Server.cpp
         Acceptor.cpp
         Acceptor.hpp
         Endpoint.cpp
-        Endpoint.hpp)
+        Endpoint.hpp
+        IoContext.cpp
+        IoContext.hpp)
 
 target_include_directories(server PUBLIC .
         PUBLIC ${CMAKE_SOURCE_DIR}/src/DesignPattern)
