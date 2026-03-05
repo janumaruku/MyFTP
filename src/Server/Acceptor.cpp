@@ -18,7 +18,7 @@ Acceptor::Acceptor(Endpoint &&endpoint): _endpoint{std::move(endpoint)}
         sizeof(address)) == -1)
         throw std::runtime_error{"bind() failed"};
 
-    if (listen(_socket.getFd(), 1) == -1)
+    if (listen(_socket.getFd(), SOMAXCONN) == -1)
         throw std::runtime_error{"listen() failed"};
 }
 } // ftp
