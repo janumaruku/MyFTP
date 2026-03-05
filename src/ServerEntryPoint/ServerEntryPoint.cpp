@@ -10,14 +10,14 @@
 #include <iostream>
 #include <ostream>
 
-#include "AddressOptionHandler.hpp"
+#include "DirectoryOptionHandler.hpp"
 #include "HelpOptionHandler.hpp"
 #include "OptionException.hpp"
 #include "PortOptionHandler.hpp"
 
 namespace ftp {
 ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
-    /*_server{argc, argv},*/ _options{argv}
+    _server{"0"}, _options{argv}
 {
     if (argc == 1) {
         std::clog << "From thrown exception" << std::endl;
@@ -30,7 +30,7 @@ ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
 
     _options.registerOptionHandler<HelpOptionHandler>("-h");
     _options.registerOptionHandler<PortOptionHandler>("-p");
-    _options.registerOptionHandler<AddressOptionHandler>("-a");
+    _options.registerOptionHandler<DirectoryOptionHandler>("-d");
 }
 
 bool ServerEntryPoint::run()
@@ -48,12 +48,12 @@ bool ServerEntryPoint::run()
             _options.getOption("-h");
             return true;
         }
-        if (!_options.hasOption("-a") || !_options.hasOption("-p")) {
-            std::cerr << "Need port (-p) and address (-a)" << std::endl;
+        if (!_options.hasOption("-d") || !_options.hasOption("-p")) {
+            std::cerr << "Need port (-p) and address (-d)" << std::endl;
             return false;
         }
         _port    = _options.getOption("-p");
-        _address = _options.getOption("-a");
+        _address = _options.getOption("-d");
     } else {
         if (_args.size() != 2) {
             std::cerr << "Need port and address" << std::endl;
@@ -61,7 +61,7 @@ bool ServerEntryPoint::run()
         }
     }
 
-    _server = Server{_port, _address};
+    _server = Server{_port};
 
     return true;
 }

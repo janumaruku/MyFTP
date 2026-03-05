@@ -6,6 +6,7 @@
 */
 
 #include <exception>
+#include <iostream>
 
 #include "ServerEntryPoint.hpp"
 
@@ -16,7 +17,8 @@ int main(const int argc, char *argv[])
 
         if (!server.run())
             return 84;
-    } catch (const std::exception &) {
+    } catch (const std::exception &err) {
+        std::cerr << err.what() << std::endl;
         return 84;
     }
 

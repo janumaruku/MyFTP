@@ -5,19 +5,19 @@
 ** AddressOptionHandler
 */
 
-#include "AddressOptionHandler.hpp"
+#include "DirectoryOptionHandler.hpp"
 
 #include "OptionException.hpp"
 
 namespace ftp {
-bool AddressOptionHandler::operator()(const std::vector<std::string> &,
+bool DirectoryOptionHandler::operator()(const std::vector<std::string> &,
     std::vector<std::string> &tempArgs)
 {
     if (tempArgs.empty())
         return false;
 
     for (auto itt = tempArgs.begin(); itt != tempArgs.end(); ++itt) {
-        if (*itt != "-a" && *itt != "--address")
+        if (*itt != "-d" && *itt != "--dir")
             continue;
 
         try {
@@ -37,18 +37,18 @@ bool AddressOptionHandler::operator()(const std::vector<std::string> &,
     return false;
 }
 
-std::string AddressOptionHandler::getOption() const noexcept
+std::string DirectoryOptionHandler::getOption() const noexcept
 {
     return _address;
 }
 
-bool AddressOptionHandler::hasOption() const noexcept
+bool DirectoryOptionHandler::hasOption() const noexcept
 {
     return !_address.empty();
 }
 
-std::unique_ptr<utils::IOptionHandler> AddressOptionHandler::create()
+std::unique_ptr<utils::IOptionHandler> DirectoryOptionHandler::create()
 {
-    return std::make_unique<AddressOptionHandler>();
+    return std::make_unique<DirectoryOptionHandler>();
 }
 } // ftp
