@@ -13,20 +13,25 @@
 namespace ftp {
 class Endpoint {
 public:
-    explicit Endpoint(const short &port);
+    Endpoint() = default;
 
-    explicit Endpoint(std::string hostName, const short &port);
+    explicit Endpoint(const short &port, const std::string &hostName = "");
+
+    explicit Endpoint(const int &serverFd);
 
     [[nodiscard]] short getPort() const noexcept;
 
-    [[nodiscard]] std::string getIpAddress() const noexcept;
+    [[nodiscard]] std::string getHostname() const noexcept;
 
     sockaddr_in &getAddress() noexcept;
 
+    int getAcceptFd() const noexcept;
+
 private:
-    short _port;
+    short _port = 0;
     std::string _hostName;
     sockaddr_in _address{};
+    int _acceptFd = -1;
 };
 } // ftp
 

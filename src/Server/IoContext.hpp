@@ -19,21 +19,26 @@
 namespace ftp {
 class IOContext {
 public:
-    using AcceptorHandler = std::function<void(std::error_code)>;
-    using SocketHandler   = std::function<void(std::error_code,
-        std::vector<uint8_t>, std::size_t)>;
+    // using AcceptorHandler = std::function<void(std::error_code)>;
+    // using SocketHandler   = std::function<void(std::error_code,
+    //     std::vector<uint8_t>, std::size_t)>;
+    using OnFileDescriptorRead = std::function<void()>;
 
     IOContext() = default;
 
-    void registerAcceptor(const Acceptor &acceptor, AcceptorHandler handler);
-
-    void registerSocket(const Socket &socket, SocketHandler handler);
+    // void registerAcceptor(const Acceptor &acceptor, AcceptorHandler handler);
+    //
+    // void registerSocket(const Socket &socket, SocketHandler handler);
+    void registerNotifier(const int &fileDescriptor,
+        OnFileDescriptorRead notifier);
 
 private:
-    std::vector<pollfd> _acceptorFds;
-    std::vector<pollfd> _socketFds;
-    std::unordered_map<int, AcceptorHandler> _acceptorHandlers;
-    std::unordered_map<int, SocketHandler> _socketHandlers;
+    // std::vector<pollfd> _acceptorFds;
+    // std::vector<pollfd> _socketFds;
+    std::vector<pollfd> _pollFds;
+    // std::unordered_map<int, AcceptorHandler> _acceptorHandlers;
+    // std::unordered_map<int, SocketHandler> _socketHandlers;
+    std::unordered_map<int, OnFileDescriptorRead> _notifiers;
 };
 } // ftp
 

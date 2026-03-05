@@ -6,7 +6,9 @@ add_library(server STATIC Server.cpp
         Endpoint.cpp
         Endpoint.hpp
         IoContext.cpp
-        IoContext.hpp)
+        IoContext.hpp
+        ErrorCode.cpp
+        ErrorCode.hpp)
 
 target_include_directories(server PUBLIC .
         PUBLIC ${CMAKE_SOURCE_DIR}/src/DesignPattern)

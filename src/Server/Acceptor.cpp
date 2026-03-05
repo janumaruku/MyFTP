@@ -10,8 +10,12 @@
 #include <stdexcept>
 #include <sys/socket.h>
 
+#include "ErrorCode.hpp"
+#include "IoContext.hpp"
+
 namespace ftp {
-Acceptor::Acceptor(Endpoint &&endpoint): _endpoint{std::move(endpoint)}
+Acceptor::Acceptor(const IOContext &ioContext, Endpoint &&endpoint): _endpoint{
+    std::move(endpoint)}, _socket{ioContext} /*, _ioContext{ioContext}*/
 {
     const auto &address = endpoint.getAddress();
     if (bind(_socket.getFd(), reinterpret_cast<const sockaddr *>(&address),
@@ -25,5 +29,24 @@ Acceptor::Acceptor(Endpoint &&endpoint): _endpoint{std::move(endpoint)}
 int Acceptor::getSocketFd() const noexcept
 {
     return _socket.getFd();
+}
+
+void Acceptor::asyncAccept(const ConnectionHandler &handler)
+{
+    _handler = handler;
+}
+
+void Acceptor::handleNewConnection() const
+{
+    if (!_handler)
+        return;
+    if (_connectionCount >= _maxConnection) {
+        _handler(AcceptorErrorCode::CONNECTION_LIMIT_REACHED, Socket());
+        return;
+    }
+
+    Socket socket{};
+    socket.connect(Endpoint{_socket.getFd()});
+    _handler(std::error_code{}, socket);
 }
 } // ftp
