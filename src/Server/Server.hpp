@@ -9,6 +9,7 @@
 #define MYFTP_SERVER_HPP
 
 #include "Acceptor.hpp"
+#include "IoContext.hpp"
 #include "Options.hpp"
 
 namespace ftp {
@@ -19,9 +20,12 @@ public:
 
     explicit Server(const std::string &port);
 
+    void start();
+
     static void help() noexcept;
 
 private:
+    IOContext _ioContext{};
     Acceptor _acceptor;
 };
 

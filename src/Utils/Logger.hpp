@@ -28,9 +28,6 @@ public:
 
     explicit Logger(std::string context, const bool &isEnabled);
 
-    explicit Logger(const Level &level, std::string context,
-        const bool &isEnabled);
-
     template <typename T>
     Logger &operator<<(const T &value)
     {
@@ -44,19 +41,16 @@ public:
 
     Logger &operator<<(const EndLogger &);
 
-    Logger &start(const std::string &context);
-
-    Logger &start(const Level &level, const std::string &context);
+    Logger &start(const Level &level, const std::string &context = "");
 
 private:
     bool _isEnabled = true;
     std::string _context;
-    Level _level;
     std::ostream *_stream = &std::cout;
 
-    void setLevelColor() const;
+    void setLevelColor(const Level &level) const;
 
-    void chooseOutputStream();
+    void chooseOutputStream(const Level&);
 };
 } // utils
 

@@ -46,7 +46,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update server constructor" />
+    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update server constructor">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Acceptor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Acceptor.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Acceptor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Acceptor.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/IoContext.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/IoContext.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/IoContext.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/IoContext.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Logger.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Logger.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Logger.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Logger.hpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,6 +79,10 @@
   <component name="MacroExpansionManager">
     <option name="directoryName" value="2vyE9IGF" />
   </component>
+  <component name="McpProjectServerCommands">
+    <commands />
+    <urls />
+  </component>
   <component name="ProjectApplicationVersion">
     <option name="ide" value="CLion" />
     <option name="majorVersion" value="2025" />
@@ -90,6 +104,7 @@
   &quot;keyToString&quot;: {
     &quot;CMake Application.myftp.executor&quot;: &quot;Run&quot;,
     &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
@@ -117,6 +132,13 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecapSpentCounter">
+    <option name="endsOfQuotaMs" value="1775289656726" />
+    <option name="spentUsd" value="0.0502965" />
+  </component>
+  <component name="RecapUselessUpdatesCounter">
+    <option name="suspendCountdown" value="9" />
+  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Utils" />
@@ -131,11 +153,6 @@
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="coverage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="coverage" CONFIG_NAME="Debug">
@@ -188,7 +205,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-p" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
+    <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="8080 moi" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -253,7 +270,8 @@
       <workItem from="1772551663081" duration="19000" />
       <workItem from="1772552850741" duration="10558000" />
       <workItem from="1772626049277" duration="3754000" />
-      <workItem from="1772640053481" duration="5932000" />
+      <workItem from="1772640053481" duration="44144000" />
+      <workItem from="1772723843295" duration="4284000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
@@ -393,5 +411,36 @@
     <MESSAGE value="feat: create the Logger class" />
     <MESSAGE value="chore: update server constructor" />
     <option name="LAST_COMMIT_MESSAGE" value="chore: update server constructor" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Utils/Options.cpp</url>
+          <line>33</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Server/Server.cpp</url>
+          <line>22</line>
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Server/IoContext.cpp</url>
+          <line>45</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Server/IoContext.cpp</url>
+          <line>44</line>
+          <option name="timeStamp" value="24" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+    <watches-manager>
+      <configuration name="CMakeRunConfiguration">
+        <watch expression="pollFd.revents &amp; POLLIN" language="C++" />
+      </configuration>
+    </watches-manager>
   </component>
 </project>

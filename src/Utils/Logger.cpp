@@ -16,11 +16,7 @@ namespace utils {
 const auto Logger::END = EndLogger{};
 
 Logger::Logger(std::string context, const bool &isEnabled): _isEnabled
-    {isEnabled}, _context{std::move(context)}, _level{Level::INFO}
-{}
-
-Logger::Logger(const Level &level, std::string context, const bool &isEnabled):
-    _isEnabled{isEnabled}, _context{std::move(context)}, _level{level}
+    {isEnabled}, _context{std::move(context)}/*, _level{Level::INFO}*/
 {}
 
 Logger &Logger::operator<<(const EndLogger &)
@@ -31,40 +27,25 @@ Logger &Logger::operator<<(const EndLogger &)
     return *this;
 }
 
-Logger &Logger::start(const std::string &context)
-{
-    if (!_isEnabled)
-        return *this;
-
-    chooseOutputStream();
-    setLevelColor();
-
-    *_stream << "[" << context << "] ";
-
-    return *this;
-}
-
 Logger &Logger::start(const Level &level, const std::string &context)
 {
     if (!_isEnabled)
         return *this;
 
-    _level = level;
+    chooseOutputStream(level);
+    setLevelColor(level);
 
-    return start(context);
+    if (!context.empty())
+        *_stream << "[" << context << "] ";
+    else
+        *_stream << "[" << _context << "] ";
+
+    return *this;
 }
 
-// Logger &Logger::end()
-// {
-//     *_stream << RESET;
-//     *_stream << std::endl;
-//
-//     return *this;
-// }
-
-void Logger::setLevelColor() const
+void Logger::setLevelColor(const Level &level) const
 {
-    switch (_level) {
+    switch (level) {
     case Level::INFO:
         *_stream << CYAN;
         break;
@@ -82,9 +63,9 @@ void Logger::setLevelColor() const
     }
 }
 
-void Logger::chooseOutputStream()
+void Logger::chooseOutputStream(const Level &level)
 {
-    switch (_level) {
+    switch (level) {
     case Level::INFO:
         _stream = &std::cout;
         break;

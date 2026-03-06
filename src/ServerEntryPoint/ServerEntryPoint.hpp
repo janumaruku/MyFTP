@@ -21,7 +21,7 @@ public:
 private:
     std::string _port;
     std::string _address;
-    Server _server;
+    // Server _server;
     utils::Options _options;
     std::vector<std::string> _args;
 };

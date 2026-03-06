@@ -7,6 +7,7 @@
 
 #include "Acceptor.hpp"
 
+#include <iostream>
 #include <stdexcept>
 #include <sys/socket.h>
 
@@ -14,16 +15,20 @@
 #include "IoContext.hpp"
 
 namespace ftp {
-Acceptor::Acceptor(const IOContext &ioContext, Endpoint &&endpoint): _endpoint{
-    std::move(endpoint)}, _socket{ioContext} /*, _ioContext{ioContext}*/
+Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
+    _endpoint(std::move(endpoint)), _socket(ioContext), _handler(false)
 {
-    const auto &address = endpoint.getAddress();
+    const auto &address = _endpoint.getAddress();
     if (bind(_socket.getFd(), reinterpret_cast<const sockaddr *>(&address),
         sizeof(address)) == -1)
         throw std::runtime_error{"bind() failed"};
 
     if (listen(_socket.getFd(), SOMAXCONN) == -1)
         throw std::runtime_error{"listen() failed"};
+
+    ioContext.registerNotifier(_socket.getFd(), [this]() {
+        handleNewConnection();
+    });
 }
 
 int Acceptor::getSocketFd() const noexcept
@@ -33,20 +38,35 @@ int Acceptor::getSocketFd() const noexcept
 
 void Acceptor::asyncAccept(const ConnectionHandler &handler)
 {
-    _handler = handler;
+    std::clog << "Handler registration" << std::endl;
+    _handlerFunction = handler;
+    _handler         = true;
+    std::clog << this << std::endl;
 }
 
-void Acceptor::handleNewConnection() const
+void Acceptor::handleNewConnection()
 {
-    if (!_handler)
+    std::clog << "Handling new connection" << std::endl;
+    if (!_handlerFunction)
         return;
+    std::clog << "Connection handler" << std::endl;
     if (_connectionCount >= _maxConnection) {
-        _handler(AcceptorErrorCode::CONNECTION_LIMIT_REACHED, Socket());
+        _handlerFunction(AcceptorErrorCode::CONNECTION_LIMIT_REACHED, Socket());
         return;
     }
 
-    Socket socket{};
-    socket.connect(Endpoint{_socket.getFd()});
-    _handler(std::error_code{}, socket);
+    Socket clientSocket{};
+    try {
+        clientSocket.connect(Endpoint{_socket.getFd()});
+    } catch (const std::exception &exp) {
+        _logger.start(utils::Logger::Level::WARNING) <<
+            exp.what() << utils::Logger::END;
+    }
+    _logger.start(utils::Logger::Level::WARNING) << "Incoming connection" <<
+        " from " << clientSocket.remoteEndpoint().getHostname() <<
+        utils::Logger::END;
+    ++_connectionCount;
+
+    _handlerFunction(std::error_code{}, clientSocket);
 }
 } // ftp
