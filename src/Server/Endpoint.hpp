@@ -17,7 +17,7 @@ public:
 
     explicit Endpoint(const short &port, const std::string &hostName = "");
 
-    explicit Endpoint(const int &serverFd);
+    explicit Endpoint(const sockaddr_in &address);
 
     [[nodiscard]] short getPort() const noexcept;
 
@@ -25,13 +25,10 @@ public:
 
     sockaddr_in &getAddress() noexcept;
 
-    int getAcceptFd() const noexcept;
-
 private:
     short _port = 0;
     std::string _hostName;
     sockaddr_in _address{};
-    int _acceptFd = -1;
 };
 } // ftp
 

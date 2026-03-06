@@ -8,25 +8,22 @@
 #ifndef MYFTP_SOCKET_HPP
 #define MYFTP_SOCKET_HPP
 #include "Endpoint.hpp"
-// #include "IoContext.hpp"
 
 namespace ftp {
 class IOContext;
 
-class Socket {
+class ListeningSocket {
 public:
-    Socket() = default;
+    explicit ListeningSocket(IOContext &ioContext);
 
-    explicit Socket(IOContext ioContext);
+    explicit ListeningSocket(IOContext &ioContext, const int &socketFd);
 
     [[nodiscard]] int getFd() const noexcept;
 
-    void connect(Endpoint &&endpoint);
-
-    const Endpoint &remoteEndpoint() const noexcept;
+    [[nodiscard]] const Endpoint &remoteEndpoint() const noexcept;
 
 private:
-    int _socketFd;
+    int _socketFd = -1;
     Endpoint _endpoint;
 };
 } // ftp

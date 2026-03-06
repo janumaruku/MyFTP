@@ -20,7 +20,7 @@ Server::Server(const std::string &port): _acceptor{_ioContext,
 
 void Server::start()
 {
-    _acceptor.asyncAccept([](std::error_code, Socket) {
+    _acceptor.asyncAccept([](std::error_code, ConnectedSocket) {
         std::cout << "Server accepted" << std::endl;
     });
     _ioContext.run();

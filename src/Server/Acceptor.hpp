@@ -10,14 +10,16 @@
 #include <functional>
 #include <system_error>
 
+#include "ConnectedSocket.hpp"
 #include "Endpoint.hpp"
 #include "Logger.hpp"
-#include "Socket.hpp"
+#include "ListeningSocket.hpp"
 
 namespace ftp {
 class Acceptor {
 public:
-    using ConnectionHandler = std::function<void(std::error_code, Socket)>;
+    using ConnectionHandler = std::function<void(std::error_code,
+        ConnectedSocket)>;
 
     explicit Acceptor(IOContext &ioContext, Endpoint &&endpoint);
 
@@ -27,15 +29,17 @@ public:
 
 private:
     Endpoint _endpoint;
-    Socket _socket;
+    ListeningSocket _socket;
     std::size_t _maxConnection   = SOMAXCONN;
     std::size_t _connectionCount = 0;
     ConnectionHandler _handlerFunction;
     bool _handler;
     utils::Logger _logger{"ACCEPTOR", true};
-    // IOContext &_ioContext;
+    IOContext &_ioContext;
 
     void handleNewConnection();
+
+    [[nodiscard]] ConnectedSocket acceptClient() const;
 };
 } // ftp
 
