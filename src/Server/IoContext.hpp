@@ -27,17 +27,11 @@ public:
     void registerNotifier(const int &fileDescriptor,
         const OnFileDescriptorReady &notifier);
 
-    void registerNotifier(Acceptor &acceptor,
-        const OnAcceptorFdReady &notifier);
-
     void run();
 
 private:
     std::vector<pollfd> _pollFds;
-    std::vector<pollfd> _acceptorPollFds;
     std::unordered_map<int, OnFileDescriptorReady> _notifiers;
-    std::unordered_map<int, std::pair<Acceptor *, OnAcceptorFdReady>>
-    _acceptorNotifiers;
 };
 } // ftp
 

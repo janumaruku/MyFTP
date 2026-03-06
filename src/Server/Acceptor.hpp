@@ -11,6 +11,7 @@
 #include <system_error>
 
 #include "Endpoint.hpp"
+#include "Logger.hpp"
 #include "Socket.hpp"
 
 namespace ftp {
@@ -20,7 +21,7 @@ public:
 
     explicit Acceptor(IOContext &ioContext, Endpoint &&endpoint);
 
-    int getSocketFd() const noexcept;
+    [[nodiscard]] int getSocketFd() const noexcept;
 
     void asyncAccept(const ConnectionHandler &handler);
 
@@ -31,6 +32,7 @@ private:
     std::size_t _connectionCount = 0;
     ConnectionHandler _handlerFunction;
     bool _handler;
+    utils::Logger _logger{"ACCEPTOR", true};
     // IOContext &_ioContext;
 
     void handleNewConnection();

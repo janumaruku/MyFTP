@@ -9,8 +9,6 @@
 
 #include <iostream>
 
-#include "constants.hpp"
-
 namespace ftp {
 void IOContext::registerNotifier(const int &fileDescriptor,
     const OnFileDescriptorReady &notifier)
@@ -23,31 +21,16 @@ void IOContext::registerNotifier(const int &fileDescriptor,
     _notifiers[fileDescriptor] = notifier;
 }
 
-void IOContext::registerNotifier(Acceptor &acceptor,
-    const OnAcceptorFdReady &notifier)
-{
-    _acceptorPollFds.push_back({
-        .fd      = acceptor.getSocketFd(),
-        .events  = POLLIN,
-        .revents = 0,
-    });
-    _acceptorNotifiers.emplace(acceptor.getSocketFd(),
-        std::pair{&acceptor, notifier});
-}
-
 void IOContext::run()
 {
     std::clog << "Start main loop 1" << std::endl;
     while (true) {
-        if (poll(_acceptorPollFds.data(), _acceptorPollFds.size(), 10) == -1)
+        if (poll(_pollFds.data(), _pollFds.size(), 10) == -1)
             throw std::system_error(std::make_error_code(std::errc::timed_out));
 
-        for (const auto &pollFd: _acceptorPollFds) {
+        for (const auto &pollFd: _pollFds) {
             if (pollFd.revents & POLLIN) {
-                std::clog << utils::YELLOW << "Hello world" << utils::RESET <<
-                    std::endl;
-                auto &[acceptor, handler] = _acceptorNotifiers[pollFd.fd];
-                (acceptor->*handler)();
+                _notifiers[pollFd.fd]();
             }
         }
     }

@@ -26,7 +26,9 @@ Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
     if (listen(_socket.getFd(), SOMAXCONN) == -1)
         throw std::runtime_error{"listen() failed"};
 
-    ioContext.registerNotifier(*this, &Acceptor::handleNewConnection);
+    ioContext.registerNotifier(_socket.getFd(), [this]() {
+        handleNewConnection();
+    });
 }
 
 int Acceptor::getSocketFd() const noexcept
@@ -53,8 +55,18 @@ void Acceptor::handleNewConnection()
         return;
     }
 
-    Socket socket{};
-    socket.connect(Endpoint{_socket.getFd()});
-    _handlerFunction(std::error_code{}, socket);
+    Socket clientSocket{};
+    try {
+        clientSocket.connect(Endpoint{_socket.getFd()});
+    } catch (const std::exception &exp) {
+        _logger.start(utils::Logger::Level::WARNING) <<
+            exp.what() << utils::Logger::END;
+    }
+    _logger.start(utils::Logger::Level::WARNING) << "Incoming connection" <<
+        " from " << clientSocket.remoteEndpoint().getHostname() <<
+        utils::Logger::END;
+    ++_connectionCount;
+
+    _handlerFunction(std::error_code{}, clientSocket);
 }
 } // ftp
