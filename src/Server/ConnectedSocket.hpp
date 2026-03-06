@@ -7,14 +7,31 @@
 
 #ifndef MYFTP_CONNECTEDSOCKET_HPP
 #define MYFTP_CONNECTEDSOCKET_HPP
+#include <functional>
+#include <queue>
+#include <unistd.h>
+
 #include "Endpoint.hpp"
+#include "ErrorCode.hpp"
 #include "Logger.hpp"
 
 namespace ftp {
+template <typename Buffer>
+concept ResizableBuffer = std::ranges::sized_range<Buffer> &&
+    requires(Buffer buffer)
+    {
+        buffer.resize(0);
+        buffer.data();
+    };
+
 class IOContext;
+constexpr std::size_t MAX_BUFFER_SIZE = 1024;
 
 class ConnectedSocket {
 public:
+    using Callback = std::function<void(const std::error_code &,
+        const std::size_t &)>;
+
     explicit ConnectedSocket(IOContext &ioContext);
 
     explicit ConnectedSocket(IOContext &ioContext, const int &clientFd,
@@ -22,14 +39,41 @@ public:
 
     [[nodiscard]] int getFd() const noexcept;
 
-    // void connect(Endpoint &&endpoint);
-
     [[nodiscard]] const Endpoint &remoteEndpoint() const noexcept;
+
+    template <ResizableBuffer Buffer>
+    void syncWrite(Buffer buffer, Callback handler)
+    {
+        auto result = write(_socketFd, buffer.data(), buffer.size());
+
+        if (result == -1)
+            handler(FtpErrorCode::CS_WRITE_ERROR, 0);
+        else
+            handler(std::error_code{}, result);
+    }
+
+    template <std::ranges::range Buffer>
+    void asyncReadSome(Buffer &outputBuffer, const Callback handler)
+    {
+        _handlers.push([this, buffer = outputBuffer, callBack = handler](
+            const std::error_code &, const std::size_t &) {
+                const std::size_t result = read(_socketFd, buffer.data(),
+                    buffer.size());
+
+                if (result == -1ul)
+                    callBack(FtpErrorCode::CS_READ_ERROR, 0);
+                else
+                    callBack(std::error_code{}, result);
+            });
+    }
 
 private:
     int _socketFd = -1;
     Endpoint _endpoint;
+    std::queue<Callback> _handlers;
     utils::Logger _logger{"CONNECTED-SOCKET", ULogLevel::INFO, true};
+
+    void handleAsyncOperation();
 };
 } // ftp
 

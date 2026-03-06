@@ -17,7 +17,7 @@
 
 namespace ftp {
 Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
-    _endpoint(std::move(endpoint)), _socket(ioContext), _handler(false),
+    _endpoint(std::move(endpoint)), _socket(ioContext),
     _ioContext{ioContext}
 {
     const auto &address = _endpoint.getAddress();
@@ -44,16 +44,17 @@ int Acceptor::getSocketFd() const noexcept
 
 void Acceptor::asyncAccept(const ConnectionHandler &handler)
 {
-    _handlerFunction = handler;
-    _handler         = true;
+    _handlerFunction.emplace(handler);
 }
 
 void Acceptor::handleNewConnection()
 {
-    if (!_handlerFunction)
+    if (_handlerFunction.empty())
         return;
+    const ConnectionHandler handler = _handlerFunction.front();
+    _handlerFunction.pop();
     if (_connectionCount >= _maxConnection) {
-        _handlerFunction(AcceptorErrorCode::CONNECTION_LIMIT_REACHED,
+        handler(FtpErrorCode::CONNECTION_LIMIT_REACHED,
             ConnectedSocket(_ioContext));
         return;
     }
@@ -65,7 +66,7 @@ void Acceptor::handleNewConnection()
             utils::Logger::END;
         ++_connectionCount;
 
-        _handlerFunction(std::error_code{}, clientSocket);
+        handler(std::error_code{}, clientSocket);
     } catch (const std::exception &exp) {
         _logger.start(ULogLevel::WARNING) <<
             exp.what() << utils::Logger::END;

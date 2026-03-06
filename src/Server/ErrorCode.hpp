@@ -12,13 +12,15 @@
 #include <type_traits>
 #include <system_error>
 
-enum class AcceptorErrorCode : uint8_t {
+enum class FtpErrorCode : uint8_t {
     CONNECTION_LIMIT_REACHED = 1,
+    CS_WRITE_ERROR,
+    CS_READ_ERROR,
 };
 
-template <> struct std::is_error_code_enum<AcceptorErrorCode>: true_type {};
+template <> struct std::is_error_code_enum<FtpErrorCode>: true_type {};
 
-struct AcceptorErrorCodeCategory: std::error_category {
+struct FtpErrorCodeCategory: std::error_category {
     [[nodiscard]] const char *name() const noexcept override;
 
     [[nodiscard]] std::string message(int errorValue) const override;
@@ -27,13 +29,13 @@ struct AcceptorErrorCodeCategory: std::error_category {
         default_error_condition(int errorValue) const noexcept override;
 };
 
-inline const AcceptorErrorCodeCategory &acceptorCategory() noexcept
+inline const FtpErrorCodeCategory &ftpCategory() noexcept
 {
-    static const AcceptorErrorCodeCategory category{};
+    static const FtpErrorCodeCategory category{};
 
     return category;
 }
 
-std::error_code make_error_code(AcceptorErrorCode errCode) noexcept;
+std::error_code make_error_code(FtpErrorCode errCode) noexcept;
 
 #endif //MYFTP_ERRORCODE_HPP

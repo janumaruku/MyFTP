@@ -21,9 +21,12 @@ Server::Server(const std::string &port):
 void Server::start()
 {
     _acceptor.asyncAccept(
-        [this](std::error_code, const ConnectedSocket &socket) {
+        [this](std::error_code, ConnectedSocket socket) {
+            socket.syncWrite(std::string{"Hello world"},
+                [](const std::error_code &, const std::size_t &) {});
             _logger.start(ULogLevel::INFO) << "New connection received from "
                 << socket.remoteEndpoint().getHostname() << utils::Logger::END;
+            start();
         });
     _ioContext.run();
 }
