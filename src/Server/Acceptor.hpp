@@ -19,7 +19,7 @@ namespace ftp {
 class Acceptor {
 public:
     using ConnectionHandler = std::function<void(std::error_code,
-        ConnectedSocket)>;
+        const ConnectedSocket &)>;
 
     explicit Acceptor(IOContext &ioContext, Endpoint &&endpoint);
 
@@ -34,7 +34,7 @@ private:
     std::size_t _connectionCount = 0;
     ConnectionHandler _handlerFunction;
     bool _handler;
-    utils::Logger _logger{"ACCEPTOR", true};
+    utils::Logger _logger{"ACCEPTOR", ULogLevel::INFO, true};
     IOContext &_ioContext;
 
     void handleNewConnection();

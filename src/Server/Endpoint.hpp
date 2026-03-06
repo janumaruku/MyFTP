@@ -19,7 +19,7 @@ public:
 
     explicit Endpoint(const sockaddr_in &address);
 
-    [[nodiscard]] short getPort() const noexcept;
+    [[nodiscard]] int getPort() const noexcept;
 
     [[nodiscard]] std::string getHostname() const noexcept;
 

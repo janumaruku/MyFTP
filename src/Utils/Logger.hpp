@@ -16,22 +16,22 @@ namespace utils {
 class Logger {
 public:
     enum class Level: std::uint8_t {
-        ERROR = 0,
+        ERROR,
         WARNING,
+        DEBUG,
         INFO,
-        DEBUG
     };
 
     struct EndLogger {};
 
     static const EndLogger END;
 
-    explicit Logger(std::string context, const bool &isEnabled);
+    explicit Logger(std::string context, const Level &level, const bool &isEnabled);
 
     template <typename T>
     Logger &operator<<(const T &value)
     {
-        if (!_isEnabled)
+        if (!_isEnabled || !_shouldPrint)
             return *this;
 
         *_stream << value;
@@ -45,7 +45,9 @@ public:
 
 private:
     bool _isEnabled = true;
+    bool _shouldPrint = true;
     std::string _context;
+    Level _level = Level::INFO;
     std::ostream *_stream = &std::cout;
 
     void setLevelColor(const Level &level) const;
@@ -53,5 +55,7 @@ private:
     void chooseOutputStream(const Level&);
 };
 } // utils
+using ULogLevel = utils::Logger::Level;
+# define LOG_END utils::Logger::END;
 
 #endif //MYFTP_LOGGER_HPP

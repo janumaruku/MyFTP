@@ -16,8 +16,6 @@ namespace ftp {
 
 class Server {
 public:
-    // Server() = default;
-
     explicit Server(const std::string &port);
 
     void start();
@@ -27,6 +25,7 @@ public:
 private:
     IOContext _ioContext{};
     Acceptor _acceptor;
+    utils::Logger _logger{"SERVER", ULogLevel::INFO, true};
 };
 
 } // namespace ftp

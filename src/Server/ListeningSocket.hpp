@@ -25,6 +25,7 @@ public:
 private:
     int _socketFd = -1;
     Endpoint _endpoint;
+    utils::Logger _logger{"LISTENING-SOCKET", ULogLevel::INFO, true};
 };
 } // ftp
 

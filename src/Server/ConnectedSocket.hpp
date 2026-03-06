@@ -8,6 +8,7 @@
 #ifndef MYFTP_CONNECTEDSOCKET_HPP
 #define MYFTP_CONNECTEDSOCKET_HPP
 #include "Endpoint.hpp"
+#include "Logger.hpp"
 
 namespace ftp {
 class IOContext;
@@ -28,6 +29,7 @@ public:
 private:
     int _socketFd = -1;
     Endpoint _endpoint;
+    utils::Logger _logger{"CONNECTED-SOCKET", ULogLevel::INFO, true};
 };
 } // ftp
 

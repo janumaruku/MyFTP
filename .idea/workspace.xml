@@ -50,14 +50,17 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Acceptor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Acceptor.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Acceptor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Acceptor.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/ConnectedSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ConnectedSocket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/ConnectedSocket.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ConnectedSocket.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Endpoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Endpoint.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Endpoint.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Endpoint.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ErrorCode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ErrorCode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ErrorCode.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ErrorCode.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/IoContext.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/IoContext.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/LinteningSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/LinteningSocket.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/ListeningSocket.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ListeningSocket.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Socket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/LinteningSocket.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Socket.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ListeningSocket.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Logger.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Logger.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/Logger.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Logger.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -141,9 +144,6 @@
     <option name="endsOfQuotaMs" value="1775289656726" />
     <option name="spentUsd" value="0.0914172" />
   </component>
-  <component name="RecapUselessUpdatesCounter">
-    <option name="suspendCountdown" value="8" />
-  </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Utils" />
@@ -215,7 +215,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="8080 moi" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
+    <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="4242 moi" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -439,6 +439,11 @@
           <url>file://$PROJECT_DIR$/src/Server/IoContext.cpp</url>
           <line>44</line>
           <option name="timeStamp" value="24" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/Server/IoContext.cpp</url>
+          <line>20</line>
+          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

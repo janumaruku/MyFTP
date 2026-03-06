@@ -23,7 +23,6 @@ void IOContext::registerNotifier(const int &fileDescriptor,
 
 void IOContext::run()
 {
-    std::clog << "Start main loop 1" << std::endl;
     while (true) {
         if (poll(_pollFds.data(), _pollFds.size(), 10) == -1)
             throw std::system_error(std::make_error_code(std::errc::timed_out));

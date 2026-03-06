@@ -32,9 +32,9 @@ Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port}
 Endpoint::Endpoint(const sockaddr_in &address): _address{address}
 {}
 
-short Endpoint::getPort() const noexcept
+int Endpoint::getPort() const noexcept
 {
-    return _port;
+    return ntohs(_address.sin_port);
 }
 
 std::string Endpoint::getHostname() const noexcept

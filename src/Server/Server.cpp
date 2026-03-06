@@ -14,15 +14,17 @@
 #include "StringUtils.hpp"
 
 namespace ftp {
-Server::Server(const std::string &port): _acceptor{_ioContext,
-    Endpoint{utils::StringUtils::stos(port)}}
+Server::Server(const std::string &port):
+    _acceptor{_ioContext, Endpoint{utils::StringUtils::stos(port)}}
 {}
 
 void Server::start()
 {
-    _acceptor.asyncAccept([](std::error_code, ConnectedSocket) {
-        std::cout << "Server accepted" << std::endl;
-    });
+    _acceptor.asyncAccept(
+        [this](std::error_code, const ConnectedSocket &socket) {
+            _logger.start(ULogLevel::INFO) << "New connection received from "
+                << socket.remoteEndpoint().getHostname() << utils::Logger::END;
+        });
     _ioContext.run();
 }
 

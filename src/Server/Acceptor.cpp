@@ -24,9 +24,13 @@ Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
     if (bind(_socket.getFd(), reinterpret_cast<const sockaddr *>(&address),
         sizeof(address)) == -1)
         throw std::runtime_error{"bind() failed"};
+    _logger.start(ULogLevel::DEBUG) << "Acceptor bound to address"
+        << LOG_END;
 
     if (listen(_socket.getFd(), SOMAXCONN) == -1)
         throw std::runtime_error{"listen() failed"};
+    _logger.start(ULogLevel::DEBUG) << "Listening on port" << _endpoint.
+        getPort() << LOG_END;
 
     _ioContext.registerNotifier(_socket.getFd(), [this]() {
         handleNewConnection();
@@ -40,18 +44,14 @@ int Acceptor::getSocketFd() const noexcept
 
 void Acceptor::asyncAccept(const ConnectionHandler &handler)
 {
-    std::clog << "Handler registration" << std::endl;
     _handlerFunction = handler;
     _handler         = true;
-    std::clog << this << std::endl;
 }
 
 void Acceptor::handleNewConnection()
 {
-    std::clog << "Handling new connection" << std::endl;
     if (!_handlerFunction)
         return;
-    std::clog << "Connection handler" << std::endl;
     if (_connectionCount >= _maxConnection) {
         _handlerFunction(AcceptorErrorCode::CONNECTION_LIMIT_REACHED,
             ConnectedSocket(_ioContext));
@@ -60,14 +60,14 @@ void Acceptor::handleNewConnection()
 
     try {
         const ConnectedSocket clientSocket = acceptClient();
-        _logger.start(utils::Logger::Level::WARNING) << "Incoming connection" <<
+        _logger.start(ULogLevel::DEBUG) << "Incoming connection" <<
             " from " << clientSocket.remoteEndpoint().getHostname() <<
             utils::Logger::END;
         ++_connectionCount;
 
         _handlerFunction(std::error_code{}, clientSocket);
     } catch (const std::exception &exp) {
-        _logger.start(utils::Logger::Level::WARNING) <<
+        _logger.start(ULogLevel::WARNING) <<
             exp.what() << utils::Logger::END;
     }
 }

@@ -15,13 +15,16 @@ ConnectedSocket::ConnectedSocket(IOContext &/*ioContext*/): _socketFd{
 {
     if (_socketFd == -1)
         throw std::runtime_error("Socket creation failed");
+    _logger.start(ULogLevel::DEBUG) << "Connected socket created" << LOG_END;
 
     // ioContext.registerSocket(*this);
 }
 
 ConnectedSocket::ConnectedSocket(IOContext &/*ioContext*/, const int &clientFd,
     Endpoint &&endpoint): _socketFd{clientFd}, _endpoint{std::move(endpoint)}
-{}
+{
+    _logger.start(ULogLevel::DEBUG) << "Connected socket created" << LOG_END;
+}
 
 int ConnectedSocket::getFd() const noexcept
 {
