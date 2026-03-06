@@ -11,12 +11,14 @@
 #include <stdexcept>
 #include <sys/socket.h>
 
+#include "ConnectedSocket.hpp"
 #include "ErrorCode.hpp"
 #include "IoContext.hpp"
 
 namespace ftp {
 Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
-    _endpoint(std::move(endpoint)), _socket(ioContext), _handler(false)
+    _endpoint(std::move(endpoint)), _socket(ioContext), _handler(false),
+    _ioContext{ioContext}
 {
     const auto &address = _endpoint.getAddress();
     if (bind(_socket.getFd(), reinterpret_cast<const sockaddr *>(&address),
@@ -26,7 +28,7 @@ Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
     if (listen(_socket.getFd(), SOMAXCONN) == -1)
         throw std::runtime_error{"listen() failed"};
 
-    ioContext.registerNotifier(_socket.getFd(), [this]() {
+    _ioContext.registerNotifier(_socket.getFd(), [this]() {
         handleNewConnection();
     });
 }
@@ -51,22 +53,35 @@ void Acceptor::handleNewConnection()
         return;
     std::clog << "Connection handler" << std::endl;
     if (_connectionCount >= _maxConnection) {
-        _handlerFunction(AcceptorErrorCode::CONNECTION_LIMIT_REACHED, Socket());
+        _handlerFunction(AcceptorErrorCode::CONNECTION_LIMIT_REACHED,
+            ConnectedSocket(_ioContext));
         return;
     }
 
-    Socket clientSocket{};
     try {
-        clientSocket.connect(Endpoint{_socket.getFd()});
+        const ConnectedSocket clientSocket = acceptClient();
+        _logger.start(utils::Logger::Level::WARNING) << "Incoming connection" <<
+            " from " << clientSocket.remoteEndpoint().getHostname() <<
+            utils::Logger::END;
+        ++_connectionCount;
+
+        _handlerFunction(std::error_code{}, clientSocket);
     } catch (const std::exception &exp) {
         _logger.start(utils::Logger::Level::WARNING) <<
             exp.what() << utils::Logger::END;
     }
-    _logger.start(utils::Logger::Level::WARNING) << "Incoming connection" <<
-        " from " << clientSocket.remoteEndpoint().getHostname() <<
-        utils::Logger::END;
-    ++_connectionCount;
+}
 
-    _handlerFunction(std::error_code{}, clientSocket);
+ConnectedSocket Acceptor::acceptClient() const
+{
+    sockaddr_in address{};
+    socklen_t size     = sizeof(address);
+    const int clientFd = accept(_socket.getFd(),
+        reinterpret_cast<sockaddr *>(&address), &size);
+
+    if (clientFd == -1)
+        throw std::runtime_error("Error accepting connection");
+
+    return ConnectedSocket{_ioContext, clientFd, Endpoint{address}};
 }
 } // ftp

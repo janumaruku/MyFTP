@@ -1,6 +1,6 @@
 add_library(server STATIC Server.cpp
-        Socket.cpp
-        Socket.hpp
+        LinteningSocket.cpp
+        ListeningSocket.hpp
         Acceptor.cpp
         Acceptor.hpp
         Endpoint.cpp
@@ -8,7 +8,9 @@ add_library(server STATIC Server.cpp
         IoContext.cpp
         IoContext.hpp
         ErrorCode.cpp
-        ErrorCode.hpp)
+        ErrorCode.hpp
+        ConnectedSocket.cpp
+        ConnectedSocket.hpp)
 
 target_include_directories(server PUBLIC .
         PUBLIC ${CMAKE_SOURCE_DIR}/src/DesignPattern)

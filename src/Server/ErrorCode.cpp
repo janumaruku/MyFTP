@@ -7,14 +7,14 @@
 
 #include "ErrorCode.hpp"
 
-const char * AcceptorErrorCodeCategory::name() const noexcept
+const char *AcceptorErrorCodeCategory::name() const noexcept
 {
     return "AcceptorError";
 }
 
-std::string AcceptorErrorCodeCategory::message(int ev) const
+std::string AcceptorErrorCodeCategory::message(int errorValue) const
 {
-    switch (static_cast<AcceptorErrorCode>(ev)) {
+    switch (static_cast<AcceptorErrorCode>(errorValue)) {
     case AcceptorErrorCode::CONNECTION_LIMIT_REACHED:
         return "Connection limit reached";
     default:
@@ -23,12 +23,12 @@ std::string AcceptorErrorCodeCategory::message(int ev) const
 }
 
 std::error_condition AcceptorErrorCodeCategory::default_error_condition(
-    const int ev) const noexcept
+    const int errorValue) const noexcept
 {
-    return std::error_condition(ev, *this);
+    return {errorValue, *this};
 }
 
 std::error_code make_error_code(AcceptorErrorCode errCode) noexcept
 {
-    return {static_cast<int>(errCode), acceptor_category()};
+    return {static_cast<int>(errCode), acceptorCategory()};
 }

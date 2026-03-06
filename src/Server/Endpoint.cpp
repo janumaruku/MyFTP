@@ -9,14 +9,13 @@
 
 #include <array>
 #include <stdexcept>
-#include <utility>
 #include <arpa/inet.h>
 
 namespace ftp {
 Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port}
 {
-    _address.sin_family      = AF_INET;
-    _address.sin_port        = htons(port);
+    _address.sin_family = AF_INET;
+    _address.sin_port   = htons(port);
     if (hostName.empty())
         _address.sin_addr.s_addr = INADDR_ANY;
     else {
@@ -30,15 +29,8 @@ Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port}
     }
 }
 
-Endpoint::Endpoint(const int &serverFd)
-{
-    socklen_t size = sizeof(_address);
-    _acceptFd      = accept(serverFd, reinterpret_cast<sockaddr *>(&_address),
-        &size);
-
-    if (_acceptFd == -1)
-        throw std::runtime_error("Error accepting connection");
-}
+Endpoint::Endpoint(const sockaddr_in &address): _address{address}
+{}
 
 short Endpoint::getPort() const noexcept
 {
@@ -48,12 +40,12 @@ short Endpoint::getPort() const noexcept
 std::string Endpoint::getHostname() const noexcept
 {
     std::array<char, INET_ADDRSTRLEN> buf{};
-    const char* res = inet_ntop(
+    const char *res = inet_ntop(
         AF_INET,
         &_address.sin_addr,
         buf.data(),
         buf.size()
-    );
+        );
     if (!res) {
         return {};
     }
@@ -63,10 +55,5 @@ std::string Endpoint::getHostname() const noexcept
 sockaddr_in &Endpoint::getAddress() noexcept
 {
     return _address;
-}
-
-int Endpoint::getAcceptFd() const noexcept
-{
-    return _acceptFd;
 }
 } // ftp
