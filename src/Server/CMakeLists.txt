@@ -10,7 +10,9 @@ add_library(server STATIC Server.cpp
         ErrorCode.cpp
         ErrorCode.hpp
         ConnectedSocket.cpp
-        ConnectedSocket.hpp)
+        ConnectedSocket.hpp
+        ClientSession.cpp
+        ClientSession.hpp)
 
 target_include_directories(server PUBLIC .
         PUBLIC ${CMAKE_SOURCE_DIR}/src/DesignPattern)

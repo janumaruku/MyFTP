@@ -9,6 +9,7 @@
 #define MYFTP_ACCEPTOR_HPP
 
 #include <functional>
+#include <memory>
 #include <queue>
 #include <system_error>
 
@@ -21,7 +22,7 @@ namespace ftp {
 class Acceptor {
 public:
     using ConnectionHandler = std::function<void(std::error_code,
-        ConnectedSocket )>;
+        std::shared_ptr<ConnectedSocket>)>;
 
     explicit Acceptor(IOContext &ioContext, Endpoint &&endpoint);
 
@@ -40,7 +41,7 @@ private:
 
     void handleNewConnection();
 
-    [[nodiscard]] ConnectedSocket acceptClient() const;
+    [[nodiscard]] std::shared_ptr<ConnectedSocket> acceptClient() const;
 };
 } // ftp
 

@@ -9,6 +9,7 @@
 #define MYFTP_SERVER_HPP
 
 #include "Acceptor.hpp"
+#include "ClientSession.hpp"
 #include "IoContext.hpp"
 #include "Options.hpp"
 
@@ -25,7 +26,10 @@ public:
 private:
     IOContext _ioContext{};
     Acceptor _acceptor;
+    std::vector<ClientSession> _clientSessions;
     utils::Logger _logger{"SERVER", ULogLevel::INFO, true};
+
+    void doAccept();
 };
 
 } // namespace ftp

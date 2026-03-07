@@ -54,15 +54,14 @@ void Acceptor::handleNewConnection()
     const ConnectionHandler handler = _handlerFunction.front();
     _handlerFunction.pop();
     if (_connectionCount >= _maxConnection) {
-        handler(FtpErrorCode::CONNECTION_LIMIT_REACHED,
-            ConnectedSocket(_ioContext));
+        handler(FtpErrorCode::CONNECTION_LIMIT_REACHED, nullptr);
         return;
     }
 
     try {
-        const ConnectedSocket clientSocket = acceptClient();
+        const auto clientSocket = acceptClient();
         _logger.start(ULogLevel::DEBUG) << "Incoming connection" <<
-            " from " << clientSocket.remoteEndpoint().getHostname() <<
+            " from " << clientSocket->remoteEndpoint().getHostname() <<
             utils::Logger::END;
         ++_connectionCount;
 
@@ -73,7 +72,7 @@ void Acceptor::handleNewConnection()
     }
 }
 
-ConnectedSocket Acceptor::acceptClient() const
+std::shared_ptr<ConnectedSocket> Acceptor::acceptClient() const
 {
     sockaddr_in address{};
     socklen_t size     = sizeof(address);
@@ -83,6 +82,7 @@ ConnectedSocket Acceptor::acceptClient() const
     if (clientFd == -1)
         throw std::runtime_error("Error accepting connection");
 
-    return ConnectedSocket{_ioContext, clientFd, Endpoint{address}};
+    return std::make_shared<ConnectedSocket>(_ioContext, clientFd,
+        Endpoint{address});
 }
 } // ftp

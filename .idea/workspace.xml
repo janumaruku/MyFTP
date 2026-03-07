@@ -50,12 +50,11 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Acceptor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Acceptor.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Acceptor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Acceptor.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/ConnectedSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ConnectedSocket.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/ConnectedSocket.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ConnectedSocket.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ErrorCode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ErrorCode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ErrorCode.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ErrorCode.hpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +65,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="827" />
+    <option name="cachedIndexableFilesCount" value="829" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
@@ -144,7 +143,7 @@
     <option name="spentUsd" value="0.17894469" />
   </component>
   <component name="RecapUselessUpdatesCounter">
-    <option name="suspendCountdown" value="1" />
+    <option name="suspendCountdown" value="0" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -156,15 +155,15 @@
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.myftp">
-    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="unit_tests" type="CMakeGoogleTestRunConfigurationType" factoryName="Google Test" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="unit_tests" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="unit_tests" TEST_MODE="SUITE_TEST">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
         <option name="BeforeTestRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="coverage" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="coverage" CONFIG_NAME="Debug">
@@ -217,7 +216,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="8080 moi" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
+    <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="4242 moi" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -284,7 +283,8 @@
       <workItem from="1772626049277" duration="3754000" />
       <workItem from="1772640053481" duration="44144000" />
       <workItem from="1772723843295" duration="4284000" />
-      <workItem from="1772788944237" duration="10408000" />
+      <workItem from="1772788944237" duration="19601000" />
+      <workItem from="1772822203885" duration="16945000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
@@ -442,11 +442,6 @@
           <url>file://$PROJECT_DIR$/src/Server/IoContext.cpp</url>
           <line>44</line>
           <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/Server/IoContext.cpp</url>
-          <line>20</line>
-          <option name="timeStamp" value="36" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -7,6 +7,7 @@
 
 #ifndef MYFTP_CONNECTEDSOCKET_HPP
 #define MYFTP_CONNECTEDSOCKET_HPP
+
 #include <functional>
 #include <queue>
 #include <unistd.h>
@@ -31,6 +32,7 @@ class ConnectedSocket {
 public:
     using Callback = std::function<void(const std::error_code &,
         const std::size_t &)>;
+    using PendingOperation = std::function<void()>;
 
     explicit ConnectedSocket(IOContext &ioContext);
 
@@ -52,25 +54,28 @@ public:
             handler(std::error_code{}, result);
     }
 
-    template <std::ranges::range Buffer>
+    template <ResizableBuffer Buffer>
     void asyncReadSome(Buffer &outputBuffer, const Callback handler)
     {
-        _handlers.push([this, buffer = outputBuffer, callBack = handler](
-            const std::error_code &, const std::size_t &) {
-                const std::size_t result = read(_socketFd, buffer.data(),
-                    buffer.size());
+        _handlers.push([this, &outputBuffer, handler]() {
+            const ssize_t result = read(_socketFd, outputBuffer.data(),
+                outputBuffer.size());
 
-                if (result == -1ul)
-                    callBack(FtpErrorCode::CS_READ_ERROR, 0);
-                else
-                    callBack(std::error_code{}, result);
-            });
+            if (result == -1)
+                handler(FtpErrorCode::CS_READ_ERROR, 0);
+            else {
+                outputBuffer.resize(result);
+                handler(std::error_code{}, result);
+            }
+        });
     }
 
 private:
+    // std::array<uint8_t, MAX_BUFFER_SIZE> _buffer;
+    int _dummy    = 0;
     int _socketFd = -1;
     Endpoint _endpoint;
-    std::queue<Callback> _handlers;
+    std::queue<PendingOperation> _handlers;
     utils::Logger _logger{"CONNECTED-SOCKET", ULogLevel::INFO, true};
 
     void handleAsyncOperation();

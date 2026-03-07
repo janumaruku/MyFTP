@@ -46,12 +46,14 @@ const Endpoint &ConnectedSocket::remoteEndpoint() const noexcept
 
 void ConnectedSocket::handleAsyncOperation()
 {
+    if (_dummy == 0)
+    ++_dummy;
     if (_handlers.empty())
         return;
 
-    const Callback handler = _handlers.front();
+    const PendingOperation handler = _handlers.front();
     _handlers.pop();
 
-    handler({}, 0);
+    handler();
 }
 } // ftp

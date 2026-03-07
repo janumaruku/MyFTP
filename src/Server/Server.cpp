@@ -20,19 +20,26 @@ Server::Server(const std::string &port):
 
 void Server::start()
 {
-    _acceptor.asyncAccept(
-        [this](std::error_code, ConnectedSocket socket) {
-            socket.syncWrite(std::string{"Hello world"},
-                [](const std::error_code &, const std::size_t &) {});
-            _logger.start(ULogLevel::INFO) << "New connection received from "
-                << socket.remoteEndpoint().getHostname() << utils::Logger::END;
-            start();
-        });
+    doAccept();
     _ioContext.run();
 }
 
 void Server::help() noexcept
 {
     std::cout << "\tHelper message ..." << std::endl;
+}
+
+void Server::doAccept()
+{
+    _acceptor.asyncAccept(
+        [this](std::error_code, std::shared_ptr<ConnectedSocket> socket) {
+            socket->syncWrite(std::string{"Hello world\n"},
+                [](const std::error_code &, const std::size_t &) {});
+            _logger.start(ULogLevel::INFO) << "New connection received from "
+                << socket->remoteEndpoint().getHostname() << utils::Logger::END;
+            _clientSessions.emplace_back(socket);
+            _clientSessions.back().start();
+            start();
+        });
 }
 } // namespace ftp
