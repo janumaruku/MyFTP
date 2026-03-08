@@ -59,7 +59,7 @@ void ConnectedSocket::syncWrite(const Buffer &buffer, Callback handler) const
 void ConnectedSocket::asyncReadSome(const Buffer &outputBuffer,
     Callback handler)
 {
-    _handlers.push([this, &outputBuffer, handler]() {
+    _handlers.emplace([this, &outputBuffer, handler]() {
         const ssize_t result = read(_socketFd, outputBuffer.data(),
             outputBuffer.size());
 
