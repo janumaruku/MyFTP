@@ -35,7 +35,7 @@ public:
 
     void syncWrite(const Buffer &buffer, Callback handler) const;
 
-    void asyncReadSome(const Buffer &outputBuffer, Callback handler);
+    void asyncReadSome(Buffer outputBuffer, Callback handler);
 
 private:
     int _dummy    = 0;

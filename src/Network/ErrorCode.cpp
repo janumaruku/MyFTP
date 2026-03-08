@@ -7,6 +7,8 @@
 
 #include "ErrorCode.hpp"
 
+#include <cstring>
+
 const char *FtpErrorCodeCategory::name() const noexcept
 {
     return "AcceptorError";
@@ -19,6 +21,8 @@ std::string FtpErrorCodeCategory::message(int errorValue) const
         return "Connection limit reached";
     case FtpErrorCode::CS_WRITE_ERROR:
         return "Failed to write to client socket";
+    case FtpErrorCode::CS_READ_ERROR:
+        return std::string{"Failed to read from client socket. "} + strerror(errno);
     default:
         return "Unknown error";
     }

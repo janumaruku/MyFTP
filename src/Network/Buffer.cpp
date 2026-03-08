@@ -9,11 +9,11 @@
 
 namespace network {
 Buffer::Buffer(std::string &buffer): _data{buffer.data()},
-    _size{buffer.capacity()}
+    _size{buffer.size()}
 {}
 
 Buffer::Buffer(std::string &&buffer): _data{buffer.data()},
-    _size{buffer.capacity()}
+    _size{buffer.size()}
 {}
 
 Buffer::Buffer(char *buffer, const std::size_t &size): _data{buffer},
