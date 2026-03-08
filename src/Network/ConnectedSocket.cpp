@@ -56,10 +56,10 @@ void ConnectedSocket::syncWrite(const Buffer &buffer, Callback handler) const
         handler(std::error_code{}, result);
 }
 
-void ConnectedSocket::asyncReadSome(const Buffer &outputBuffer,
+void ConnectedSocket::asyncReadSome(Buffer outputBuffer,
     Callback handler)
 {
-    _handlers.emplace([this, &outputBuffer, handler]() {
+    _handlers.emplace([this, outputBuffer, handler]() {
         const ssize_t result = read(_socketFd, outputBuffer.data(),
             outputBuffer.size());
 

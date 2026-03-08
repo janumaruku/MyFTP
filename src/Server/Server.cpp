@@ -13,7 +13,10 @@
 namespace ftp {
 Server::Server(const std::string &port):
     _acceptor{_ioContext, network::Endpoint{utils::StringUtils::stos(port)}}
-{}
+{
+    _logger.start(ULogLevel::INFO) << "Listening on port " << port << " ..." <<
+        LOG_END;
+}
 
 void Server::start()
 {
@@ -26,7 +29,7 @@ void Server::doAccept()
     _acceptor.asyncAccept(
         [this](std::error_code,
         std::shared_ptr<network::ConnectedSocket> socket) {
-            socket->syncWrite(network::Buffer{std::string{"Hello world\n"}},
+            socket->syncWrite(network::Buffer{std::string{"Hello world\r\n"}},
                 [](const std::error_code &, const std::size_t &) {});
 
             _logger.start(ULogLevel::INFO) << "New connection received from "
@@ -35,7 +38,7 @@ void Server::doAccept()
             _clientSessions.emplace_back(socket);
             _clientSessions.back().start();
 
-            start();
+            doAccept();
         });
 }
 } // namespace ftp

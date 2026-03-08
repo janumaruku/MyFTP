@@ -10,14 +10,14 @@
 #include <cctype>
 #include <iostream>
 
+#include "constants.hpp"
+
 namespace ftp {
 ClientSession::ClientSession(
     const std::shared_ptr<network::ConnectedSocket> &socket):
     _socket{socket}
 {
-    _buffer.reserve(1024);
-    _logger.start(ULogLevel::ERROR) << "Buffer max size: " << _buffer.capacity()
-        << LOG_END;
+    _buffer.resize(1024);
 }
 
 void ClientSession::start()
@@ -30,7 +30,9 @@ void ClientSession::doRead()
     _socket->asyncReadSome(network::Buffer{_buffer},
         [this](const std::error_code &errCode, const std::size_t &readBytes) {
             if (errCode) {
-                std::cerr << errCode.message() << std::endl;
+                std::cerr << "Something went wrong while reading from socket: ";
+                std::cerr << utils::RED << errCode.message() << utils::RESET <<
+                    std::endl;
                 return;
             }
             if (readBytes == 0) {
@@ -39,14 +41,16 @@ void ClientSession::doRead()
             }
 
             std::clog << "Received bytes: " << readBytes << std::endl;
-            if (!_buffer.empty() && _buffer.back() == '\n')
-                _buffer.pop_back();
-            if (!_buffer.empty() && _buffer.back() == '\r')
-                _buffer.pop_back();
+            std::string message{_buffer.data(), readBytes};
 
-            std::cout << "Received text: [" << _buffer << "]" << std::endl;
+            if (message.back() == '\n')
+                message.pop_back();
+            if (message.back() == '\r')
+                message.pop_back();
 
-            _socket->syncWrite(network::Buffer{std::string{"Hello world\n"}},
+            std::cout << "Received text: [" << message << "]" << std::endl;
+
+            _socket->syncWrite(network::Buffer{std::string{"Hello world\r\n"}},
                 [](auto, auto) {});
             doRead();
         });
