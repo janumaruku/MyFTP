@@ -1,6 +1,6 @@
 add_executable(myftp ServerEntryPoint.cpp main.cpp)
 
-target_include_directories(myftp PUBLIC .)
+target_include_directories(myftp PUBLIC include)
 
 target_link_libraries(myftp server
         utils

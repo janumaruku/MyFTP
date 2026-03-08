@@ -15,14 +15,21 @@
 namespace utils {
 const auto Logger::END = EndLogger{};
 
-Logger::Logger(std::string context, const bool &isEnabled): _isEnabled
-    {isEnabled}, _context{std::move(context)}/*, _level{Level::INFO}*/
+Logger::Logger(std::string context, const Level &level, const bool &isEnabled):
+    _isEnabled{isEnabled}, _shouldPrint{isEnabled},
+    _context{std::move(context)}, _level{level}
 {}
 
 Logger &Logger::operator<<(const EndLogger &)
 {
-    *_stream << RESET;
-    *_stream << std::endl;
+    if (!_isEnabled)
+        return *this;
+
+    if (_shouldPrint) {
+        *_stream << RESET;
+        *_stream << std::endl;
+    }
+    _shouldPrint = _isEnabled;
 
     return *this;
 }
@@ -31,14 +38,18 @@ Logger &Logger::start(const Level &level, const std::string &context)
 {
     if (!_isEnabled)
         return *this;
+    if (level > _level)
+        _shouldPrint = false;
 
-    chooseOutputStream(level);
-    setLevelColor(level);
+    if (_shouldPrint) {
+        chooseOutputStream(level);
+        setLevelColor(level);
 
-    if (!context.empty())
-        *_stream << "[" << context << "] ";
-    else
-        *_stream << "[" << _context << "] ";
+        if (!context.empty())
+            *_stream << "[" << context << "] ";
+        else
+            *_stream << "[" << _context << "] ";
+    }
 
     return *this;
 }

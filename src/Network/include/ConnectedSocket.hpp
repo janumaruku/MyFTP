@@ -1,0 +1,51 @@
+/*
+** EPITECH PROJECT, 2026
+** myftp
+** File description:
+** ConnectedSocket
+*/
+
+#ifndef MYFTP_CONNECTEDSOCKET_HPP
+#define MYFTP_CONNECTEDSOCKET_HPP
+
+#include <functional>
+#include <queue>
+
+#include "Buffer.hpp"
+#include "Endpoint.hpp"
+#include "Logger.hpp"
+
+namespace network {
+class IOContext;
+
+class ConnectedSocket {
+public:
+    using Callback = std::function<void(const std::error_code &,
+        const std::size_t &)>;
+    using PendingOperation = std::function<void()>;
+
+    explicit ConnectedSocket(IOContext &ioContext);
+
+    explicit ConnectedSocket(IOContext &ioContext, const int &clientFd,
+        Endpoint &&endpoint);
+
+    [[nodiscard]] int getFd() const noexcept;
+
+    [[nodiscard]] const Endpoint &remoteEndpoint() const noexcept;
+
+    void syncWrite(const Buffer &buffer, Callback handler) const;
+
+    void asyncReadSome(const Buffer &outputBuffer, Callback handler);
+
+private:
+    int _dummy    = 0;
+    int _socketFd = -1;
+    Endpoint _endpoint;
+    std::queue<PendingOperation> _handlers;
+    utils::Logger _logger{"CONNECTED-SOCKET", ULogLevel::INFO, true};
+
+    void handleAsyncOperation();
+};
+} // ftp
+
+#endif //MYFTP_CONNECTEDSOCKET_HPP

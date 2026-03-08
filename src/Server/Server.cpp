@@ -7,27 +7,35 @@
 
 #include "Server.hpp"
 
-#include <iostream>
-#include <ostream>
-
 #include "IoContext.hpp"
 #include "StringUtils.hpp"
 
 namespace ftp {
-Server::Server(const std::string &port): _acceptor{_ioContext,
-    Endpoint{utils::StringUtils::stos(port)}}
+Server::Server(const std::string &port):
+    _acceptor{_ioContext, network::Endpoint{utils::StringUtils::stos(port)}}
 {}
 
 void Server::start()
 {
-    _acceptor.asyncAccept([](std::error_code, ConnectedSocket) {
-        std::cout << "Server accepted" << std::endl;
-    });
+    doAccept();
     _ioContext.run();
 }
 
-void Server::help() noexcept
+void Server::doAccept()
 {
-    std::cout << "\tHelper message ..." << std::endl;
+    _acceptor.asyncAccept(
+        [this](std::error_code,
+        std::shared_ptr<network::ConnectedSocket> socket) {
+            socket->syncWrite(network::Buffer{std::string{"Hello world\n"}},
+                [](const std::error_code &, const std::size_t &) {});
+
+            _logger.start(ULogLevel::INFO) << "New connection received from "
+                << socket->remoteEndpoint().getHostname() << utils::Logger::END;
+
+            _clientSessions.emplace_back(socket);
+            _clientSessions.back().start();
+
+            start();
+        });
 }
 } // namespace ftp

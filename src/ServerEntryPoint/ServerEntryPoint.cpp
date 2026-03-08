@@ -5,11 +5,14 @@
 ** ServerEntryPoint
 */
 
+#include "Server.hpp"
 #include "ServerEntryPoint.hpp"
 
+#include <iomanip>
 #include <iostream>
 #include <ostream>
 
+#include "constants.hpp"
 #include "DirectoryOptionHandler.hpp"
 #include "HelpOptionHandler.hpp"
 #include "OptionException.hpp"
@@ -17,11 +20,12 @@
 
 namespace ftp {
 ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
-    /*_server{"0"},*/ _options{argv}
+    _options{&argv[1]}
 {
     if (argc == 1) {
-        std::clog << "From thrown exception" << std::endl;
-        Server::help();
+        std::cerr << utils::RED << argv[0] << ": needs port and path" <<
+            utils::RESET << std::endl;
+        errorHelp();
         throw std::logic_error("");
     }
 
@@ -35,28 +39,23 @@ ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
 
 bool ServerEntryPoint::run()
 {
+    std::vector<std::string> unprocessedArgs;
     try {
-        _options.processArgs();
-    } catch (const error::OptionException &err) {
+        unprocessedArgs = _options.processArgs();
+    } catch (const utils::OptionException &err) {
         std::cerr << err.what() << std::endl;
-        Server::help();
+        errorHelp();
         return false;
     }
 
-    if (_options.hasOptions()) {
-        if (_options.hasOption("-h")) {
-            _options.getOption("-h");
-            return true;
-        }
-        if (!_options.hasOption("-d") || !_options.hasOption("-p")) {
-            std::cerr << "Need port (-p) and address (-d)" << std::endl;
-            return false;
-        }
-        _port    = _options.getOption("-p");
-        _address = _options.getOption("-d");
+    if (unprocessedArgs.empty()) {
+        const int res = processArgsByOption();
+        if (res == BAD_OPTIONS || res == DO_HELP)
+            return res;
     } else {
         if (_args.size() != 2) {
             std::cerr << "Need port and address" << std::endl;
+            errorHelp();
             return false;
         }
         _port = _args[0];
@@ -66,5 +65,29 @@ bool ServerEntryPoint::run()
     server.start();
 
     return true;
+}
+
+void ServerEntryPoint::errorHelp() noexcept
+{
+    std::cerr << "Try ./myftp -h for more information." << std::endl;
+}
+
+int ServerEntryPoint::processArgsByOption()
+{
+    if (_options.hasOption("-h")) {
+        _options.getOption("-h");
+        return DO_HELP;
+    }
+
+    if (!_options.hasOption("-d") || !_options.hasOption("-p")) {
+        std::cerr << "Need port (-p) and address (-d)" << std::endl;
+        errorHelp();
+        return BAD_OPTIONS;
+    }
+
+    _port    = _options.getOption("-p");
+    _address = _options.getOption("-d");
+
+    return GOOD_OPTIONS;
 }
 } // namespace ftp
