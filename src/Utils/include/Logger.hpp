@@ -55,8 +55,8 @@ private:
 
     void chooseOutputStream(const Level &);
 };
+constexpr Logger::EndLogger END = Logger::END;
 } // utils
 using ULogLevel = utils::Logger::Level;
-# define LOG_END utils::Logger::END;
 
 #endif //MYFTP_LOGGER_HPP
