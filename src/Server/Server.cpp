@@ -15,7 +15,7 @@ Server::Server(const std::string &port):
     _acceptor{_ioContext, network::Endpoint{utils::StringUtils::stos(port)}}
 {
     _logger.start(ULogLevel::INFO) << "Listening on port " << port << " ..." <<
-        LOG_END;
+        utils::END;
 }
 
 void Server::start()

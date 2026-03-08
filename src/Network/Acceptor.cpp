@@ -24,12 +24,12 @@ Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
         sizeof(address)) == -1)
         throw std::runtime_error{"bind() failed"};
     _logger.start(ULogLevel::DEBUG) << "Acceptor bound to address"
-        << LOG_END;
+        << utils::END;
 
     if (listen(_socket.getFd(), SOMAXCONN) == -1)
         throw std::runtime_error{"listen() failed"};
     _logger.start(ULogLevel::DEBUG) << "Listening on port " << _endpoint.
-        getPort() << LOG_END;
+        getPort() << utils::END;
 
     _ioContext.registerNotifier(_socket.getFd(), [this]() {
         handleNewConnection();

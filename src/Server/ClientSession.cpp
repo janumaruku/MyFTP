@@ -36,7 +36,8 @@ void ClientSession::doRead()
                 return;
             }
             if (readBytes == 0) {
-                _logger.start(ULogLevel::INFO) << "Connection lost" << LOG_END;
+                _logger.start(ULogLevel::INFO) << "Connection lost" <<
+                    utils::END;
                 return;
             }
 
