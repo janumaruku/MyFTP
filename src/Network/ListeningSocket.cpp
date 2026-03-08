@@ -5,13 +5,14 @@
 ** Socket
 */
 
+#include "ListeningSocket.hpp"
+
 #include <stdexcept>
 #include <sys/socket.h>
 
 #include "IoContext.hpp"
-#include "ListeningSocket.hpp"
 
-namespace ftp {
+namespace network {
 ListeningSocket::ListeningSocket(IOContext &/*ioContext*/): _socketFd{
     socket(AF_INET, SOCK_STREAM, 0)}
 {

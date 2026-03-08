@@ -7,10 +7,11 @@
 
 #ifndef MYFTP_ENDPOINT_HPP
 #define MYFTP_ENDPOINT_HPP
+
 #include <string>
 #include <netinet/in.h>
 
-namespace ftp {
+namespace network {
 class Endpoint {
 public:
     Endpoint() = default;

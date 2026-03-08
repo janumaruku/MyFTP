@@ -7,9 +7,10 @@
 
 #ifndef MYFTP_PORTOPTIONHANDLER_HPP
 #define MYFTP_PORTOPTIONHANDLER_HPP
+
 #include <memory>
 
-#include "../../../Utils/include/IOptionHandler.hpp"
+#include "IOptionHandler.hpp"
 
 namespace ftp {
 

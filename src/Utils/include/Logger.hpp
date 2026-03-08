@@ -26,7 +26,8 @@ public:
 
     static const EndLogger END;
 
-    explicit Logger(std::string context, const Level &level, const bool &isEnabled);
+    explicit Logger(std::string context, const Level &level,
+        const bool &isEnabled);
 
     template <typename T>
     Logger &operator<<(const T &value)
@@ -44,15 +45,15 @@ public:
     Logger &start(const Level &level, const std::string &context = "");
 
 private:
-    bool _isEnabled = true;
+    bool _isEnabled   = true;
     bool _shouldPrint = true;
     std::string _context;
-    Level _level = Level::INFO;
+    Level _level          = Level::INFO;
     std::ostream *_stream = &std::cout;
 
     void setLevelColor(const Level &level) const;
 
-    void chooseOutputStream(const Level&);
+    void chooseOutputStream(const Level &);
 };
 } // utils
 using ULogLevel = utils::Logger::Level;

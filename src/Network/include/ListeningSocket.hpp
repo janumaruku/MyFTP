@@ -7,9 +7,11 @@
 
 #ifndef MYFTP_SOCKET_HPP
 #define MYFTP_SOCKET_HPP
-#include "Endpoint.hpp"
 
-namespace ftp {
+#include "Endpoint.hpp"
+#include "Logger.hpp"
+
+namespace network {
 class IOContext;
 
 class ListeningSocket {

@@ -5,16 +5,16 @@
 ** OptionException
 */
 
-#include "include/OptionException.hpp"
+#include "OptionException.hpp"
 
-#include "include/constants.hpp"
-#include "include/IOptionHandler.hpp"
+#include "constants.hpp"
+#include "IOptionHandler.hpp"
 
 namespace utils {
 OptionException::OptionException(const std::string &option,
     const std::string &message)
 {
-    _message = option + ": " + utils::RED + message + utils::RESET;
+    _message = option + ": " + RED + message + RESET;
 }
 
 const char *OptionException::what() const noexcept

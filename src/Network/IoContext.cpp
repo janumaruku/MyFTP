@@ -7,9 +7,9 @@
 
 #include "IoContext.hpp"
 
-#include <iostream>
+#include <system_error>
 
-namespace ftp {
+namespace network {
 void IOContext::registerNotifier(const int &fileDescriptor,
     const OnFileDescriptorReady &notifier)
 {

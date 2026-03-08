@@ -5,8 +5,8 @@
 ** ServerEntryPoint
 */
 
-#include "../Server/include/Server.hpp"
-#include "include/ServerEntryPoint.hpp"
+#include "Server.hpp"
+#include "ServerEntryPoint.hpp"
 
 #include <iomanip>
 #include <iostream>
@@ -15,12 +15,12 @@
 #include "constants.hpp"
 #include "DirectoryOptionHandler.hpp"
 #include "HelpOptionHandler.hpp"
+#include "OptionException.hpp"
 #include "PortOptionHandler.hpp"
-#include "../Utils/include/OptionException.hpp"
 
 namespace ftp {
 ServerEntryPoint::ServerEntryPoint(const int &argc, char *argv[]):
-    /*_server{"0"},*/ _options{&argv[1]}
+    _options{&argv[1]}
 {
     if (argc == 1) {
         std::cerr << utils::RED << argv[0] << ": needs port and path" <<
@@ -65,23 +65,6 @@ bool ServerEntryPoint::run()
     server.start();
 
     return true;
-}
-
-void ServerEntryPoint::help() noexcept
-{
-    std::cout << "Usage:" << std::endl;
-    std::cout << "  1. ./myftp [PORT] [DIRECTORY]" << std::endl;
-    for (const auto &[arg, description]: ARGUMENTS) {
-        std::cout << "    " << std::setw(15) << std::left << arg;
-        std::cout << description << std::endl;
-    }
-    std::cout << "\n" << std::endl;
-
-    std::cout << "  2. ./myftp [OPTIONS]" << std::endl;
-    for (const auto &[option, description]: OPTIONS) {
-        std::cout << "    " << std::setw(15) << std::left << option;
-        std::cout << description << std::endl;
-    }
 }
 
 void ServerEntryPoint::errorHelp() noexcept

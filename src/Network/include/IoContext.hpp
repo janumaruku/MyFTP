@@ -7,20 +7,16 @@
 
 #ifndef MYFTP_IOCONTEXT_HPP
 #define MYFTP_IOCONTEXT_HPP
-#include <cstdint>
+
 #include <functional>
 #include <poll.h>
-#include <system_error>
 #include <unordered_map>
 #include <vector>
 
-#include "Acceptor.hpp"
-
-namespace ftp {
+namespace network {
 class IOContext {
 public:
     using OnFileDescriptorReady = std::function<void()>;
-    using OnAcceptorFdReady     = void(Acceptor::*)();
 
     IOContext() = default;
 

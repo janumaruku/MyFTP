@@ -5,10 +5,12 @@
 ** HelpOptionHandler
 */
 
-#include "include/HelpOptionHandler.hpp"
+#include "HelpOptionHandler.hpp"
 
-#include "../../Utils/include/OptionException.hpp"
-#include "../include/ServerEntryPoint.hpp"
+#include <iomanip>
+#include <iostream>
+
+#include "OptionException.hpp"
 
 namespace ftp {
 bool HelpOptionHandler::operator()(
@@ -28,7 +30,7 @@ bool HelpOptionHandler::operator()(
 
 std::string HelpOptionHandler::getOption() const noexcept
 {
-    ServerEntryPoint::help();
+    help();
 
     return "";
 }
@@ -41,5 +43,22 @@ bool HelpOptionHandler::hasOption() const noexcept
 std::unique_ptr<utils::IOptionHandler> HelpOptionHandler::create()
 {
     return std::make_unique<HelpOptionHandler>();
+}
+
+void HelpOptionHandler::help() noexcept
+{
+    std::cout << "Usage:" << std::endl;
+    std::cout << "  1. ./myftp [PORT] [DIRECTORY]" << std::endl;
+    for (const auto &[arg, description]: ARGUMENTS) {
+        std::cout << "    " << std::setw(15) << std::left << arg;
+        std::cout << description << std::endl;
+    }
+    std::cout << "\n" << std::endl;
+
+    std::cout << "  2. ./myftp [OPTIONS]" << std::endl;
+    for (const auto &[option, description]: OPTIONS) {
+        std::cout << "    " << std::setw(15) << std::left << option;
+        std::cout << description << std::endl;
+    }
 }
 } // namespace ftp

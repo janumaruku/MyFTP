@@ -7,6 +7,7 @@
 
 #ifndef NANOTEKSPICE_STRINGUTILS_HPP
 #define NANOTEKSPICE_STRINGUTILS_HPP
+
 #include <string>
 #include <vector>
 

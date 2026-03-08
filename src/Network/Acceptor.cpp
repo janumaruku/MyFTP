@@ -14,7 +14,7 @@
 #include "ErrorCode.hpp"
 #include "IoContext.hpp"
 
-namespace ftp {
+namespace network {
 Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
     _endpoint(std::move(endpoint)), _socket(ioContext),
     _ioContext{ioContext}

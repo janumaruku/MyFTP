@@ -3,7 +3,8 @@ add_library(network Acceptor.cpp
         Endpoint.cpp
         ErrorCode.cpp
         IoContext.cpp
-        ListeningSocket.cpp)
+        ListeningSocket.cpp
+        Buffer.cpp)
 
 target_include_directories(network PUBLIC include)
 

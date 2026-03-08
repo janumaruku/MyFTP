@@ -5,9 +5,9 @@
 ** AddressOptionHandler
 */
 
-#include "include/DirectoryOptionHandler.hpp"
+#include "DirectoryOptionHandler.hpp"
 
-#include "../../Utils/include/OptionException.hpp"
+#include "OptionException.hpp"
 
 namespace ftp {
 bool DirectoryOptionHandler::operator()(const std::vector<std::string> &,

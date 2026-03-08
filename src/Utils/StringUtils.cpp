@@ -5,7 +5,7 @@
 ** StringUtils
 */
 
-#include "include/StringUtils.hpp"
+#include "StringUtils.hpp"
 
 #include <iostream>
 #include <limits>

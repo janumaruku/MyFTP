@@ -11,7 +11,8 @@
 #include <iostream>
 
 namespace ftp {
-ClientSession::ClientSession(const std::shared_ptr<ConnectedSocket> &socket):
+ClientSession::ClientSession(
+    const std::shared_ptr<network::ConnectedSocket> &socket):
     _socket{socket}
 {
     _buffer.reserve(1024);
@@ -26,7 +27,7 @@ void ClientSession::start()
 
 void ClientSession::doRead()
 {
-    _socket->asyncReadSome(_buffer,
+    _socket->asyncReadSome(network::Buffer{_buffer},
         [this](const std::error_code &errCode, const std::size_t &readBytes) {
             if (errCode) {
                 std::cerr << errCode.message() << std::endl;
@@ -45,7 +46,7 @@ void ClientSession::doRead()
 
             std::cout << "Received text: [" << _buffer << "]" << std::endl;
 
-            _socket->syncWrite(std::string{"Hello world\n"},
+            _socket->syncWrite(network::Buffer{std::string{"Hello world\n"}},
                 [](auto, auto) {});
             doRead();
         });

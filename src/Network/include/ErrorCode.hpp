@@ -9,8 +9,8 @@
 #define MYFTP_ERRORCODE_HPP
 
 #include <cstdint>
-#include <type_traits>
 #include <system_error>
+#include <type_traits>
 
 enum class FtpErrorCode : uint8_t {
     CONNECTION_LIMIT_REACHED = 1,

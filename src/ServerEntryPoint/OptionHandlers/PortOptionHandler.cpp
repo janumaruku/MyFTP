@@ -7,8 +7,8 @@
 
 #include "include/PortOptionHandler.hpp"
 
-#include "../../Utils/include/OptionException.hpp"
-#include "../../Utils/include/StringUtils.hpp"
+#include "OptionException.hpp"
+#include "StringUtils.hpp"
 
 namespace ftp {
 bool PortOptionHandler::operator()(

@@ -18,7 +18,7 @@
 #include "ListeningSocket.hpp"
 #include "Logger.hpp"
 
-namespace ftp {
+namespace network {
 class Acceptor {
 public:
     using ConnectionHandler = std::function<void(std::error_code,

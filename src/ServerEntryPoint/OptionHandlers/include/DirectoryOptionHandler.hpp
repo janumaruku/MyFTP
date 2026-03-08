@@ -10,7 +10,7 @@
 
 #include <memory>
 
-#include "../../../Utils/include/IOptionHandler.hpp"
+#include "IOptionHandler.hpp"
 
 namespace ftp {
 class DirectoryOptionHandler: public utils::IOptionHandler {

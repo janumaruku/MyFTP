@@ -11,11 +11,11 @@
 #include <stdexcept>
 #include <arpa/inet.h>
 
-namespace ftp {
+namespace network {
 Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port}
 {
     _address.sin_family = AF_INET;
-    _address.sin_port   = htons(port);
+    _address.sin_port   = htons(_port);
     if (hostName.empty())
         _address.sin_addr.s_addr = INADDR_ANY;
     else {

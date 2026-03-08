@@ -5,7 +5,7 @@
 ** Options
 */
 
-#include "include/Options.hpp"
+#include "Options.hpp"
 
 #include <iostream>
 #include <ranges>
@@ -23,7 +23,7 @@ Options::Options(char *argv[])
 std::vector<std::string> Options::processArgs()
 {
     auto hasOption = false;
-    for (const auto &arg : _args)
+    for (const auto &arg: _args)
         if (arg[0] == '-') {
             hasOption = true;
             break;
@@ -65,9 +65,4 @@ bool Options::hasOption(const std::string &option)
 
     return itt->second->hasOption();
 }
-
-// bool Options::hasOptions() const
-// {
-//     return _hasOptions;
-// }
 } // namespace utils
