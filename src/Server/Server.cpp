@@ -7,11 +7,8 @@
 
 #include "Server.hpp"
 
-#include <iostream>
-#include <ostream>
-
-#include "IoContext.hpp"
-#include "StringUtils.hpp"
+#include "../Network/include/IoContext.hpp"
+#include "../Utils/include/StringUtils.hpp"
 
 namespace ftp {
 Server::Server(const std::string &port):
@@ -24,10 +21,10 @@ void Server::start()
     _ioContext.run();
 }
 
-void Server::help() noexcept
-{
-    std::cout << "\tHelper message ..." << std::endl;
-}
+// void Server::help() noexcept
+// {
+//     std::cout << "\tHelper message ..." << std::endl;
+// }
 
 void Server::doAccept()
 {

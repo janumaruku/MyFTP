@@ -5,7 +5,7 @@
 ** Options
 */
 
-#include "Options.hpp"
+#include "include/Options.hpp"
 
 #include <iostream>
 #include <ranges>
@@ -15,32 +15,35 @@
 namespace utils {
 Options::Options(char *argv[])
 {
-    for (std::size_t i = 1; argv[i] != nullptr; ++i)
+    for (std::size_t i = 0; argv[i] != nullptr; ++i)
         _args.emplace_back(argv[i]);
     _tempArgs = _args;
 }
 
-void Options::processArgs()
+std::vector<std::string> Options::processArgs()
 {
-    for (const auto &arg: _args)
-        if (arg[0] == '-')
-            _hasOptions = true;
-
-    if (!_hasOptions)
-        return;
-
-    for (auto &handler: _optionHandlerMap | std::views::values) {
-        try {
-            (*handler)(_args, _tempArgs);
-        } catch (const ftp::error::OptionException &) {
-            throw;
+    auto hasOption = false;
+    for (const auto &arg : _args)
+        if (arg[0] == '-') {
+            hasOption = true;
+            break;
         }
+    if (!hasOption)
+        return _tempArgs;
+
+    std::size_t itt = 0;
+    while (itt < _tempArgs.size()) {
+        if (_tempArgs[itt][0] != '-') {
+            ++itt;
+            continue;
+        }
+
+        if (!_optionHandlerMap.contains(_tempArgs[itt]))
+            throw OptionException{_tempArgs[itt], "Unknown option"};
+        (*_optionHandlerMap[_tempArgs[itt]])(_args, _tempArgs);
     }
 
-    if (!_tempArgs.empty())
-        throw ftp::error::OptionException("Error: ", "Unknown options");
-
-    _isProcessed = true;
+    return _tempArgs;
 }
 
 std::string Options::getOption(const std::string &option)
@@ -63,8 +66,8 @@ bool Options::hasOption(const std::string &option)
     return itt->second->hasOption();
 }
 
-bool Options::hasOptions() const
-{
-    return _hasOptions;
-}
+// bool Options::hasOptions() const
+// {
+//     return _hasOptions;
+// }
 } // namespace utils

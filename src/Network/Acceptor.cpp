@@ -5,9 +5,8 @@
 ** Acceptor
 */
 
-#include "Acceptor.hpp"
+#include "include/Acceptor.hpp"
 
-#include <iostream>
 #include <stdexcept>
 #include <sys/socket.h>
 
@@ -29,7 +28,7 @@ Acceptor::Acceptor(IOContext &ioContext, Endpoint &&endpoint):
 
     if (listen(_socket.getFd(), SOMAXCONN) == -1)
         throw std::runtime_error{"listen() failed"};
-    _logger.start(ULogLevel::DEBUG) << "Listening on port" << _endpoint.
+    _logger.start(ULogLevel::DEBUG) << "Listening on port " << _endpoint.
         getPort() << LOG_END;
 
     _ioContext.registerNotifier(_socket.getFd(), [this]() {

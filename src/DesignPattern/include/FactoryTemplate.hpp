@@ -66,7 +66,7 @@ public:
     }
 
 private:
-    CreatorMap _creators;
+    CreatorMap _creators{};
 };
 } // namespace designPattern
 

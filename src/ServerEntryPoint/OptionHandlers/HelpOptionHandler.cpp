@@ -5,10 +5,10 @@
 ** HelpOptionHandler
 */
 
-#include "HelpOptionHandler.hpp"
+#include "include/HelpOptionHandler.hpp"
 
-#include "OptionException.hpp"
-#include "Server.hpp"
+#include "../../Utils/include/OptionException.hpp"
+#include "../include/ServerEntryPoint.hpp"
 
 namespace ftp {
 bool HelpOptionHandler::operator()(
@@ -18,7 +18,7 @@ bool HelpOptionHandler::operator()(
         return false;
 
     if (args.size() != 1)
-        throw error::OptionException(args[0], "bad formated help option");
+        throw utils::OptionException(args[0], "bad formated help option");
 
     tempArgs.erase(tempArgs.begin());
     _hasOption = true;
@@ -28,7 +28,7 @@ bool HelpOptionHandler::operator()(
 
 std::string HelpOptionHandler::getOption() const noexcept
 {
-    Server::help();
+    ServerEntryPoint::help();
 
     return "";
 }

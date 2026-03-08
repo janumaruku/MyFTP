@@ -1,22 +1,8 @@
 add_library(server STATIC Server.cpp
-        LinteningSocket.cpp
-        ListeningSocket.hpp
-        Acceptor.cpp
-        Acceptor.hpp
-        Endpoint.cpp
-        Endpoint.hpp
-        IoContext.cpp
-        IoContext.hpp
-        ErrorCode.cpp
-        ErrorCode.hpp
-        ConnectedSocket.cpp
-        ConnectedSocket.hpp
-        ClientSession.cpp
-        ClientSession.hpp)
+        ClientSession.cpp)
 
-target_include_directories(server PUBLIC .
-        PUBLIC ${CMAKE_SOURCE_DIR}/src/DesignPattern)
+target_include_directories(server PUBLIC include)
 
-target_link_libraries(server utils)
+target_link_libraries(server utils network)
 
 target_link_libraries(server warning_options)

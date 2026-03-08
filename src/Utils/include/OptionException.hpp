@@ -11,8 +11,7 @@
 #include <exception>
 #include <string>
 
-namespace ftp {
-namespace error {
+namespace utils {
 class OptionException: public std::exception {
 public:
     explicit OptionException(const std::string &option,
@@ -23,7 +22,6 @@ public:
 protected:
     std::string _message;
 };
-} // namespace error
-} // namespace ftp
+} // namespace utils
 
 #endif // MYFTP_OPTIONEXCEPTION_HPP

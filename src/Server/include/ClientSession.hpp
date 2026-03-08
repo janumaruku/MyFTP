@@ -9,7 +9,7 @@
 #define MYFTP_CLIENT_SESSION_HPP
 #include <memory>
 
-#include "ConnectedSocket.hpp"
+#include "../../Network/include/ConnectedSocket.hpp"
 
 namespace ftp {
 class ClientSession {

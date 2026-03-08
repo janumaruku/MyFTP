@@ -5,10 +5,10 @@
 ** PortOptionHandler
 */
 
-#include "PortOptionHandler.hpp"
+#include "include/PortOptionHandler.hpp"
 
-#include "OptionException.hpp"
-#include "StringUtils.hpp"
+#include "../../Utils/include/OptionException.hpp"
+#include "../../Utils/include/StringUtils.hpp"
 
 namespace ftp {
 bool PortOptionHandler::operator()(
@@ -26,7 +26,7 @@ bool PortOptionHandler::operator()(
                 throw std::invalid_argument("");
             utils::StringUtils::stos(*(itt + 1));
         } catch (const std::exception &err) {
-            throw error::OptionException("-p",
+            throw utils::OptionException("-p",
                 "Need a port number (as a short integer)");
         }
 

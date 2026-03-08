@@ -8,10 +8,10 @@
 #ifndef MYFTP_SERVER_HPP
 #define MYFTP_SERVER_HPP
 
-#include "Acceptor.hpp"
+#include "../../Network/include/Acceptor.hpp"
 #include "ClientSession.hpp"
-#include "IoContext.hpp"
-#include "Options.hpp"
+#include "../../Network/include/IoContext.hpp"
+#include "../../Utils/include/Options.hpp"
 
 namespace ftp {
 
@@ -21,7 +21,7 @@ public:
 
     void start();
 
-    static void help() noexcept;
+    // static void help() noexcept;
 
 private:
     IOContext _ioContext{};

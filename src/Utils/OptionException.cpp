@@ -5,13 +5,12 @@
 ** OptionException
 */
 
-#include "OptionException.hpp"
+#include "include/OptionException.hpp"
 
-#include "constants.hpp"
-#include "IOptionHandler.hpp"
+#include "include/constants.hpp"
+#include "include/IOptionHandler.hpp"
 
-namespace ftp {
-namespace error {
+namespace utils {
 OptionException::OptionException(const std::string &option,
     const std::string &message)
 {
@@ -22,5 +21,4 @@ const char *OptionException::what() const noexcept
 {
     return _message.c_str();
 }
-} // namespace error
-} // namespace ftp
+} // namespace utils

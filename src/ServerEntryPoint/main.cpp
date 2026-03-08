@@ -8,7 +8,7 @@
 #include <exception>
 #include <iostream>
 
-#include "ServerEntryPoint.hpp"
+#include "include/ServerEntryPoint.hpp"
 
 int main(const int argc, char *argv[])
 {

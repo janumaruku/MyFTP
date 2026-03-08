@@ -5,9 +5,9 @@
 ** AddressOptionHandler
 */
 
-#include "DirectoryOptionHandler.hpp"
+#include "include/DirectoryOptionHandler.hpp"
 
-#include "OptionException.hpp"
+#include "../../Utils/include/OptionException.hpp"
 
 namespace ftp {
 bool DirectoryOptionHandler::operator()(const std::vector<std::string> &,
@@ -24,7 +24,7 @@ bool DirectoryOptionHandler::operator()(const std::vector<std::string> &,
             if (itt + 1 == tempArgs.end())
                 throw std::invalid_argument("");
         } catch (const std::exception &err) {
-            throw error::OptionException("-a", "Need an address");
+            throw utils::OptionException("-a", "Need an address");
         }
 
         _address   = *(itt + 1);
