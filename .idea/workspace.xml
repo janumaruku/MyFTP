@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="23" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="25" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
@@ -47,38 +47,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update server constructor">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/Acceptor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/Acceptor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Network/ConnectedSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/ConnectedSocket.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/Endpoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/Endpoint.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/IoContext.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/IoContext.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/ListeningSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/ListeningSocket.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/Acceptor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/Acceptor.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/ConnectedSocket.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/ConnectedSocket.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/Endpoint.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/Endpoint.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/ErrorCode.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/ErrorCode.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/IoContext.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/IoContext.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/ListeningSocket.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/ListeningSocket.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ClientSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ClientSession.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/include/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/Server.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/DirectoryOptionHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/DirectoryOptionHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/HelpOptionHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/HelpOptionHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/PortOptionHandler.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/PortOptionHandler.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/include/DirectoryOptionHandler.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/include/DirectoryOptionHandler.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/include/HelpOptionHandler.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/include/HelpOptionHandler.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/include/PortOptionHandler.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/OptionHandlers/include/PortOptionHandler.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/include/ServerEntryPoint.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/include/ServerEntryPoint.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Logger.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Logger.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/OptionException.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/OptionException.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/Options.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/Options.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/StringUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/StringUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/include/Logger.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/include/Logger.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/include/StringUtils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/include/StringUtils.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -315,7 +284,7 @@
       <workItem from="1772788944237" duration="19601000" />
       <workItem from="1772822203885" duration="33213000" />
       <workItem from="1772937559193" duration="3458000" />
-      <workItem from="1772979033410" duration="3077000" />
+      <workItem from="1772979033410" duration="3578000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
