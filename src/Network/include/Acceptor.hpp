@@ -15,14 +15,15 @@
 
 #include "ConnectedSocket.hpp"
 #include "Endpoint.hpp"
+#include "ErrorCode.hpp"
 #include "ListeningSocket.hpp"
 #include "Logger.hpp"
 
 namespace network {
 class Acceptor {
 public:
-    using ConnectionHandler = std::function<void(std::error_code,
-        std::shared_ptr<ConnectedSocket>)>;
+    using ConnectionHandler = std::function<void(const std::error_code &,
+        const std::shared_ptr<ConnectedSocket> &)>;
 
     explicit Acceptor(IOContext &ioContext, Endpoint &&endpoint);
 
@@ -33,13 +34,15 @@ public:
 private:
     Endpoint _endpoint;
     ListeningSocket _socket;
-    std::size_t _maxConnection   = SOMAXCONN;
-    std::size_t _connectionCount = 0;
+    // std::size_t _maxConnection   = 2;
+    // std::size_t _connectionCount = 0;
     std::queue<ConnectionHandler> _handlerFunction;
     utils::Logger _logger{"ACCEPTOR", ULogLevel::INFO, true};
     IOContext &_ioContext;
 
     void handleNewConnection();
+
+    static FtpErrorCode getAcceptorErrorCode(const int &error);
 
     [[nodiscard]] std::shared_ptr<ConnectedSocket> acceptClient() const;
 };

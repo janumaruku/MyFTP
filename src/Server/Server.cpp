@@ -27,18 +27,24 @@ void Server::start()
 void Server::doAccept()
 {
     _acceptor.asyncAccept(
-        [this](std::error_code,
-        std::shared_ptr<network::ConnectedSocket> socket) {
-            socket->syncWrite(network::Buffer{std::string{"Hello world\r\n"}},
-                [](const std::error_code &, const std::size_t &) {});
+        [this](const std::error_code &errCode,
+        const std::shared_ptr<network::ConnectedSocket>& socket) {
+            if (errCode) {
+                _logger.start(ULogLevel::WARNING) << errCode.message() <<
+                    utils::END;
+                doAccept();
+            } else {
+                socket->syncWrite(network::Buffer{std::string{"Hello world\r\n"}},
+                    [](const std::error_code &, const std::size_t &) {});
 
-            _logger.start(ULogLevel::INFO) << "New connection received from "
-                << socket->remoteEndpoint().getHostname() << utils::Logger::END;
+                _logger.start(ULogLevel::INFO) << "New connection received from "
+                    << socket->remoteEndpoint().getHostname() << utils::Logger::END;
 
-            _clientSessions.emplace_back(socket);
-            _clientSessions.back().start();
+                _clientSessions.emplace_back(socket);
+                _clientSessions.back().start();
 
-            doAccept();
+                doAccept();
+            }
         });
 }
 } // namespace ftp

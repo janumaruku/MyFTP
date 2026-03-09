@@ -14,8 +14,19 @@
 
 enum class FtpErrorCode : uint8_t {
     CONNECTION_LIMIT_REACHED = 1,
+
     CS_WRITE_ERROR,
     CS_READ_ERROR,
+
+    RETRY_ACCEPT,
+    ACCEPT_BAD_FILE_DESCRIPTOR,
+    ACCEPT_BAD_ADDRESS,
+    ACCEPT_INVALID_STATE,
+    ACCEPT_OPERATION_NOT_SUPPORTED,
+    ACCEPT_RESOURCE_EXHAUSTED,
+    ACCEPT_PERMISSION_DENIED,
+    ACCEPT_PROTOCOL_ERROR,
+    ACCEPT_UNKNOWN_ERROR,
 };
 
 template <> struct std::is_error_code_enum<FtpErrorCode>: true_type {};
