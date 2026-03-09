@@ -52,23 +52,40 @@ void Acceptor::handleNewConnection()
         return;
     const ConnectionHandler handler = _handlerFunction.front();
     _handlerFunction.pop();
-    if (_connectionCount >= _maxConnection) {
-        handler(FtpErrorCode::CONNECTION_LIMIT_REACHED, nullptr);
+
+    const auto clientSocket = acceptClient();
+    if (!clientSocket) {
+        handler(getAcceptorErrorCode(errno), clientSocket);
         return;
     }
 
-    try {
-        const auto clientSocket = acceptClient();
-        _logger.start(ULogLevel::DEBUG) << "Incoming connection" <<
-            " from " << clientSocket->remoteEndpoint().getHostname() <<
-            utils::Logger::END;
-        ++_connectionCount;
+    _logger.start(ULogLevel::DEBUG) << "Incoming connection" <<
+        " from " << clientSocket->remoteEndpoint().getHostname() << utils::END;
 
-        handler(std::error_code{}, clientSocket);
-    } catch (const std::exception &exp) {
-        _logger.start(ULogLevel::WARNING) <<
-            exp.what() << utils::Logger::END;
-    }
+    handler(std::error_code{}, clientSocket);
+}
+
+FtpErrorCode Acceptor::getAcceptorErrorCode(const int &error)
+{
+    static const std::unordered_map<int, FtpErrorCode> acceptorErrorCodes = {
+        {EAGAIN, FtpErrorCode::RETRY_ACCEPT},
+        {EWOULDBLOCK, FtpErrorCode::RETRY_ACCEPT},
+        {EBADF, FtpErrorCode::ACCEPT_BAD_FILE_DESCRIPTOR},
+        {ECONNABORTED, FtpErrorCode::RETRY_ACCEPT},
+        {EFAULT, FtpErrorCode::ACCEPT_BAD_ADDRESS},
+        {EINTR, FtpErrorCode::RETRY_ACCEPT},
+        {EINVAL, FtpErrorCode::ACCEPT_INVALID_STATE},
+        {EMFILE, FtpErrorCode::ACCEPT_RESOURCE_EXHAUSTED},
+        {ENFILE, FtpErrorCode::ACCEPT_RESOURCE_EXHAUSTED},
+        {ENOBUFS, FtpErrorCode::ACCEPT_RESOURCE_EXHAUSTED},
+        {ENOMEM, FtpErrorCode::ACCEPT_RESOURCE_EXHAUSTED},
+        {ENOTSOCK, FtpErrorCode::ACCEPT_BAD_FILE_DESCRIPTOR},
+        {EOPNOTSUPP, FtpErrorCode::ACCEPT_INVALID_STATE},
+        {EPERM, FtpErrorCode::ACCEPT_PERMISSION_DENIED},
+        {EPROTO, FtpErrorCode::ACCEPT_PROTOCOL_ERROR},
+    };
+
+    return acceptorErrorCodes.at(error);
 }
 
 std::shared_ptr<ConnectedSocket> Acceptor::acceptClient() const
@@ -78,8 +95,12 @@ std::shared_ptr<ConnectedSocket> Acceptor::acceptClient() const
     const int clientFd = accept(_socket.getFd(),
         reinterpret_cast<sockaddr *>(&address), &size);
 
-    if (clientFd == -1)
-        throw std::runtime_error("Error accepting connection");
+    if (clientFd == -1) {
+        if (getAcceptorErrorCode(errno) == FtpErrorCode::RETRY_ACCEPT)
+            return acceptClient();
+
+        return nullptr;
+    }
 
     return std::make_shared<ConnectedSocket>(_ioContext, clientFd,
         Endpoint{address});
