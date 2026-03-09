@@ -46,14 +46,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update server constructor">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/Acceptor.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/Acceptor.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/ErrorCode.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/ErrorCode.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/Acceptor.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/Acceptor.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/ErrorCode.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/ErrorCode.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
-    </list>
+    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update the server about how to accept new clients" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -288,7 +281,7 @@
       <workItem from="1772788944237" duration="19601000" />
       <workItem from="1772822203885" duration="33213000" />
       <workItem from="1772937559193" duration="3458000" />
-      <workItem from="1772979033410" duration="25477000" />
+      <workItem from="1772979033410" duration="25812000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
@@ -402,7 +395,39 @@
       <option name="project" value="LOCAL" />
       <updated>1772650302503</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="chore: update Acceptor to handler more connections">
+      <option name="closed" value="true" />
+      <created>1773079933593</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1773079933593</updated>
+    </task>
+    <task id="LOCAL-00016" summary="feat: add more error message for accept operations">
+      <option name="closed" value="true" />
+      <created>1773079982988</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1773079982988</updated>
+    </task>
+    <task id="LOCAL-00017" summary="chore: update the server about how to accept new clients">
+      <option name="closed" value="true" />
+      <created>1773080117510</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1773080117510</updated>
+    </task>
+    <task id="LOCAL-00018" summary="chore: update the server about how to accept new clients">
+      <option name="closed" value="true" />
+      <created>1773080122609</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1773080122609</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -427,7 +452,10 @@
     <MESSAGE value="feat: handle options in ServerEntryPoint" />
     <MESSAGE value="feat: create the Logger class" />
     <MESSAGE value="chore: update server constructor" />
-    <option name="LAST_COMMIT_MESSAGE" value="chore: update server constructor" />
+    <MESSAGE value="chore: update Acceptor to handler more connections" />
+    <MESSAGE value="feat: add more error message for accept operations" />
+    <MESSAGE value="chore: update the server about how to accept new clients" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: update the server about how to accept new clients" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
