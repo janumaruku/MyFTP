@@ -2,22 +2,22 @@
 ** EPITECH PROJECT, 2026
 ** myftp
 ** File description:
-** QuitCommand
+** PassCommand
 */
 
-#ifndef MYFTP_QUITCOMMAND_HPP
-#define MYFTP_QUITCOMMAND_HPP
+#ifndef MYFTP_PASSCOMMAND_HPP
+#define MYFTP_PASSCOMMAND_HPP
 
 #include <memory>
 
 #include "IFtpCommand.hpp"
 
 namespace ftp {
-class QuitCommand: public IFtpCommand {
+class PassCommand: public IFtpCommand {
 public:
-    QuitCommand() = default;
+    PassCommand() = default;
 
-    ~QuitCommand() override = default;
+    ~PassCommand() override = default;
 
     bool operator()(ClientSession &client,
         const std::vector<std::string> &command) override;
@@ -29,4 +29,4 @@ public:
 };
 } // ftp
 
-#endif //MYFTP_QUITCOMMAND_HPP
+#endif //MYFTP_PASSCOMMAND_HPP

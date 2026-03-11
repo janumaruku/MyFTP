@@ -18,10 +18,10 @@ public:
 
     ~UserCommand() override = default;
 
-    bool operator()(const ClientSession &client,
+    bool operator()(ClientSession &client,
         const std::vector<std::string> &command) override;
 
-    bool execute(const ClientSession &client,
+    bool execute(ClientSession &client,
         const std::vector<std::string> &command) override;
 
     static std::unique_ptr<IFtpCommand> create();

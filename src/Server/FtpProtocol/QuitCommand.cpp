@@ -10,7 +10,7 @@
 #include "ClientSession.hpp"
 
 namespace ftp {
-bool QuitCommand::operator()(const ClientSession &client,
+bool QuitCommand::operator()(ClientSession &client,
     const std::vector<std::string> &command)
 {
     if (command.size() != 1) {
@@ -23,7 +23,7 @@ bool QuitCommand::operator()(const ClientSession &client,
     return true;
 }
 
-bool QuitCommand::execute(const ClientSession &client,
+bool QuitCommand::execute(ClientSession &client,
     const std::vector<std::string> &command)
 {
     return (*this)(client, command);

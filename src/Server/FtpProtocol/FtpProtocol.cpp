@@ -8,6 +8,7 @@
 #include "FtpProtocol.hpp"
 
 #include "ClientSession.hpp"
+#include "PassCommand.hpp"
 #include "QuitCommand.hpp"
 #include "StringUtils.hpp"
 #include "UserCommand.hpp"
@@ -17,6 +18,7 @@ FtpProtocol::FtpProtocol()
 {
     _ftpCommandFactory.registerCreator<UserCommand>("user");
     _ftpCommandFactory.registerCreator<QuitCommand>("quit");
+    _ftpCommandFactory.registerCreator<PassCommand>("pass");
 }
 
 void FtpProtocol::handleCommand(ClientSession &client,
