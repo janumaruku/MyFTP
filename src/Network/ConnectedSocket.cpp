@@ -15,7 +15,7 @@
 
 namespace network {
 ConnectedSocket::ConnectedSocket(IOContext &ioContext): _socketFd{
-    socket(AF_INET, SOCK_STREAM, 0)}
+    socket(AF_INET, SOCK_STREAM, 0)}, _ioContext{ioContext}
 {
     if (_socketFd == -1)
         throw std::runtime_error("Socket creation failed");
@@ -27,7 +27,8 @@ ConnectedSocket::ConnectedSocket(IOContext &ioContext): _socketFd{
 }
 
 ConnectedSocket::ConnectedSocket(IOContext &ioContext, const int &clientFd,
-    Endpoint &&endpoint): _socketFd{clientFd}, _endpoint{std::move(endpoint)}
+    Endpoint &&endpoint): _socketFd{clientFd}, _endpoint{std::move(endpoint)},
+    _ioContext{ioContext}
 {
     _logger.start(ULogLevel::DEBUG) << "Connected socket created" << utils::END;
 
@@ -44,6 +45,12 @@ int ConnectedSocket::getFd() const noexcept
 const Endpoint &ConnectedSocket::remoteEndpoint() const noexcept
 {
     return _endpoint;
+}
+
+void ConnectedSocket::close() const
+{
+    ::close(_socketFd);
+    _ioContext.unregisterNotifier(_socketFd);
 }
 
 void ConnectedSocket::syncWrite(const Buffer &buffer, Callback handler) const

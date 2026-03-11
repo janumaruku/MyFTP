@@ -13,6 +13,8 @@
 #include <unordered_map>
 #include <vector>
 
+#include "ConnectedSocket.hpp"
+
 namespace network {
 class IOContext {
 public:
@@ -24,6 +26,8 @@ public:
         const OnFileDescriptorReady &notifier);
 
     void run();
+
+    void unregisterNotifier(const int &socketFd);
 
 private:
     std::vector<pollfd> _pollFds;

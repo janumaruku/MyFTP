@@ -37,6 +37,8 @@ public:
 
     [[nodiscard]] bool isLoggedIn() const noexcept;
 
+    void closeConnection() const;
+
 private:
     std::shared_ptr<network::ConnectedSocket> _socket;
     std::string _buffer;
