@@ -12,7 +12,7 @@
 #include "ClientSession.hpp"
 
 namespace ftp {
-bool UserCommand::operator()(const ClientSession &client,
+bool UserCommand::operator()(ClientSession &client,
     const std::vector<std::string> &command)
 {
     if (command.size() > 2) {
@@ -30,11 +30,12 @@ bool UserCommand::operator()(const ClientSession &client,
         return true;
     }
 
+    client.setUser();
     client.send(ftpMessage(FtpMessageCode::NEED_PASSWORD));
     return true;
 }
 
-bool UserCommand::execute(const ClientSession &client,
+bool UserCommand::execute(ClientSession &client,
     const std::vector<std::string> &command)
 {
     return (*this)(client, command);

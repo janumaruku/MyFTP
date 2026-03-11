@@ -39,6 +39,8 @@ public:
 
     void closeConnection() const;
 
+    [[nodiscard]] bool isUserSet() const noexcept;
+
 private:
     std::shared_ptr<network::ConnectedSocket> _socket;
     std::string _buffer;

@@ -1,7 +1,8 @@
 add_library(ftp_protocol STATIC FtpProtocol.cpp
         IFtpCommand.cpp
         UserCommand.cpp
-        QuitCommand.cpp)
+        QuitCommand.cpp
+        PassCommand.cpp)
 
 target_include_directories(ftp_protocol PUBLIC include)
 

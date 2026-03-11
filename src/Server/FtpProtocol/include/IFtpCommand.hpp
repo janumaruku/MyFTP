@@ -48,10 +48,10 @@ public:
 
     virtual ~IFtpCommand() = default;
 
-    virtual bool operator()(const ClientSession &client,
+    virtual bool operator()(ClientSession &client,
         const std::vector<std::string> &command) = 0;
 
-    virtual bool execute(const ClientSession &client,
+    virtual bool execute(ClientSession &client,
         const std::vector<std::string> &command) = 0;
 
     static std::string ftpMessage(const FtpMessageCode &code);
