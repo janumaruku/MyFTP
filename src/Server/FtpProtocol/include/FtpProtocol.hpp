@@ -24,6 +24,11 @@ public:
 
 private:
     FtpCommandFactory _ftpCommandFactory;
+
+    static void helpMessage(const ClientSession &client,
+        const std::vector<std::string> &command);
+
+    static std::unordered_map<std::string, std::string> helpMessagesMap();
 };
 } // ftp
 

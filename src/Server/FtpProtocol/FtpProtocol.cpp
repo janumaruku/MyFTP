@@ -7,6 +7,8 @@
 
 #include "FtpProtocol.hpp"
 
+#include <iomanip>
+
 #include "ClientSession.hpp"
 #include "PassCommand.hpp"
 #include "QuitCommand.hpp"
@@ -26,6 +28,14 @@ void FtpProtocol::handleCommand(ClientSession &client,
 {
     const std::vector<std::string> splitCommand =
         utils::StringUtils::split(command);
+    if (splitCommand.empty()) {
+        client.send(IFtpCommand::ftpMessage(FtpMessageCode::COMMAND_NOT_FOUND));
+        return;
+    }
+    if (splitCommand.at(0) == utils::StringUtils::toLower(splitCommand.at(0))) {
+        helpMessage(client, splitCommand);
+        return;
+    }
 
     try {
         const auto cmd = _ftpCommandFactory.create(
@@ -36,5 +46,48 @@ void FtpProtocol::handleCommand(ClientSession &client,
         client.warnLog() << e.what() << utils::END;
         client.send(IFtpCommand::ftpMessage(FtpMessageCode::COMMAND_NOT_FOUND));
     }
+}
+
+void FtpProtocol::helpMessage(const ClientSession &client,
+    const std::vector<std::string> &command)
+{
+    if (command.size() > 1) {
+        client.send(IFtpCommand::ftpMessage(FtpMessageCode::SYNTAX_ERROR));
+        return;
+    }
+
+    std::stringstream message;
+    message << "214-Available commands:" << std::endl;
+    for (const auto &[cmd, help]: helpMessagesMap()) {
+        message << "  " << std::setw(35) << std::left << cmd << ": " << help <<
+            std::endl;
+    }
+    message << "214 Help OK.\r\n";
+
+    client.send(message.str());
+}
+
+std::unordered_map<std::string, std::string> FtpProtocol::helpMessagesMap()
+{
+    static const std::unordered_map<std::string, std::string> helps = {
+        {
+            "HELP",
+            "List available commands.",
+        },
+        {
+            "QUIT",
+            "Disconnection."
+        },
+        {
+            "USER <SP> <username> <CRLF>",
+            "Specify user for authentication."
+        },
+        {
+            "PASS <SP> <password>",
+            "Specify password for authentication."
+        }
+    };
+
+    return helps;
 }
 } // ftp
