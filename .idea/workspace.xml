@@ -49,15 +49,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update the server about how to accept new clients">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ClientSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ClientSession.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/FtpProtocol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/FtpProtocol.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/QuitCommand.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/QuitCommand.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/UserCommand.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/UserCommand.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/include/IFtpCommand.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/include/IFtpCommand.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/include/QuitCommand.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/include/QuitCommand.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/include/UserCommand.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/include/UserCommand.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/include/FtpProtocol.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/include/FtpProtocol.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -223,7 +216,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="8080 moi" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
+    <configuration name="myftp" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="4242 moi" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="myftp" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="myftp" RUN_TARGET_NAME="myftp">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -302,7 +295,7 @@
       <workItem from="1772979033410" duration="27875000" />
       <workItem from="1773154457802" duration="657000" />
       <workItem from="1773165168813" duration="1567000" />
-      <workItem from="1773241770784" duration="9623000" />
+      <workItem from="1773241770784" duration="12220000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
