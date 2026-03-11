@@ -49,16 +49,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update the server about how to accept new clients">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/Buffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/Buffer.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Network/include/Buffer.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/Buffer.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/ClientSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ClientSession.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Network/IoContext.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/IoContext.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/include/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/Server.hpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/StringUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/StringUtils.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Utils/include/StringUtils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/include/StringUtils.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -303,7 +295,7 @@
       <workItem from="1772979033410" duration="27875000" />
       <workItem from="1773154457802" duration="657000" />
       <workItem from="1773165168813" duration="1567000" />
-      <workItem from="1773241770784" duration="2244000" />
+      <workItem from="1773241770784" duration="4378000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
