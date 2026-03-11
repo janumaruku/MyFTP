@@ -8,7 +8,8 @@
 #include "Buffer.hpp"
 
 namespace network {
-Buffer::Buffer(std::string &buffer): _data{buffer.data()},
+Buffer::Buffer(const std::string &buffer): _data{
+        const_cast<void *>(static_cast<const void *>(buffer.data()))},
     _size{buffer.size()}
 {}
 

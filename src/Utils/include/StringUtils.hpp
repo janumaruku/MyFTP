@@ -28,6 +28,8 @@ public:
     static std::size_t beginSpacesCount(const std::string &str);
 
     static short stos(const std::string &str);
+
+    static std::string toLower(const std::string &value);
 };
 } // utils
 

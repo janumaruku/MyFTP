@@ -10,6 +10,7 @@
 
 #include "Acceptor.hpp"
 #include "ClientSession.hpp"
+#include "FtpProtocol.hpp"
 #include "IoContext.hpp"
 #include "Options.hpp"
 
@@ -26,6 +27,7 @@ private:
     network::Acceptor _acceptor;
     std::vector<ClientSession> _clientSessions;
     utils::Logger _logger{"SERVER", ULogLevel::INFO, true};
+    FtpProtocol _protocol;
 
     void doAccept();
 };

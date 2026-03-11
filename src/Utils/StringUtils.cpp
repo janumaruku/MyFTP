@@ -96,4 +96,14 @@ short StringUtils::stos(const std::string &str)
 
     return static_cast<short>(num);
 }
+
+std::string StringUtils::toLower(const std::string &value)
+{
+    std::string result;
+
+    for (const char &character : value)
+        result += std::tolower(character);
+
+    return result;
+}
 } // utils
