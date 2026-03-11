@@ -7,7 +7,6 @@
 
 #include "Server.hpp"
 
-#include "IoContext.hpp"
 #include "StringUtils.hpp"
 
 namespace ftp {
@@ -40,7 +39,8 @@ void Server::doAccept()
                 _logger.start(ULogLevel::INFO) << "New connection received from "
                     << socket->remoteEndpoint().getHostname() << utils::Logger::END;
 
-                _clientSessions.emplace_back(socket);
+                _clientSessions.emplace_back(socket, _protocol);
+                // _clientSessions.emplace_back(socket, _protocol);
                 _clientSessions.back().start();
 
                 doAccept();

@@ -38,6 +38,7 @@
       <config projectName="myftp" targetName="gtest" />
       <config projectName="myftp" targetName="network" />
       <config projectName="myftp" targetName="unit_tests" />
+      <config projectName="myftp" targetName="ftp_protocol" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -46,7 +47,19 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update the server about how to accept new clients" />
+    <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update the server about how to accept new clients">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Network/Buffer.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/Buffer.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Network/include/Buffer.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/Buffer.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/ClientSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ClientSession.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/include/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/Server.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/StringUtils.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/StringUtils.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Utils/include/StringUtils.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Utils/include/StringUtils.hpp" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -56,7 +69,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="269" />
+    <option name="cachedIndexableFilesCount" value="276" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
@@ -98,38 +111,38 @@
     <option name="openDirectoriesWithSingleClick" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "CMake Application.myftp.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.RadMigrateCodeStyle": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.cidr.known.project.marker": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.readMode.enableVisualFormatting": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "RunOnceActivity.west.config.association.type.startup.service": "true",
-    "cf.advertisement.text.overridden": "true",
-    "cf.first.check.clang-format": "false",
-    "cidr.known.project.marker": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "ctest.advertisement.all.test.configuration.is.created": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "//wsl.localhost/Ubuntu-24.04/home/janumaruku/epitech_year2/epitech_projects/MyFTP/src/Utils",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "org.rust.first.attach.projects": "true",
-    "settings.editor.selected.configurable": "preferences.sourceCode.C++",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;CMake Application.myftp.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.west.config.association.type.startup.service&quot;: &quot;true&quot;,
+    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;ctest.advertisement.all.test.configuration.is.created&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;//wsl.localhost/Ubuntu-24.04/home/janumaruku/epitech_year2/epitech_projects/MyFTP/src/Utils&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;org.rust.first.attach.projects&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode.C++&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecapSpentCounter">
     <option name="endsOfQuotaMs" value="1775289656726" />
     <option name="spentUsd" value="0.17894469" />
@@ -142,11 +155,11 @@
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\FtpProtocol\include" />
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Network\include" />
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\ServerEntryPoint\include" />
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Server\include" />
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Network" />
-      <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Utils\include" />
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.myftp">
@@ -177,6 +190,11 @@
       </method>
     </configuration>
     <configuration name="design_pattern" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="design_pattern" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ftp_protocol" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="myftp" TARGET_NAME="ftp_protocol" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -247,6 +265,7 @@
       <item itemvalue="CMake Application.coverage_html" />
       <item itemvalue="CMake Application.coverage_report" />
       <item itemvalue="CMake Application.design_pattern" />
+      <item itemvalue="CMake Application.ftp_protocol" />
       <item itemvalue="CMake Application.network" />
       <item itemvalue="CMake Application.gmock" />
       <item itemvalue="CMake Application.gmock_main" />
@@ -281,7 +300,10 @@
       <workItem from="1772788944237" duration="19601000" />
       <workItem from="1772822203885" duration="33213000" />
       <workItem from="1772937559193" duration="3458000" />
-      <workItem from="1772979033410" duration="25812000" />
+      <workItem from="1772979033410" duration="27875000" />
+      <workItem from="1773154457802" duration="657000" />
+      <workItem from="1773165168813" duration="1567000" />
+      <workItem from="1773241770784" duration="2244000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
@@ -427,7 +449,15 @@
       <option name="project" value="LOCAL" />
       <updated>1773080122609</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="chore: update the server about how to accept new clients">
+      <option name="closed" value="true" />
+      <created>1773080142424</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1773080142424</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,11 +499,6 @@
           <url>file://$PROJECT_DIR$/src/Network/IoContext.cpp</url>
           <line>44</line>
           <option name="timeStamp" value="24" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
-          <url>file://$PROJECT_DIR$/src/Server/Server.cpp</url>
-          <line>32</line>
-          <option name="timeStamp" value="27" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

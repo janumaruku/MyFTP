@@ -14,8 +14,8 @@
 
 namespace ftp {
 ClientSession::ClientSession(
-    const std::shared_ptr<network::ConnectedSocket> &socket):
-    _socket{socket}
+    const std::shared_ptr<network::ConnectedSocket> &socket,
+    FtpProtocol &protocol): _socket{socket}, _protocol{protocol}
 {
     _buffer.resize(1024);
 }
@@ -41,19 +41,52 @@ void ClientSession::doRead()
                 return;
             }
 
-            std::clog << "Received bytes: " << readBytes << std::endl;
-            std::string message{_buffer.data(), readBytes};
-
-            if (message.back() == '\n')
-                message.pop_back();
-            if (message.back() == '\r')
-                message.pop_back();
-
-            std::cout << "Received text: [" << message << "]" << std::endl;
-
-            _socket->syncWrite(network::Buffer{std::string{"Hello world\r\n"}},
-                [](auto, auto) {});
-            doRead();
+            handleReadData(readBytes);
         });
+}
+
+void ClientSession::send(const std::string &message) const
+{
+    _socket->syncWrite(network::Buffer{message}, [](auto, auto) {});
+}
+
+utils::Logger ClientSession::warnLog() noexcept
+{
+    return _logger.start(ULogLevel::WARNING);
+}
+
+void ClientSession::setUser() noexcept
+{
+    _isUserSet = true;
+}
+
+void ClientSession::setPassword() noexcept
+{
+    _isPasswordSet = true;
+}
+
+bool ClientSession::isLoggedIn() const noexcept
+{
+    return _isUserSet && _isPasswordSet;
+}
+
+void ClientSession::handleReadData(const size_t &bytes)
+{
+    _processedData.append(_buffer.begin(), _buffer.begin() + bytes);
+
+    const std::size_t endLine = _processedData.find("\r\n");
+
+    if (endLine == std::string::npos) {
+        doRead();
+    } else {
+        const std::string command = _processedData.substr(0, endLine);
+        _logger.start(ULogLevel::INFO) << "Received: " << command <<
+            utils::END;
+
+        _protocol.handleCommand(*this, command);
+
+        _processedData.erase(0, endLine + 2);
+        doRead();
+    }
 }
 } // ftp

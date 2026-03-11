@@ -6,6 +6,8 @@ add_subdirectory(DesignPattern)
 
 add_subdirectory(Network)
 
+#add_subdirectory(Server/FtpProtocol)
+
 add_subdirectory(Server)
 
 add_subdirectory(ServerEntryPoint/OptionHandlers)

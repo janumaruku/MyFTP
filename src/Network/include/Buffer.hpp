@@ -14,7 +14,7 @@
 namespace network {
 class Buffer {
 public:
-    explicit Buffer(std::string &buffer);
+    explicit Buffer(const std::string &buffer);
 
     explicit Buffer(std::string &&buffer);
 
