@@ -70,6 +70,11 @@ bool ClientSession::isLoggedIn() const noexcept
     return _isUserSet && _isPasswordSet;
 }
 
+void ClientSession::closeConnection() const
+{
+    _socket->close();
+}
+
 void ClientSession::handleReadData(const size_t &bytes)
 {
     _processedData.append(_buffer.begin(), _buffer.begin() + bytes);

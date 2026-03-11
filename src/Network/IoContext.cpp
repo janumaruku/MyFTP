@@ -7,6 +7,7 @@
 
 #include "IoContext.hpp"
 
+#include <algorithm>
 #include <system_error>
 
 namespace network {
@@ -35,6 +36,22 @@ void IOContext::run()
 
             ++itt;
         }
+    }
+}
+
+void IOContext::unregisterNotifier(const int &socketFd)
+{
+    const auto pollFd = std::ranges::find_if(_pollFds,
+        [&socketFd](const pollfd &fd) {
+            return fd.fd == socketFd;
+        });
+
+    if (pollFd != _pollFds.end())
+        _pollFds.erase(pollFd);
+
+    const auto notifier = _notifiers.find(socketFd);
+    if (notifier != _notifiers.end()) {
+        _notifiers.erase(notifier);
     }
 }
 } // ftp

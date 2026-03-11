@@ -49,8 +49,14 @@
   <component name="ChangeListManager">
     <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update the server about how to accept new clients">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Network/ConnectedSocket.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/ConnectedSocket.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Network/IoContext.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/IoContext.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Network/include/ConnectedSocket.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/ConnectedSocket.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Network/include/IoContext.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Network/include/IoContext.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/ClientSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ClientSession.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/FtpProtocol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/FtpProtocol.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -147,11 +153,11 @@
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Utils" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Server\FtpProtocol\include" />
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\FtpProtocol\include" />
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Network\include" />
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\ServerEntryPoint\include" />
       <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Server\include" />
-      <recent name="\\wsl.localhost\Ubuntu-24.04\home\janumaruku\epitech_year2\epitech_projects\MyFTP\src\Network" />
     </key>
   </component>
   <component name="RunManager" selected="CMake Application.myftp">
@@ -295,7 +301,7 @@
       <workItem from="1772979033410" duration="27875000" />
       <workItem from="1773154457802" duration="657000" />
       <workItem from="1773165168813" duration="1567000" />
-      <workItem from="1773241770784" duration="4378000" />
+      <workItem from="1773241770784" duration="6627000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
