@@ -27,10 +27,13 @@ void IOContext::run()
         if (poll(_pollFds.data(), _pollFds.size(), 10) == -1)
             throw std::system_error(std::make_error_code(std::errc::timed_out));
 
-        for (const auto &pollFd: _pollFds) {
-            if (pollFd.revents & POLLIN) {
-                _notifiers[pollFd.fd]();
+        std::size_t itt = 0;
+        while (itt < _pollFds.size()) {
+            if (_pollFds[itt].revents & POLLIN) {
+                _notifiers[_pollFds[itt].fd]();
             }
+
+            ++itt;
         }
     }
 }

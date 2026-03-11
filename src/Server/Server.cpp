@@ -40,7 +40,6 @@ void Server::doAccept()
                     << socket->remoteEndpoint().getHostname() << utils::Logger::END;
 
                 _clientSessions.emplace_back(socket, _protocol);
-                // _clientSessions.emplace_back(socket, _protocol);
                 _clientSessions.back().start();
 
                 doAccept();
