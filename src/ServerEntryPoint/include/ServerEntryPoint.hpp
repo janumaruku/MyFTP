@@ -27,9 +27,10 @@ public:
 
 private:
     std::string _port;
-    std::string _address;
+    std::string _startDirectory;
     utils::Options _options;
     std::vector<std::string> _args;
+    // std::string _startDirectory;
 
     int processArgsByOption();
 

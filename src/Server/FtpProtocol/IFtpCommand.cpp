@@ -53,4 +53,11 @@ std::string IFtpCommand::ftpMessage(const FtpMessageCode &code)
 
     return message;
 }
+
+std::string IFtpCommand::ftpMessage(const FtpMessageCode &code,
+    const std::string &message)
+{
+    return std::string{std::to_string(static_cast<int>(code))} + " " + message +
+        "\r\n";
+}
 } // ftp

@@ -10,8 +10,9 @@
 #include "StringUtils.hpp"
 
 namespace ftp {
-Server::Server(const std::string &port):
-    _acceptor{_ioContext, network::Endpoint{utils::StringUtils::stos(port)}}
+Server::Server(const std::string &port, const std::string &startDirectory):
+    _acceptor{_ioContext, network::Endpoint{utils::StringUtils::stos(port)}},
+    _startDirectory{startDirectory}
 {
     _logger.start(ULogLevel::INFO) << "Listening on port " << port << " ..." <<
         utils::END;
@@ -27,19 +28,24 @@ void Server::doAccept()
 {
     _acceptor.asyncAccept(
         [this](const std::error_code &errCode,
-        const std::shared_ptr<network::ConnectedSocket>& socket) {
+        const std::shared_ptr<network::ConnectedSocket> &socket) {
             if (errCode) {
                 _logger.start(ULogLevel::WARNING) << errCode.message() <<
                     utils::END;
                 doAccept();
             } else {
-                socket->syncWrite(network::Buffer{std::string{"Hello world\r\n"}},
+                socket->syncWrite(
+                    network::Buffer{
+                        std::string{"220 Service ready for new user.\r\n"}},
                     [](const std::error_code &, const std::size_t &) {});
 
-                _logger.start(ULogLevel::INFO) << "New connection received from "
-                    << socket->remoteEndpoint().getHostname() << utils::Logger::END;
+                _logger.start(ULogLevel::INFO) <<
+                    "New connection received from "
+                    << socket->remoteEndpoint().getHostname() <<
+                    utils::Logger::END;
 
-                _clientSessions.emplace_back(socket, _protocol);
+                _clientSessions.
+                    emplace_back(socket, _protocol, _startDirectory);
                 _clientSessions.back().start();
 
                 doAccept();

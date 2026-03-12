@@ -55,6 +55,9 @@ public:
         const std::vector<std::string> &command) = 0;
 
     static std::string ftpMessage(const FtpMessageCode &code);
+
+    static std::string ftpMessage(const FtpMessageCode &code,
+        const std::string &message);
 };
 } // ftp
 

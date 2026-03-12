@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="25" type="long" />
+    <option name="/Default/Environment/Hierarchy/GeneratedFilesCacheKey/Timestamp/@EntryValue" value="28" type="long" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/LiveTemplatesHousekeeping/HotspotSessionHintIsShown/@EntryValue" value="true" type="bool" />
@@ -49,8 +49,16 @@
   <component name="ChangeListManager">
     <list default="true" id="d2df8342-8632-4221-87ea-075048b33415" name="Changes" comment="chore: update the server about how to accept new clients">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/ClientSession.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/ClientSession.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/FtpProtocol.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/FtpProtocol.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/include/FtpProtocol.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/include/FtpProtocol.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/IFtpCommand.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/IFtpCommand.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/FtpProtocol/include/IFtpCommand.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/FtpProtocol/include/IFtpCommand.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/Server.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/Server.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/ClientSession.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Server/include/Server.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/Server/include/Server.hpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/ServerEntryPoint.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerEntryPoint/include/ServerEntryPoint.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerEntryPoint/include/ServerEntryPoint.hpp" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,7 +69,7 @@
     <option name="formatViaClangd" value="false" />
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="276" />
+    <option name="cachedIndexableFilesCount" value="796" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
@@ -295,7 +303,7 @@
       <workItem from="1772979033410" duration="27875000" />
       <workItem from="1773154457802" duration="657000" />
       <workItem from="1773165168813" duration="1567000" />
-      <workItem from="1773241770784" duration="12220000" />
+      <workItem from="1773241770784" duration="17887000" />
     </task>
     <task id="LOCAL-00001" summary="chore: update clang-tidy for static analysis">
       <option name="closed" value="true" />
