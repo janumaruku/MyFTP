@@ -15,7 +15,9 @@
 namespace ftp {
 ClientSession::ClientSession(
     const std::shared_ptr<network::ConnectedSocket> &socket,
-    FtpProtocol &protocol): _socket{socket}, _protocol{protocol}
+    FtpProtocol &protocol, const std::string &rootDirectory): _socket{socket},
+    _protocol{protocol}, _rootDirectory{rootDirectory},
+    _currentDirectory{rootDirectory}
 {
     _buffer.resize(1024);
 }
@@ -78,6 +80,26 @@ void ClientSession::closeConnection() const
 bool ClientSession::isUserSet() const noexcept
 {
     return _isUserSet;
+}
+
+bool ClientSession::changeDirectory(const std::string &directory)
+{
+    const fs::path dir = fs::relative(directory, _currentDirectory);
+
+    if (!fs::is_directory(dir))
+        return false;
+
+    _currentDirectory = dir;
+    return true;
+}
+
+std::string ClientSession::getCurrentDirectory() const noexcept
+{
+    const std::string pwd = fs::relative(_currentDirectory, _rootDirectory);
+
+    if (pwd == ".")
+        return "/";
+    return "/" + pwd;
 }
 
 void ClientSession::handleReadData(const size_t &bytes)

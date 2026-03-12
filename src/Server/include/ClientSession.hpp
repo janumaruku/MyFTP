@@ -8,10 +8,13 @@
 #ifndef MYFTP_CLIENT_SESSION_HPP
 #define MYFTP_CLIENT_SESSION_HPP
 
+#include <filesystem>
 #include <memory>
 
 #include "ConnectedSocket.hpp"
 #include "FtpProtocol.hpp"
+
+namespace fs = std::filesystem;
 
 namespace ftp {
 class ClientSession {
@@ -21,7 +24,7 @@ public:
 
     explicit ClientSession(
         const std::shared_ptr<network::ConnectedSocket> &socket,
-        FtpProtocol &protocol);
+        FtpProtocol &protocol, const std::string &rootDirectory);
 
     void start();
 
@@ -41,14 +44,20 @@ public:
 
     [[nodiscard]] bool isUserSet() const noexcept;
 
+    bool changeDirectory(const std::string &directory);
+
+    [[nodiscard]] std::string getCurrentDirectory() const noexcept;
+
 private:
     std::shared_ptr<network::ConnectedSocket> _socket;
+    FtpProtocol &_protocol;
+    fs::path _rootDirectory;
+    fs::path _currentDirectory;
     std::string _buffer;
     std::string _processedData;
     utils::Logger _logger{"CONNECTED-CLIENT", ULogLevel::INFO, true};
     bool _isUserSet     = false;
     bool _isPasswordSet = false;
-    FtpProtocol &_protocol;
 
     void handleReadData(const size_t &bytes);
 };

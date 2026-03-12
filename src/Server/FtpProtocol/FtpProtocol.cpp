@@ -11,6 +11,7 @@
 
 #include "ClientSession.hpp"
 #include "PassCommand.hpp"
+#include "PwdCommand.hpp"
 #include "QuitCommand.hpp"
 #include "StringUtils.hpp"
 #include "UserCommand.hpp"
@@ -21,6 +22,7 @@ FtpProtocol::FtpProtocol()
     _ftpCommandFactory.registerCreator<UserCommand>("user");
     _ftpCommandFactory.registerCreator<QuitCommand>("quit");
     _ftpCommandFactory.registerCreator<PassCommand>("pass");
+    _ftpCommandFactory.registerCreator<PwdCommand>("pwd");
 }
 
 void FtpProtocol::handleCommand(ClientSession &client,
@@ -32,7 +34,7 @@ void FtpProtocol::handleCommand(ClientSession &client,
         client.send(IFtpCommand::ftpMessage(FtpMessageCode::COMMAND_NOT_FOUND));
         return;
     }
-    if (splitCommand.at(0) == utils::StringUtils::toLower(splitCommand.at(0))) {
+    if ("help" == utils::StringUtils::toLower(splitCommand.at(0))) {
         helpMessage(client, splitCommand);
         return;
     }
