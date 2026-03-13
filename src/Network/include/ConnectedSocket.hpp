@@ -29,6 +29,8 @@ public:
     explicit ConnectedSocket(IOContext &ioContext, const int &clientFd,
         Endpoint &&endpoint);
 
+    void connect(Endpoint &endpoint) const;
+
     [[nodiscard]] int getFd() const noexcept;
 
     [[nodiscard]] const Endpoint &remoteEndpoint() const noexcept;

@@ -11,6 +11,7 @@
 #include <iostream>
 
 #include "constants.hpp"
+#include "StringUtils.hpp"
 #include "FtpException/include/AccessDenied.hpp"
 #include "FtpException/include/NoSuchFileOrDirectory.hpp"
 #include "FtpException/include/NotADirectory.hpp"
@@ -141,6 +142,30 @@ std::string ClientSession::getCurrentDirectory() const noexcept
     return "/" + pwd;
 }
 
+void ClientSession::setPortRemoteEndpoint(const std::string &host)
+{
+    const auto tokens = utils::StringUtils::split(host, ',');
+    if (tokens.size() != 6)
+        throw std::invalid_argument{""};
+
+    for (std::size_t i = 0; i < 6; ++i) {
+        const auto temp = std::stoi(tokens.at(i));
+        if (temp < 0 || temp > 255)
+            throw std::invalid_argument{""};
+    }
+
+    const auto ipAddress = tokens.at(0) + "." + tokens.at(1) + "." + tokens.
+        at(2) + "." + tokens.at(3);
+    _logger.start(ULogLevel::ERROR) << "IP Address: " << ipAddress << utils::END;
+    const short port = (std::stoi(tokens.at(5)) * 256) + std::stoi(tokens.at(5));
+    try {
+        _portRemoteEndpoint = network::Endpoint{port, ipAddress};
+        // std::clog << "Address: " << _portRemoteEndpoint.getAddress().sin_addr << std::endl;
+    } catch (const std::exception &) {
+        throw;
+    }
+}
+
 void ClientSession::handleReadData(const size_t &bytes)
 {
     _processedData.append(_buffer.begin(), _buffer.begin() + bytes);
@@ -159,5 +184,10 @@ void ClientSession::handleReadData(const size_t &bytes)
         _processedData.erase(0, endLine + 2);
         doRead();
     }
+}
+
+void ClientSession::restMode() noexcept
+{
+    _mode = Mode::NONE;
 }
 } // ftp

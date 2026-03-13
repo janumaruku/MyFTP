@@ -56,6 +56,8 @@ public:
 
     [[nodiscard]] std::string getCurrentDirectory() const noexcept;
 
+    void setPortRemoteEndpoint(const std::string &host);
+
 private:
     std::shared_ptr<network::ConnectedSocket> _socket;
     FtpProtocol &_protocol;
@@ -67,8 +69,11 @@ private:
     bool _isUserSet     = false;
     bool _isPasswordSet = false;
     Mode _mode = Mode::NONE;
+    network::Endpoint _portRemoteEndpoint;
 
     void handleReadData(const size_t &bytes);
+
+    void restMode() noexcept;
 };
 } // ftp
 

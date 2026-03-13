@@ -37,6 +37,14 @@ ConnectedSocket::ConnectedSocket(IOContext &ioContext, const int &clientFd,
     });
 }
 
+void ConnectedSocket::connect(Endpoint &endpoint) const
+{
+    if (::connect(_socketFd,
+        reinterpret_cast<sockaddr *>(&endpoint.getAddress()),
+        sizeof(endpoint.getAddress())) == -1)
+        throw std::runtime_error{"Connect failed"};
+}
+
 int ConnectedSocket::getFd() const noexcept
 {
     return _socketFd;
