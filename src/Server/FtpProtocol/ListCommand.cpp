@@ -23,7 +23,12 @@ bool ListCommand::operator()(ClientSession &client,
         return true;
     }
 
-    client.listDirectory(command);
+    try {
+        client.listDirectory(command);
+    } catch (const std::exception &e) {
+        client.send(e.what());
+        return false;
+    }
     return true;
 }
 
