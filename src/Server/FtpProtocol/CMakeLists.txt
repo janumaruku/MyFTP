@@ -8,7 +8,9 @@ add_library(ftp_protocol STATIC FtpProtocol.cpp
         CdupCommand.cpp
         PortCommand.cpp
         ListCommand.cpp
-        include/ListCommand.hpp)
+        include/ListCommand.hpp
+        PasvCommand.cpp
+        RetrCommand.cpp)
 
 target_include_directories(ftp_protocol PUBLIC include)
 

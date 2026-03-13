@@ -58,17 +58,20 @@ public:
 
     void setPortRemoteEndpoint(const std::string &host);
 
+    void setPassiveMode();
+
+    [[nodiscard]] std::string getPassiveModeMessage() const;
+
     bool isModeSet() const noexcept;
 
-    // void startDTP();
-
     void listDirectory(const std::vector<std::string> &dirs);
+
+    void retrieveFile(const std::vector<std::string> &command);
 
     bool runLsOnDataSocket(int dataFd, const std::vector<std::string> &dirs) const;
 
 private:
     std::shared_ptr<network::ConnectedSocket> _socket;
-    // network::IOContext &_ioContext;
     FtpProtocol &_protocol;
     fs::path _rootDirectory;
     fs::path _currentDirectory;
@@ -79,10 +82,15 @@ private:
     bool _isPasswordSet = false;
     Mode _mode = Mode::NONE;
     network::Endpoint _portRemoteEndpoint;
+    int _passiveFd = -1;
 
     void handleReadData(const size_t &bytes);
 
     void resetMode() noexcept;
+
+    [[nodiscard]] int openDataConnection() const;
+
+    [[nodiscard]] fs::path resolvePath(const std::string &path) const;
 };
 } // ftp
 

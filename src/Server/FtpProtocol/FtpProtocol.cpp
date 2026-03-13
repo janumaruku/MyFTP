@@ -14,9 +14,11 @@
 #include "CwdCommand.hpp"
 #include "ListCommand.hpp"
 #include "PassCommand.hpp"
+#include "PasvCommand.hpp"
 #include "PortCommand.hpp"
 #include "PwdCommand.hpp"
 #include "QuitCommand.hpp"
+#include "RetrCommand.hpp"
 #include "StringUtils.hpp"
 #include "UserCommand.hpp"
 
@@ -30,7 +32,9 @@ FtpProtocol::FtpProtocol()
     _ftpCommandFactory.registerCreator<CwdCommand>("cwd");
     _ftpCommandFactory.registerCreator<CdupCommand>("cdup");
     _ftpCommandFactory.registerCreator<PortCommand>("port");
+    _ftpCommandFactory.registerCreator<PasvCommand>("pasv");
     _ftpCommandFactory.registerCreator<ListCommand>("list");
+    _ftpCommandFactory.registerCreator<RetrCommand>("retr");
 }
 
 void FtpProtocol::handleCommand(ClientSession &client,
@@ -95,6 +99,22 @@ std::unordered_map<std::string, std::string> FtpProtocol::helpMessagesMap()
         {
             "PASS <SP> <password>",
             "Specify password for authentication."
+        },
+        {
+            "PASV",
+            "Enter passive mode."
+        },
+        {
+            "PORT <h1,h2,h3,h4,p1,p2>",
+            "Set active mode data endpoint."
+        },
+        {
+            "LIST [path]",
+            "List files."
+        },
+        {
+            "RETR <pathname>",
+            "Download a file."
         }
     };
 
