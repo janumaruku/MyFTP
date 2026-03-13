@@ -24,7 +24,7 @@ public:
 
     struct EndLogger {};
 
-    static const EndLogger END;
+    inline static const EndLogger END;
 
     explicit Logger(std::string context, const Level &level,
         const bool &isEnabled);

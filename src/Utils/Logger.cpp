@@ -13,7 +13,7 @@
 #include "constants.hpp"
 
 namespace utils {
-const auto Logger::END = EndLogger{};
+// const auto Logger::END = EndLogger{};
 
 Logger::Logger(std::string context, const Level &level, const bool &isEnabled):
     _isEnabled{isEnabled}, _shouldPrint{isEnabled},
