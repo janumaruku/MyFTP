@@ -9,6 +9,7 @@
 
 #include <cctype>
 #include <cstring>
+#include <fcntl.h>
 #include <iostream>
 #include <stdexcept>
 #include <string>
@@ -176,6 +177,68 @@ void ClientSession::setPortRemoteEndpoint(const std::string &host)
     }
 }
 
+void ClientSession::setPassiveMode()
+{
+    resetMode();
+
+    _passiveFd = socket(AF_INET, SOCK_STREAM, 0);
+    if (_passiveFd == -1)
+        throw std::runtime_error("425 Can't open data connection.\r\n");
+
+    constexpr auto enable = 1;
+    setsockopt(_passiveFd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(enable));
+
+    sockaddr_in addr{};
+    addr.sin_family      = AF_INET;
+    addr.sin_addr.s_addr = INADDR_ANY;
+    addr.sin_port        = htons(0);
+
+    if (bind(_passiveFd, reinterpret_cast<sockaddr *>(&addr),
+        sizeof(addr)) == -1) {
+        ::close(_passiveFd);
+        _passiveFd = -1;
+        throw std::runtime_error("425 Can't open data connection.\r\n");
+    }
+
+    if (listen(_passiveFd, 1) == -1) {
+        ::close(_passiveFd);
+        _passiveFd = -1;
+        throw std::runtime_error("425 Can't open data connection.\r\n");
+    }
+
+    _mode = Mode::PASSIVE;
+}
+
+std::string ClientSession::getPassiveModeMessage() const
+{
+    sockaddr_in addr{};
+    socklen_t len = sizeof(addr);
+
+    if (_passiveFd == -1 ||
+        getsockname(_passiveFd, reinterpret_cast<sockaddr *>(&addr), &len) == -
+        1) {
+        throw std::runtime_error("425 Can't open data connection.\r\n");
+    }
+
+    const std::string host = _socket->remoteEndpoint().getHostname() ==
+        "127.0.0.1"
+        ? "127.0.0.1"
+        : "127,0,0,1";
+
+    const uint16_t port = ntohs(addr.sin_port);
+    const uint16_t p1   = port / 256;
+    const uint16_t p2   = port % 256;
+
+    std::string ip = _socket->remoteEndpoint().getHostname();
+    for (char &c: ip) {
+        if (c == '.')
+            c = ',';
+    }
+
+    return "227 Entering Passive Mode (" + ip + "," +
+        std::to_string(p1) + "," + std::to_string(p2) + ").\r\n";
+}
+
 bool ClientSession::isModeSet() const noexcept
 {
     return _mode != Mode::NONE;
@@ -184,36 +247,59 @@ bool ClientSession::isModeSet() const noexcept
 void ClientSession::listDirectory(const std::vector<std::string> &dirs)
 {
     std::vector<std::string> args;
-    for (std::size_t i = 1; i < dirs.size(); ++i) {
-        if (dirs.at(i)[0] == '/')
-            args.push_back(fs::weakly_canonical(
-                _rootDirectory / fs::path{dirs.at(i)}.relative_path()));
-        else
-            args.push_back(
-                fs::weakly_canonical(
-                    _currentDirectory / fs::path{dirs.at(i)}));
-        if (args.back().starts_with(".."))
-            throw error::PermissionDenied{};
-    }
+    for (std::size_t i = 1; i < dirs.size(); ++i)
+        args.push_back(resolvePath(dirs.at(i)).string());
 
-    if (_mode == Mode::ACTIVE) {
-        this->send("150 File status okay; about to open data connection.\r\n");
-        auto socket = network::ConnectedSocket{_socket->getIOContext()};
-        try {
-            socket.connect(_portRemoteEndpoint);
-            _logger.start(ULogLevel::ERROR) << "Start transfer ..." <<
-                utils::END;
-            if (!runLsOnDataSocket(socket.getFd(), args))
-                return;
-            this->send("226 Closing data connection.\r\n");
-            socket.close();
-            _logger.start(ULogLevel::ERROR) << "End transfer ..." << utils::END;
-        } catch (const std::exception &) {
-            send("425 Can't open data connection.\r\n");
+    const int dataFd = openDataConnection();
+    send("150 File status okay; about to open data connection.\r\n");
+
+    const bool success = runLsOnDataSocket(dataFd, args);
+    ::close(dataFd);
+    resetMode();
+
+    if (!success)
+        throw std::runtime_error("451 Requested action aborted.\r\n");
+
+    send("226 Closing data connection.\r\n");
+}
+
+void ClientSession::retrieveFile(const std::vector<std::string> &command)
+{
+    const fs::path target = resolvePath(command.at(1));
+
+    if (!fs::exists(target))
+        throw error::NoSuchFileOrDirectory{};
+    if (!fs::is_regular_file(target))
+        throw error::NotADirectory{};
+
+    const int fileFd = ::open(target.c_str(), O_RDONLY);
+    if (fileFd == -1)
+        throw std::runtime_error("451 Requested action aborted.\r\n");
+
+    const int dataFd = openDataConnection();
+    send("150 File status okay; about to open data connection.\r\n");
+
+    char buffer[4096];
+    ssize_t readBytes = 0;
+    while ((readBytes = ::read(fileFd, buffer, sizeof(buffer))) > 0) {
+        if (::write(dataFd, buffer, static_cast<std::size_t>(readBytes)) == -
+            1) {
+            ::close(fileFd);
+            ::close(dataFd);
+            resetMode();
+            throw std::runtime_error(
+                "426 Connection closed; transfer aborted.\r\n");
         }
     }
 
+    ::close(fileFd);
+    ::close(dataFd);
     resetMode();
+
+    if (readBytes == -1)
+        throw std::runtime_error("451 Requested action aborted.\r\n");
+
+    send("226 Closing data connection.\r\n");
 }
 
 bool ClientSession::runLsOnDataSocket(const int dataFd,
@@ -277,6 +363,59 @@ void ClientSession::handleReadData(const size_t &bytes)
 
 void ClientSession::resetMode() noexcept
 {
+    if (_passiveFd != -1) {
+        ::close(_passiveFd);
+        _passiveFd = -1;
+    }
     _mode = Mode::NONE;
+}
+
+int ClientSession::openDataConnection() const
+{
+    if (_mode == Mode::ACTIVE) {
+        auto dataSocket = network::ConnectedSocket{_socket->getIOContext()};
+        auto endpoint   = _portRemoteEndpoint;
+        dataSocket.connect(endpoint);
+        return dataSocket.getFd();
+    }
+
+    if (_mode == Mode::PASSIVE) {
+        sockaddr_in addr{};
+        socklen_t len      = sizeof(addr);
+        const int clientFd = accept(_passiveFd,
+            reinterpret_cast<sockaddr *>(&addr), &len);
+        if (clientFd == -1)
+            throw std::runtime_error("425 Can't open data connection.\r\n");
+        return clientFd;
+    }
+
+    throw std::runtime_error("425 Can't open data connection.\r\n");
+}
+
+fs::path ClientSession::resolvePath(const std::string &path) const
+{
+    const fs::path resolvedRoot = fs::weakly_canonical(_rootDirectory);
+
+    fs::path candidate;
+    if (!path.empty() && path[0] == '/') {
+        candidate = resolvedRoot / fs::path{path}.relative_path();
+    } else {
+        candidate = _currentDirectory / fs::path{path};
+    }
+
+    const fs::path resolvedTarget = fs::weakly_canonical(candidate);
+
+    auto rootIt   = resolvedRoot.begin();
+    auto targetIt = resolvedTarget.begin();
+
+    for (; rootIt != resolvedRoot.end() && targetIt != resolvedTarget.end();
+           ++rootIt, ++targetIt) {
+        if (*rootIt != *targetIt)
+            throw error::PermissionDenied{};
+    }
+    if (rootIt != resolvedRoot.end())
+        throw error::PermissionDenied{};
+
+    return resolvedTarget;
 }
 } // ftp

@@ -21,9 +21,11 @@ SRC	=	src/DesignPattern/FactoryTemplate.cpp					\
 		src/Server/FtpProtocol/IFtpCommand.cpp					\
 		src/Server/FtpProtocol/ListCommand.cpp					\
 		src/Server/FtpProtocol/PassCommand.cpp					\
+		src/Server/FtpProtocol/PasvCommand.cpp					\
 		src/Server/FtpProtocol/PortCommand.cpp					\
 		src/Server/FtpProtocol/PwdCommand.cpp					\
 		src/Server/FtpProtocol/QuitCommand.cpp					\
+		src/Server/FtpProtocol/RetrCommand.cpp					\
 		src/Server/FtpProtocol/UserCommand.cpp					\
 		src/Server/ClientSession.cpp						\
 		src/Server/Server.cpp							\
