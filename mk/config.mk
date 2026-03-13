@@ -5,9 +5,7 @@ BUILD_DIR	=	build
 CXXFLAGS	=	-std=c++20				\
 			-Wall					\
 			-Wextra					\
-			-Werror					\
-			-pedantic				\
-			-g3
+			-Werror
 
 CPPFLAGS	=	-Isrc/DesignPattern/include					\
 			-Isrc/Network/include						\
