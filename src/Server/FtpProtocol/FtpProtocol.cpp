@@ -10,6 +10,7 @@
 #include <iomanip>
 
 #include "ClientSession.hpp"
+#include "CwdCommand.hpp"
 #include "PassCommand.hpp"
 #include "PwdCommand.hpp"
 #include "QuitCommand.hpp"
@@ -23,6 +24,7 @@ FtpProtocol::FtpProtocol()
     _ftpCommandFactory.registerCreator<QuitCommand>("quit");
     _ftpCommandFactory.registerCreator<PassCommand>("pass");
     _ftpCommandFactory.registerCreator<PwdCommand>("pwd");
+    _ftpCommandFactory.registerCreator<CwdCommand>("cwd");
 }
 
 void FtpProtocol::handleCommand(ClientSession &client,
