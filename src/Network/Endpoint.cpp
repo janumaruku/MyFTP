@@ -15,16 +15,15 @@
 #include "constants.hpp"
 
 namespace network {
-Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port}
+Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port},
+    _hostName{hostName}
 {
     _address.sin_family = AF_INET;
     _address.sin_port   = htons(_port);
     if (hostName.empty())
         _address.sin_addr.s_addr = INADDR_ANY;
     else {
-        std::clog << utils::YELLOW << "Hostname: " << hostName.c_str() <<
-            utils::RESET << std::endl;
-        const int inetResult = inet_pton(AF_INET, _hostName.c_str(),
+        const int inetResult = inet_pton(AF_INET, hostName.c_str(),
             &_address.sin_addr);
 
         if (inetResult == 0)

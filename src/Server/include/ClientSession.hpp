@@ -58,8 +58,17 @@ public:
 
     void setPortRemoteEndpoint(const std::string &host);
 
+    bool isModeSet() const noexcept;
+
+    // void startDTP();
+
+    void listDirectory(const std::vector<std::string> &dirs);
+
+    static bool runLsOnDataSocket(int dataFd, const std::vector<std::string> &dirs);
+
 private:
     std::shared_ptr<network::ConnectedSocket> _socket;
+    // network::IOContext &_ioContext;
     FtpProtocol &_protocol;
     fs::path _rootDirectory;
     fs::path _currentDirectory;

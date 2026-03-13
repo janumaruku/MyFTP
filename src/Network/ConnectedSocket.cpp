@@ -37,8 +37,9 @@ ConnectedSocket::ConnectedSocket(IOContext &ioContext, const int &clientFd,
     });
 }
 
-void ConnectedSocket::connect(Endpoint &endpoint) const
+void ConnectedSocket::connect(Endpoint &endpoint)
 {
+    _endpoint = endpoint;
     if (::connect(_socketFd,
         reinterpret_cast<sockaddr *>(&endpoint.getAddress()),
         sizeof(endpoint.getAddress())) == -1)
@@ -84,6 +85,11 @@ void ConnectedSocket::asyncReadSome(Buffer outputBuffer,
             handler(std::error_code{}, result);
         }
     });
+}
+
+IOContext &ConnectedSocket::getIOContext() const noexcept
+{
+    return _ioContext;
 }
 
 void ConnectedSocket::handleAsyncOperation()
