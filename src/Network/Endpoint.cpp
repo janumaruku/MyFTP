@@ -8,8 +8,11 @@
 #include "Endpoint.hpp"
 
 #include <array>
+#include <iostream>
 #include <stdexcept>
 #include <arpa/inet.h>
+
+#include "constants.hpp"
 
 namespace network {
 Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port}
@@ -19,6 +22,8 @@ Endpoint::Endpoint(const short &port, const std::string &hostName): _port{port}
     if (hostName.empty())
         _address.sin_addr.s_addr = INADDR_ANY;
     else {
+        std::clog << utils::YELLOW << "Hostname: " << hostName.c_str() <<
+            utils::RESET << std::endl;
         const int inetResult = inet_pton(AF_INET, _hostName.c_str(),
             &_address.sin_addr);
 

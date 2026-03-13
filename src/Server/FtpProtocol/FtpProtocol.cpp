@@ -13,6 +13,7 @@
 #include "ClientSession.hpp"
 #include "CwdCommand.hpp"
 #include "PassCommand.hpp"
+#include "PortCommand.hpp"
 #include "PwdCommand.hpp"
 #include "QuitCommand.hpp"
 #include "StringUtils.hpp"
@@ -27,6 +28,7 @@ FtpProtocol::FtpProtocol()
     _ftpCommandFactory.registerCreator<PwdCommand>("pwd");
     _ftpCommandFactory.registerCreator<CwdCommand>("cwd");
     _ftpCommandFactory.registerCreator<CdupCommand>("cdup");
+    _ftpCommandFactory.registerCreator<PortCommand>("port");
 }
 
 void FtpProtocol::handleCommand(ClientSession &client,
