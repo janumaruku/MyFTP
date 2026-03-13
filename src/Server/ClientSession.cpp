@@ -8,7 +8,14 @@
 #include "ClientSession.hpp"
 
 #include <cctype>
+#include <cstring>
 #include <iostream>
+#include <stdexcept>
+#include <string>
+#include <unistd.h>
+#include <vector>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 #include "constants.hpp"
 #include "StringUtils.hpp"
@@ -156,14 +163,82 @@ void ClientSession::setPortRemoteEndpoint(const std::string &host)
 
     const auto ipAddress = tokens.at(0) + "." + tokens.at(1) + "." + tokens.
         at(2) + "." + tokens.at(3);
-    _logger.start(ULogLevel::ERROR) << "IP Address: " << ipAddress << utils::END;
-    const short port = (std::stoi(tokens.at(5)) * 256) + std::stoi(tokens.at(5));
+    const short port = (std::stoi(tokens.at(4)) * 256) +
+        std::stoi(tokens.at(5));
     try {
         _portRemoteEndpoint = network::Endpoint{port, ipAddress};
-        // std::clog << "Address: " << _portRemoteEndpoint.getAddress().sin_addr << std::endl;
+        _mode               = Mode::ACTIVE;
+        _logger.start(ULogLevel::ERROR) << "Connecting to: "
+            << _portRemoteEndpoint.getHostname() << ":"
+            << _portRemoteEndpoint.getPort() << utils::END;
     } catch (const std::exception &) {
         throw;
     }
+}
+
+bool ClientSession::isModeSet() const noexcept
+{
+    return _mode != Mode::NONE;
+}
+
+void ClientSession::listDirectory(const std::vector<std::string> &dirs)
+{
+    std::vector<std::string> args;
+    for (std::size_t i = 1; i < dirs.size(); ++i) {
+        if (dirs.at(i)[0] == '/')
+            args.push_back(
+                _rootDirectory / fs::path{dirs.at(i)}.relative_path());
+        else
+            args.push_back(_currentDirectory / fs::path{dirs.at(i)});
+    }
+
+    if (_mode == Mode::ACTIVE) {
+        auto socket = network::ConnectedSocket{_socket->getIOContext()};
+        socket.connect(_portRemoteEndpoint);
+        _logger.start(ULogLevel::ERROR) << "Start transfer ..." << utils::END;
+        this->send("150 File status okay; about to open data connection.\r\n");
+        runLsOnDataSocket(socket.getFd(), args);
+        this->send("226 Closing data connection.\r\n");
+        socket.close();
+        _logger.start(ULogLevel::ERROR) << "End transfer ..." << utils::END;
+    }
+}
+
+bool ClientSession::runLsOnDataSocket(const int dataFd,
+    const std::vector<std::string> &dirs)
+{
+    const pid_t pid = fork();
+    if (pid == -1)
+        return false;
+
+    if (pid == 0) {
+        if (dup2(dataFd, STDOUT_FILENO) == -1)
+            _exit(1);
+        if (dup2(dataFd, STDERR_FILENO) == -1)
+            _exit(1);
+
+        close(dataFd);
+
+        std::vector<char *> argv;
+        argv.push_back(const_cast<char *>("ls"));
+        argv.push_back(const_cast<char *>("-l"));
+
+        for (const std::string &dir: dirs)
+            argv.push_back(const_cast<char *>(dir.c_str()));
+
+        argv.push_back(nullptr);
+
+        execv("/bin/ls", argv.data());
+        _exit(1);
+    }
+
+    auto status = 0;
+    close(dataFd);
+
+    if (waitpid(pid, &status, 0) == -1)
+        return false;
+
+    return WIFEXITED(status) && WEXITSTATUS(status) == 0;
 }
 
 void ClientSession::handleReadData(const size_t &bytes)

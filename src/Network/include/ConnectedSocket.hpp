@@ -29,7 +29,7 @@ public:
     explicit ConnectedSocket(IOContext &ioContext, const int &clientFd,
         Endpoint &&endpoint);
 
-    void connect(Endpoint &endpoint) const;
+    void connect(Endpoint &endpoint);
 
     [[nodiscard]] int getFd() const noexcept;
 
@@ -40,6 +40,8 @@ public:
     void syncWrite(const Buffer &buffer, Callback handler) const;
 
     void asyncReadSome(Buffer outputBuffer, Callback handler);
+
+    [[nodiscard]] IOContext &getIOContext() const noexcept;
 
 private:
     int _dummy    = 0;
