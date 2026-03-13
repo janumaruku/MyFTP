@@ -62,6 +62,13 @@ bool ServerEntryPoint::run()
         _startDirectory = _args[1];
     }
 
+    if (!fs::exists(_startDirectory) && !fs::is_directory(_startDirectory)) {
+        std::cerr << _startDirectory << ": " << utils::RED <<
+            "no such file or directory" << utils::RESET << std::endl;
+        errorHelp();
+        return false;
+    }
+
     Server server{_port, _startDirectory};
     server.start();
 
@@ -88,13 +95,6 @@ int ServerEntryPoint::processArgsByOption()
 
     _port           = _options.getOption("-p");
     _startDirectory = _options.getOption("-d");
-
-    if (fs::is_directory(_startDirectory)) {
-        std::cerr << _startDirectory << ": " << utils::RED <<
-            "no such file or directory" << utils::RESET << std::endl;
-        errorHelp();
-        return BAD_OPTIONS;
-    }
 
     return GOOD_OPTIONS;
 }

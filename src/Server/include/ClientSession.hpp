@@ -44,7 +44,7 @@ public:
 
     [[nodiscard]] bool isUserSet() const noexcept;
 
-    bool changeDirectory(const std::string &directory);
+    void changeDirectory(const std::string &directory);
 
     [[nodiscard]] std::string getCurrentDirectory() const noexcept;
 
