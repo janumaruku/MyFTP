@@ -18,6 +18,12 @@ namespace fs = std::filesystem;
 
 namespace ftp {
 class ClientSession {
+    enum class Mode: uint8_t {
+        NONE,
+        ACTIVE,
+        PASSIVE,
+    };
+
 public:
     using FtpCommandFactory = designPattern::FactoryTemplate<IFtpCommand,
         std::string>;
@@ -60,6 +66,7 @@ private:
     utils::Logger _logger{"CONNECTED-CLIENT", ULogLevel::INFO, true};
     bool _isUserSet     = false;
     bool _isPasswordSet = false;
+    Mode _mode = Mode::NONE;
 
     void handleReadData(const size_t &bytes);
 };
