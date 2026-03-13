@@ -46,6 +46,8 @@ public:
 
     void changeDirectory(const std::string &directory);
 
+    void changeDirectory();
+
     [[nodiscard]] std::string getCurrentDirectory() const noexcept;
 
 private:

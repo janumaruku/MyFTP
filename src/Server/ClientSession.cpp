@@ -127,6 +127,11 @@ void ClientSession::changeDirectory(const std::string &directory)
     }
 }
 
+void ClientSession::changeDirectory()
+{
+    changeDirectory("..");
+}
+
 std::string ClientSession::getCurrentDirectory() const noexcept
 {
     const std::string pwd = fs::relative(_currentDirectory, _rootDirectory);

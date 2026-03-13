@@ -2,22 +2,22 @@
 ** EPITECH PROJECT, 2026
 ** myftp
 ** File description:
-** CwdCommand
+** CdupCommand
 */
 
-#ifndef MYFTP_CWDCOMMAND_HPP
-#define MYFTP_CWDCOMMAND_HPP
+#ifndef MYFTP_CDUPCOMMAND_HPP
+#define MYFTP_CDUPCOMMAND_HPP
 
 #include <memory>
 
 #include "IFtpCommand.hpp"
 
 namespace ftp {
-class CwdCommand: public IFtpCommand {
+class CdupCommand: public IFtpCommand {
 public:
-    CwdCommand() = default;
+    CdupCommand() = default;
 
-    ~CwdCommand() override = default;
+    ~CdupCommand() override = default;
 
     bool operator()(ClientSession &client,
         const std::vector<std::string> &command) override;
@@ -29,4 +29,4 @@ public:
 };
 } // ftp
 
-#endif //MYFTP_CWDCOMMAND_HPP
+#endif //MYFTP_CDUPCOMMAND_HPP
