@@ -1,0 +1,32 @@
+SRC	=	src/DesignPattern/FactoryTemplate.cpp					\
+		src/Network/Acceptor.cpp						\
+		src/Network/Buffer.cpp							\
+		src/Network/ConnectedSocket.cpp					\
+		src/Network/Endpoint.cpp						\
+		src/Network/ErrorCode.cpp						\
+		src/Network/IoContext.cpp						\
+		src/Network/ListeningSocket.cpp					\
+		src/Utils/Logger.cpp							\
+		src/Utils/OptionException.cpp					\
+		src/Utils/Options.cpp							\
+		src/Utils/StringUtils.cpp						\
+		src/Server/FtpException/AccessDenied.cpp				\
+		src/Server/FtpException/FtpCommandException.cpp			\
+		src/Server/FtpException/NoSuchFileOrDirectory.cpp			\
+		src/Server/FtpException/NotADirectory.cpp				\
+		src/Server/FtpException/PermissionDenied.cpp				\
+		src/Server/FtpProtocol/CdupCommand.cpp					\
+		src/Server/FtpProtocol/CwdCommand.cpp					\
+		src/Server/FtpProtocol/FtpProtocol.cpp					\
+		src/Server/FtpProtocol/IFtpCommand.cpp					\
+		src/Server/FtpProtocol/PassCommand.cpp					\
+		src/Server/FtpProtocol/PwdCommand.cpp					\
+		src/Server/FtpProtocol/QuitCommand.cpp					\
+		src/Server/FtpProtocol/UserCommand.cpp					\
+		src/Server/ClientSession.cpp						\
+		src/Server/Server.cpp							\
+		src/ServerEntryPoint/OptionHandlers/DirectoryOptionHandler.cpp	\
+		src/ServerEntryPoint/OptionHandlers/HelpOptionHandler.cpp		\
+		src/ServerEntryPoint/OptionHandlers/PortOptionHandler.cpp		\
+		src/ServerEntryPoint/ServerEntryPoint.cpp				\
+		src/ServerEntryPoint/main.cpp
