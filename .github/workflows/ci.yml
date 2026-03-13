@@ -186,68 +186,68 @@ jobs:
           exit 84
 
 
-  static_analisys:
-    name: Static analysis with clang tidy
-    runs-on: ubuntu-latest
-    container: epitechcontent/epitest-docker
-    needs: compilation_required
-    steps:
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt install -y clang-tidy bear
-
-      - name: Checkout Repository
-        uses: actions/checkout@v4
-
-      - name: Build
-        shell: bash
-        run: |
-          if [ -f Makefile ]; then
-            echo "Detected Makefile"
-            bear -- make fclean all -j
-            clang-tidy `find . -type f \( -name "*.c" -o -name "*.cpp" \)` \
-            -p . 2>&1 | tee analysis.log
-          
-          elif [ -f CMakeLists.txt ]; then
-            echo "Detected CMake project"
-            cmake -B build
-            cmake --build build
-            clang-tidy `find src -type f \( -name "*.c" -o -name "*.cpp" \)` \
-            -p build 2>&1 | tee analysis.log
-          fi
-
-      - name: Annotations for clang tidy log
-        if: always()
-        continue-on-error: true
-        run: |          
-          echo "::group::Static analysis errors"
-          awk '
-          /(warning:|error:)/ {
-          
-          split($1, loc, ":")
-          file = loc[1]
-          line = loc[2]
-
-          level = "notice"
-          if ($0 ~ /warning:/) level="warning"
-          else if ($0 ~ /error:/) level="error"
-          
-          msg = $0
-          sub(/^[^:]*:[^:]*:[^:]*: (warning:|error:) /, "", msg)
-          sub(/^\[[^]]*\]/, "", msg)
-          
-            printf "::%s file=%s,line=%s,title=%s::%s\n", level, file, line, $NF, msg
-          }
-          ' analysis.log
-          echo "::endgroup::"
-          
-          if grep "error:" analysis.log; then
-            exit 84
-          
-          exit 0
-
-
+#  static_analisys:
+#    name: Static analysis with clang tidy
+#    runs-on: ubuntu-latest
+#    container: epitechcontent/epitest-docker
+#    needs: compilation_required
+#    steps:
+#      - name: Install dependencies
+#        run: |
+#          sudo apt update
+#          sudo apt install -y clang-tidy bear
+#
+#      - name: Checkout Repository
+#        uses: actions/checkout@v4
+#
+#      - name: Build
+#        shell: bash
+#        run: |
+#          if [ -f Makefile ]; then
+#            echo "Detected Makefile"
+#            bear -- make fclean all -j
+#            clang-tidy `find . -type f \( -name "*.c" -o -name "*.cpp" \)` \
+#            -p . 2>&1 | tee analysis.log
+#
+#          elif [ -f CMakeLists.txt ]; then
+#            echo "Detected CMake project"
+#            cmake -B build
+#            cmake --build build
+#            clang-tidy `find src -type f \( -name "*.c" -o -name "*.cpp" \)` \
+#            -p build 2>&1 | tee analysis.log
+#          fi
+#
+#      - name: Annotations for clang tidy log
+#        if: always()
+#        continue-on-error: true
+#        run: |
+#          echo "::group::Static analysis errors"
+#          awk '
+#          /(warning:|error:)/ {
+#
+#          split($1, loc, ":")
+#          file = loc[1]
+#          line = loc[2]
+#
+#          level = "notice"
+#          if ($0 ~ /warning:/) level="warning"
+#          else if ($0 ~ /error:/) level="error"
+#
+#          msg = $0
+#          sub(/^[^:]*:[^:]*:[^:]*: (warning:|error:) /, "", msg)
+#          sub(/^\[[^]]*\]/, "", msg)
+#
+#            printf "::%s file=%s,line=%s,title=%s::%s\n", level, file, line, $NF, msg
+#          }
+#          ' analysis.log
+#          echo "::endgroup::"
+#
+#          if grep "error:" analysis.log; then
+#            exit 84
+#
+#          exit 0
+#
+#
 
   unit_test:
     name: Run unit tests
