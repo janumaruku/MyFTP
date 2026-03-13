@@ -26,7 +26,7 @@ bool PortCommand::operator()(ClientSession &client,
     try {
         client.setPortRemoteEndpoint(command[1]);
     } catch (const std::exception &e) {
-        client.send(ftpMessage(FtpMessageCode::ACTION_NOT_TAKEN, e.what()));
+        client.send(ftpMessage(FtpMessageCode::SYNTAX_ERROR, e.what()));
         return false;
     }
 

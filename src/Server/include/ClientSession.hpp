@@ -64,7 +64,7 @@ public:
 
     void listDirectory(const std::vector<std::string> &dirs);
 
-    static bool runLsOnDataSocket(int dataFd, const std::vector<std::string> &dirs);
+    bool runLsOnDataSocket(int dataFd, const std::vector<std::string> &dirs) const;
 
 private:
     std::shared_ptr<network::ConnectedSocket> _socket;
@@ -82,7 +82,7 @@ private:
 
     void handleReadData(const size_t &bytes);
 
-    void restMode() noexcept;
+    void resetMode() noexcept;
 };
 } // ftp
 

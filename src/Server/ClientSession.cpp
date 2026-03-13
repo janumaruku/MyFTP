@@ -186,30 +186,44 @@ void ClientSession::listDirectory(const std::vector<std::string> &dirs)
     std::vector<std::string> args;
     for (std::size_t i = 1; i < dirs.size(); ++i) {
         if (dirs.at(i)[0] == '/')
-            args.push_back(
-                _rootDirectory / fs::path{dirs.at(i)}.relative_path());
+            args.push_back(fs::weakly_canonical(
+                _rootDirectory / fs::path{dirs.at(i)}.relative_path()));
         else
-            args.push_back(_currentDirectory / fs::path{dirs.at(i)});
+            args.push_back(
+                fs::weakly_canonical(
+                    _currentDirectory / fs::path{dirs.at(i)}));
+        if (args.back().starts_with(".."))
+            throw error::PermissionDenied{};
     }
 
     if (_mode == Mode::ACTIVE) {
-        auto socket = network::ConnectedSocket{_socket->getIOContext()};
-        socket.connect(_portRemoteEndpoint);
-        _logger.start(ULogLevel::ERROR) << "Start transfer ..." << utils::END;
         this->send("150 File status okay; about to open data connection.\r\n");
-        runLsOnDataSocket(socket.getFd(), args);
-        this->send("226 Closing data connection.\r\n");
-        socket.close();
-        _logger.start(ULogLevel::ERROR) << "End transfer ..." << utils::END;
+        auto socket = network::ConnectedSocket{_socket->getIOContext()};
+        try {
+            socket.connect(_portRemoteEndpoint);
+            _logger.start(ULogLevel::ERROR) << "Start transfer ..." <<
+                utils::END;
+            if (!runLsOnDataSocket(socket.getFd(), args))
+                return;
+            this->send("226 Closing data connection.\r\n");
+            socket.close();
+            _logger.start(ULogLevel::ERROR) << "End transfer ..." << utils::END;
+        } catch (const std::exception &) {
+            send("425 Can't open data connection.\r\n");
+        }
     }
+
+    resetMode();
 }
 
 bool ClientSession::runLsOnDataSocket(const int dataFd,
-    const std::vector<std::string> &dirs)
+    const std::vector<std::string> &dirs) const
 {
     const pid_t pid = fork();
-    if (pid == -1)
+    if (pid == -1) {
+        send("451 Requested action aborted.\r\n");
         return false;
+    }
 
     if (pid == 0) {
         if (dup2(dataFd, STDOUT_FILENO) == -1)
@@ -233,7 +247,7 @@ bool ClientSession::runLsOnDataSocket(const int dataFd,
     }
 
     auto status = 0;
-    close(dataFd);
+    // close(dataFd);
 
     if (waitpid(pid, &status, 0) == -1)
         return false;
@@ -261,7 +275,7 @@ void ClientSession::handleReadData(const size_t &bytes)
     }
 }
 
-void ClientSession::restMode() noexcept
+void ClientSession::resetMode() noexcept
 {
     _mode = Mode::NONE;
 }
