@@ -2,19 +2,19 @@
 ** EPITECH PROJECT, 2026
 ** myftp
 ** File description:
-** CwdCommand
+** CdupCommand
 */
 
-#include "CwdCommand.hpp"
+#include "CdupCommand.hpp"
 
 #include "ClientSession.hpp"
-#include "../FtpException/include/NoSuchFileOrDirectory.hpp"
+#include "FtpCommandException.hpp"
 
 namespace ftp {
-bool CwdCommand::operator()(ClientSession &client,
+bool CdupCommand::operator()(ClientSession &client,
     const std::vector<std::string> &command)
 {
-    if (command.size() != 2) {
+    if (command.size() != 1) {
         client.send(ftpMessage(FtpMessageCode::SYNTAX_ERROR));
         return false;
     }
@@ -25,7 +25,7 @@ bool CwdCommand::operator()(ClientSession &client,
     }
 
     try {
-        client.changeDirectory(command[1]);
+        client.changeDirectory();
         client.send(ftpMessage(FtpMessageCode::DIRECTORY_OK,
             "Directory changed successfully."));
     } catch (const error::FtpCommandException &error) {
@@ -34,14 +34,14 @@ bool CwdCommand::operator()(ClientSession &client,
     return true;
 }
 
-bool CwdCommand::execute(ClientSession &client,
+bool CdupCommand::execute(ClientSession &client,
     const std::vector<std::string> &command)
 {
     return (*this)(client, command);
 }
 
-std::unique_ptr<IFtpCommand> CwdCommand::create()
+std::unique_ptr<IFtpCommand> CdupCommand::create()
 {
-    return std::make_unique<CwdCommand>();
+    return std::make_unique<CdupCommand>();
 }
 } // ftp
