@@ -9,7 +9,7 @@ project(myftp VERSION 1.0
 #   message(STATUS "Using EPITECH epiclang: ${EPITECH_COMPILER}")
 #else()
 #   message(STATUS "epiclang not found, using default C compiler")
-#endif() 
+#endif()
 
 set(CMAKE_CXX_STANDARD 20)
 
